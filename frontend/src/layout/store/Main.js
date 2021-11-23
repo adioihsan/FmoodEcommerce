@@ -1,5 +1,6 @@
 import "../../assets/store/css/styles.css";
 import "../../assets/store/js/scripts";
+import { Outlet } from "react-router";
 
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
@@ -13,7 +14,9 @@ const Main = () => {
           <Sidebar />
         </div>
         <div id="layoutSidenav_content">
-          <main>The content</main>
+          <main>
+            <Outlet />
+          </main>
           <Footer />
         </div>
       </div>
