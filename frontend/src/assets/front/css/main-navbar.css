@@ -1,0 +1,27 @@
+.nav-button {
+  margin: 0 10px 0 10px;
+  color: rgb(248, 247, 247) !important;
+  background-color: #ff3d00 !important;
+  border-color: #ff3d00 !important;
+}
+.logo {
+  vertical-align: top !important;
+  height: 48px;
+}
+.outline {
+  color: #ff3d00 !important;
+  background-color: unset !important;
+  border-color: #ff3d00 !important;
+}
+.brand-text {
+  color: #ff3d00;
+  font-size: 36px;
+  margin-left: 0.5rem;
+}
+.input-search {
+  margin: auto 2rem auto 2rem !important;
+}
+.vertical-divider {
+  border-left: 2.5px solid rgba(128, 128, 128, 0.75);
+  margin: 0px 1rem 0px 1rem;
+}
