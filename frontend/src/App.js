@@ -11,14 +11,21 @@ axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.withCredentials = true;
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("auth_token");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+  return config;
+});
+
 function App() {
+  let isLogin = localStorage.getItem("auth_token") ? true : false;
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={isLogin ? <Home /> : <Login />} />
+          <Route path="/register" element={isLogin ? <Home /> : <Register />} />
           <Route path="/store" element={<MainStore />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
