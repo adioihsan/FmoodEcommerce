@@ -10,6 +10,7 @@ import serverUrls from "./serverUrls";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.withCredentials = true;
 function App() {
   return (
     <div className="App">

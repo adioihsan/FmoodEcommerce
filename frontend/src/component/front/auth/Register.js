@@ -35,7 +35,6 @@ function Register() {
 
   const registerSubmit = (e) => {
     e.preventDefault();
-
     const userdata = {
       name: registerInput.name,
       email: registerInput.email,

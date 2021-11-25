@@ -13,7 +13,11 @@ import LogoCenterNavbar from "../../../layout/front/LogoCenterNavbar";
 import "../../../assets/front/css/register.css";
 import "../../../assets/front/css/custom-button.css";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 function Login() {
+  const navigate = useNavigate();
   const [loginInput, setLogin] = useState({
     email: "",
     password: "",
@@ -28,6 +32,35 @@ function Login() {
       email: loginInput.email,
       password: loginInput.password,
     };
+    axios.get("/sanctum/csrf-cookie").then((response) => {
+      axios.post("api/login", data).then((res) => {
+        if (res.data.status === 200) {
+          localStorage.setItem("auth_token", res.data.token);
+          localStorage.setItem("auth_username", res.data.username);
+          Swal.fire({
+            icon: "success",
+            title: "Kamu berhasil masuk",
+            text: "Mengalihkan mu ke halaman utama",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/");
+        } else if (res.data.status === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Email atau password salah",
+            text: "Silahkan periksa kembali",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          setLogin({
+            ...loginInput,
+            error_list: res.data.validation_errors,
+          });
+        }
+      });
+    });
   };
   return (
     <div>
@@ -58,7 +91,9 @@ function Login() {
                     type="email"
                     value={loginInput.email}
                     onChange={inputHandler}
+                    invalid={loginInput.error_list.email ? true : false}
                   />
+                  <FormFeedback>{loginInput.error_list.email}</FormFeedback>
                   <Label for="exampleEmail">Email</Label>
                 </FormGroup>{" "}
                 <FormGroup floating>
@@ -69,7 +104,9 @@ function Login() {
                     type="password"
                     value={loginInput.password}
                     onChange={inputHandler}
+                    invalid={loginInput.error_list.password ? true : false}
                   />
+                  <FormFeedback>{loginInput.error_list.password}</FormFeedback>
                   <Label for="password">Password</Label>
                 </FormGroup>{" "}
                 <Button block className="orange-button mt-4">
