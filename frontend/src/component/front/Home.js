@@ -1,4 +1,5 @@
+import MainNavbar from "../../layout/front/MainNavbar";
 function Home() {
-  return <h1>Your At Home :) . Feel The Safe and Warm</h1>;
+  return <MainNavbar />;
 }
 export default Home;

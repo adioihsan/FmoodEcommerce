@@ -44,10 +44,13 @@ function MainNavbar() {
             <InputGroup className="input-search">
               <Input bsSize="sm" placeholder="Cari yang enak di sini" />
               <InputGroupText>
-                <FontAwesomeIcon icon={faSearch} />
+                <FontAwesomeIcon icon={faSearch} />{" "}
               </InputGroupText>
             </InputGroup>
-            <FontAwesomeIcon icon={faShoppingCart} />
+            <FontAwesomeIcon
+              icon={faShoppingCart}
+              style={{ color: "gray", cursor: "pointer" }}
+            />
             <span className="vertical-divider">&nbsp; </span>
             <Button
               size="sm"

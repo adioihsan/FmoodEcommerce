@@ -5,6 +5,11 @@ import Profile from "./component/store/Profile";
 import Home from "./component/front/Home";
 import Login from "./component/front/auth/Login";
 import Register from "./component/front/auth/Register";
+import axios from "axios";
+import serverUrls from "./serverUrls";
+axios.defaults.baseURL = serverUrls.backend;
+axios.defaults.headers.post["Accept"] = "application/json";
+axios.defaults.headers.post["Content-Type"] = "application/json";
 function App() {
   return (
     <div className="App">
