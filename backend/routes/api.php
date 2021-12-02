@@ -20,6 +20,15 @@ Route::post('login',[AuthController::class,'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum','hasStore')->group(function(){
+  
+});
+
 Route::middleware('auth:sanctum')->group(function(){
+
+    Route::get('/isLogin',function(){
+        return response()->json(['status'=>200,'message'=>"You are Logged in"]);
+    });
     Route::post('logout',[AuthController::class,'logout']);
 });
