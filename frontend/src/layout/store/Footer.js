@@ -2,18 +2,15 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="py-4 bg-light mt-auto">
-      <div className="container-fluid px-4">
-        <div className="d-flex align-items-center justify-content-between small">
-          <div className="text-muted">Copyright &copy; Your Website 2021</div>
-          <div>
-            <Link to="#">Privacy Policy</Link>
-            &middot;
-            <Link to="#">Terms &amp; Conditions</Link>
-          </div>
+    // <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Your Website 2021</span>
         </div>
       </div>
     </footer>
+    // <!-- End of Footer -->
   );
 };
 
