@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import LogoCenterNavbar from "../../../layout/front/LogoCenterNavbar";
 import "../../../assets/front/css/register.css";
-import "../../../assets/front/css/custom-button.css";
+import "../../../assets/general/css/custom-button.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";

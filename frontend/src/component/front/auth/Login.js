@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import LogoCenterNavbar from "../../../layout/front/LogoCenterNavbar";
 import "../../../assets/front/css/register.css";
-import "../../../assets/front/css/custom-button.css";
+import "../../../assets/general/css/custom-button.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";

@@ -1,0 +1,76 @@
+.clicked {
+  background-color: gray !important;
+  color: white !important;
+}
+.bordered {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  color: grey;
+  padding: 10px;
+  margin-bottom: 1rem;
+}
+
+/* product images input */
+
+#input-image-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.input-image {
+  position: relative;
+  border: 1px dotted gray;
+  width: 8rem;
+  height: 8rem;
+  background-image: url("../image/add-image.png");
+  background-position: center;
+  background-size: cover;
+  margin: 1rem;
+  cursor: pointer;
+}
+.input-image-header,
+.input-video-header {
+  position: absolute;
+  display: none;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  top: 0px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+.input-video-header {
+  display: flex;
+}
+.input-image-header button,
+.input-video-header button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 0.8rem;
+  z-index: 1;
+}
+.input-image-header button:hover,
+.input-video-header button:hover {
+  background-color: transparent;
+  border: none;
+  color: blue;
+  font-size: 0.8rem;
+}
+.input-image-title,
+.input-video-title {
+  font-size: 0.5rem;
+}
+#input-video-wrapper {
+  position: relative;
+  display: none;
+  width: 360px;
+  height: auto;
+}
+.input-error {
+  font-size: 0.75rem;
+  display: none;
+  color: red;
+}

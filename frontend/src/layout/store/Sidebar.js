@@ -1,41 +1,57 @@
-// import { Link } from "react-router-dom";
-import $ from "jquery";
+import { Link } from "react-router-dom";
+import {
+  faPlusSquare,
+  faTachometerAlt,
+  faStore,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = () => {
   return (
     <ul
-      class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+      className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
       id="accordionSidebar"
     >
       {/* <!-- Sidebar - Brand --> */}
       <a
-        class="sidebar-brand d-flex align-items-center justify-content-center"
+        className="sidebar-brand d-flex align-items-center justify-content-center"
         href="/"
       >
-        <div class="sidebar-brand-icon">
-          <img src="/logo-fmood-white-64.png" />
+        <div className="sidebar-brand-icon">
+          <img src="/logo-fmood-white-64.png" alt="Fmood" />
         </div>
-        <div class="sidebar-brand-text mr-5 ml-1">
+        <div className="sidebar-brand-text mr-5 ml-1">
           Fmood <sup>Store</sup>
         </div>
       </a>
 
       {/* <!-- Divider --> */}
-      <hr class="sidebar-divider my-0" />
+      <hr className="sidebar-divider my-0" />
 
       {/* <!-- Nav Item - Dashboard --> */}
-      <li class="nav-item active">
-        <a class="nav-link" href="/store/dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+      <li className="nav-item active">
+        <a className="nav-link" href="/store/dashboard">
+          <FontAwesomeIcon icon={faTachometerAlt} />
+          <span className="ml-2">Dashboard</span>
         </a>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/store/dashboard">
+          <FontAwesomeIcon icon={faStore} />
+          <span className="ml-2">Profile Toko</span>
+        </Link>
       </li>
 
       {/* <!-- Divider --> */}
-      <hr class="sidebar-divider" />
+      <hr className="sidebar-divider" />
 
       {/* <!-- Heading --> */}
-      <div class="sidebar-heading">Produk</div>
-
+      <div className="sidebar-heading">Produk</div>
+      <li className="nav-item ">
+        <Link className="nav-link" to="/store/add-product">
+          <FontAwesomeIcon icon={faPlusSquare} />
+          <span className="ml-2">Tambah Produk</span>
+        </Link>
+      </li>
       {/* <!-- Nav Item - Pages Collapse Menu --> */}
 
       {/* <!-- Nav Item - Utilities Collapse Menu --> */}

@@ -10,6 +10,7 @@ import serverUrls from "./serverUrls";
 import StoreRoute from "./routes/StoreRoute";
 import AddProduct from "./component/store/AddProduct";
 import Store from "./component/store/Store";
+import TestPage from "./component/general/TestPage";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -26,6 +27,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route path="/test" element={<TestPage />} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={isLogin ? <Home /> : <Login />} />
           <Route path="/register" element={isLogin ? <Home /> : <Register />} />
