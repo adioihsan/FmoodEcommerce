@@ -1,8 +1,7 @@
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert } from "reactstrap";
 
-function InputProductImage() {
+function FormProductImage() {
   // const [images, setImages] = useState([]);
   const arrImages = [];
   function inputImages(e, i) {
@@ -189,4 +188,4 @@ function InputProductImage() {
     </>
   );
 }
-export default InputProductImage;
+export default FormProductImage;

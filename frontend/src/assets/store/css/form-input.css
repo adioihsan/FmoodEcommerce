@@ -21,9 +21,9 @@
 .input-image {
   position: relative;
   border: 1px dotted gray;
-  width: 8rem;
-  height: 8rem;
-  background-image: url("../image/add-image.png");
+  width: 10rem;
+  height: 10rem;
+  background-image: url("../images/add-image.png");
   background-position: center;
   background-size: cover;
   margin: 1rem;
@@ -74,3 +74,12 @@
   display: none;
   color: red;
 }
+
+/* Categories button*/
+.selected-subcat {
+  border-color: sandybrown !important;
+  background-color: slategrey !important;
+  color: white !important;
+}
+
+/* disable button */

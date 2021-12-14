@@ -73,6 +73,7 @@ function MainNavbar() {
         if (response.data.status === 200) {
           localStorage.removeItem("auth_token");
           localStorage.removeItem("auth_username");
+          localStorage.removeItem("auth_id");
           Swal.fire({
             icon: "info",
             title: "Kamu telah keluar",

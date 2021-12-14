@@ -1,7 +1,7 @@
 import { faTimesCircle, faVideo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "reactstrap";
-function InputProductVideo() {
+function FormProductVideo() {
   function inputVideo(e) {
     const file = e.target.files[0];
     const fileUrl = URL.createObjectURL(file);
@@ -78,4 +78,4 @@ function InputProductVideo() {
     </div>
   );
 }
-export default InputProductVideo;
+export default FormProductVideo;

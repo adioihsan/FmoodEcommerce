@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 function StoreRoute(props) {
   let Cmp = props.Cmp;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios.get("api/isLogin").then((res) => {
       if (res.status === 200) {
+        setLoading(false);
       } else {
         navigate("/login");
       }
@@ -30,6 +32,9 @@ function StoreRoute(props) {
       return error;
     }
   );
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <>
       <Cmp />
