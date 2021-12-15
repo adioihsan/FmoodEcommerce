@@ -6,6 +6,7 @@ import {
   Nav,
   DropdownItem,
   UncontrolledDropdown,
+  Dropdown,
   DropdownToggle,
   DropdownMenu,
   Input,
@@ -13,23 +14,108 @@ import {
   InputGroupText,
   Button,
   Container,
+  Toast,
+  ToastBody,
 } from "reactstrap";
 import "../../assets/front/css/main-navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faShoppingCart,
+  faTachometerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 function MainNavbar() {
+  const [isUserOpen, setIsUserOpen] = useState(false);
+  const [isStoreOpen, setIsStoreOpen] = useState(false);
+  const userToggle = () => {
+    setIsUserOpen((prevState) => !prevState);
+  };
+  const storeToggle = () => {
+    setIsStoreOpen((prevState) => !prevState);
+  };
   const navigate = useNavigate();
   const LoginComp = () => {
     let isLogin = localStorage.getItem("auth_token");
     if (isLogin) {
       return (
         <>
-          <Button size="sm" className="nav-button" onClick={Logout}>
-            Logout
-          </Button>
+          {/* Store button dropdown */}
+          <Dropdown
+            isOpen={isStoreOpen}
+            onMouseEnter={() => {
+              storeToggle();
+            }}
+            onMouseLeave={() => {
+              storeToggle();
+            }}
+            toggle={() => {}}
+            className="mx-3"
+          >
+            <DropdownToggle data-toggle="dropdown" tag="span">
+              <div className="d-flex justify-content-center align-items-center">
+                <img src="/store-default.png" className="user-image-2" />
+                <span className="user-name">Toko</span>
+              </div>
+            </DropdownToggle>
+            <DropdownMenu className="user-dropdown-menu bg-light shadow">
+              <div className="bg-light shadow-sm p-3 w-100">
+                <img
+                  src="/store-default.png"
+                  className="user-image-3 rounded float-start"
+                />{" "}
+                <small>Nama Toko</small>
+                <br />
+                <a href="/store">
+                  <Button size="sm" className="nav-button mt-1">
+                    <FontAwesomeIcon icon={faTachometerAlt} /> Buka Dashboard
+                  </Button>
+                </a>
+              </div>
+              <DropdownItem></DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          {/* User button dropdown */}
+          <Dropdown
+            isOpen={isUserOpen}
+            onMouseEnter={() => {
+              userToggle();
+            }}
+            onMouseLeave={() => {
+              userToggle();
+            }}
+            toggle={() => {}}
+          >
+            <DropdownToggle data-toggle="dropdown" tag="span">
+              <div className="d-flex justify-content-center align-items-center">
+                <img src="/user-default.png" className="user-image-2" />
+                <span className="user-name">
+                  {localStorage.getItem("auth_username")}
+                </span>
+              </div>
+            </DropdownToggle>
+            <DropdownMenu className="user-dropdown-menu bg-light shadow">
+              <DropdownItem>
+                <div className="bg-light shadow-sm p-3 w-100">
+                  <img
+                    src="/user-default.png"
+                    className="user-image-3 rounded float-start"
+                  />{" "}
+                  <small>Arung</small>
+                  <br />
+                  <a href="#">Profile {">>"}</a>
+                </div>
+              </DropdownItem>
+              <DropdownItem>
+                <Button size="sm" className="nav-button">
+                  Logout
+                </Button>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </>
       );
     } else {
@@ -119,6 +205,7 @@ function MainNavbar() {
             <FontAwesomeIcon
               icon={faShoppingCart}
               style={{ color: "gray", cursor: "pointer" }}
+              className="mx-3"
             />
             <span className="vertical-divider">&nbsp; </span>
             {LoginComp()}
