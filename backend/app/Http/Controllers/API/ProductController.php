@@ -78,7 +78,12 @@ class ProductController extends Controller
                 return response()->json(['status'=>500,'message'=>"Internal Server Error"]);
             }
         }
-        
-
+    }
+    public function get(){
+        $products = product::paginate(3);
+        return response()->json([
+            'status'=>200,
+            'products'=>$products
+        ]);
     }
 }
