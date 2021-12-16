@@ -13,10 +13,10 @@ function Store() {
       </Helmet>
       <Sidebar />
       <div id="content-wrapper" className="d-flex flex-column">
-        <div id="content">
+        <div id="content" className="">
           <TopBar />
           <div id="content-wrapper" className="d-flex flex-column">
-            <div id="content">
+            <div id="content" className="min-vh-100">
               <Outlet />
             </div>
           </div>
