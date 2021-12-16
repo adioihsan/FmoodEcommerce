@@ -1,10 +1,10 @@
-//import React from "react";
-// import "../../assets/store/css/form-input.css";
-// import { Button, ButtonGroup, FormGroup, Label } from "reactstrap";
-// import axios from "axios";
-// import { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
 
 function TestPage() {
-  return "its a test page";
+  return (
+    <>
+      <ProductCard />
+    </>
+  );
 }
 export default TestPage;

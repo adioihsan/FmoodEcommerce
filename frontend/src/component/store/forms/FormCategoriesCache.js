@@ -2,50 +2,34 @@ import React from "react";
 import { Button, ButtonGroup, FormGroup, Label } from "reactstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-function FormCategories(props) {
-  const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState([]);
+import Categories from "../../../cache/Categories";
+function FormCategoriesCache(props) {
   const [subCategories, setSubCategories] = useState([]);
   const [categoriesData, setCategoriesData] = useState({
     mainCategory: "",
     subCategory: [],
   });
-  useEffect(() => {
-    axios.get("/api/category").then((response) => {
-      if (response.status === 200) {
-        setCategories(Object.values(response.data));
-      }
-      setLoading(false);
-    });
-  }, []);
   let viewCategory_button = "";
   let viewSubCat_button = "";
-  //loading till get categories form database
-  if (loading) {
-    viewCategory_button = "Loading...";
-  } else {
-    viewCategory_button = categories.map((category) => {
-      return (
-        <Button
-          outline
-          color="secondary"
-          className="mx-1 my-1"
-          onClick={(e) => {
-            setSubCategories(category.children);
-            if (e.target.innerText !== categoriesData.mainCategory)
-              setCategoriesData({
-                mainCategory: e.target.innerText,
-                subCategory: [],
-              });
-          }}
-        >
-          {category.name}
-        </Button>
-      );
-    });
-  }
-  //load subcategories when subCategories been set
+  viewCategory_button = Categories.map((category) => {
+    return (
+      <Button
+        outline
+        color="secondary"
+        className="mx-1 my-1"
+        onClick={(e) => {
+          setSubCategories(category.children);
+          if (e.target.innerText !== categoriesData.mainCategory)
+            setCategoriesData({
+              mainCategory: e.target.innerText,
+              subCategory: [],
+            });
+        }}
+      >
+        {category.name}
+      </Button>
+    );
+  });
   if (subCategories !== []) {
     viewSubCat_button = subCategories.map((subcat) => {
       return (
@@ -122,4 +106,4 @@ function FormCategories(props) {
     </>
   );
 }
-export default FormCategories;
+export default FormCategoriesCache;

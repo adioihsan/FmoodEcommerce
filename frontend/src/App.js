@@ -9,6 +9,7 @@ import axios from "axios";
 import serverUrls from "./serverUrls";
 import StoreRoute from "./routes/StoreRoute";
 import AddProduct from "./component/store/AddProduct";
+import OrganizeProduct from "./component/store/OrganizeProduct";
 import Store from "./component/store/Store";
 import TestPage from "./component/general/TestPage";
 axios.defaults.baseURL = serverUrls.backend;
@@ -35,6 +36,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
             <Route path="add-product" element={<AddProduct />} />
+            <Route path="organize-product" element={<OrganizeProduct />} />
           </Route>
         </Routes>
       </Router>

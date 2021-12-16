@@ -21,8 +21,11 @@ import FormOthers from "./forms/FormOthers";
 import FormProductData from "./forms/FormProductData";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
+// import FormCategoriesCache from "./forms/FormCategoriesCache";
 
 function AddProduct() {
+  const navigate = useNavigate();
   // State for current active Tab
   const [currentActiveTab, setCurrentActiveTab] = useState("1");
   const [dataCollection, setDataCollection] = useState({
@@ -71,6 +74,7 @@ function AddProduct() {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate("/store/organize-product");
         setErrors([]);
       } else if (res.data.status === 422) {
         Swal.fire({
@@ -159,6 +163,10 @@ function AddProduct() {
                         dataCourier={categoryCourier}
                         toggle={toggle}
                       />
+                      {/* <FormCategoriesCache
+                        dataCourier={categoryCourier}
+                        toggle={toggle}
+                      /> */}
                     </CardBody>
                   </Card>
                 </TabPane>
