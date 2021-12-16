@@ -3,6 +3,7 @@ import {
   faPlusSquare,
   faTachometerAlt,
   faStore,
+  faArchive,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = () => {
@@ -50,6 +51,12 @@ const Sidebar = () => {
         <Link className="nav-link" to="/store/add-product">
           <FontAwesomeIcon icon={faPlusSquare} />
           <span className="ml-2">Tambah Produk</span>
+        </Link>
+      </li>
+      <li className="nav-item ">
+        <Link className="nav-link" to="/store/organize-product">
+          <FontAwesomeIcon icon={faArchive} />
+          <span className="ml-2">Kelola Produk</span>
         </Link>
       </li>
       {/* <!-- Nav Item - Pages Collapse Menu --> */}

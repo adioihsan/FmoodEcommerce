@@ -176,7 +176,7 @@ function MainNavbar() {
   return (
     <div>
       <Container className="bg-light border" fluid>
-        <Navbar color="light" expand="md" light>
+        <Navbar color="light" expand="md" light fixed="top">
           <NavbarBrand href="/">
             <img src="/logo-reg-fmood.png" alt="Fmood" className="logo" />
             <span className="brand-text">Fmood</span>
