@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import LoadingPage from "../component/general/LoadingPage";
 function StoreRoute(props) {
   let Cmp = props.Cmp;
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function StoreRoute(props) {
     }
   );
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <LoadingPage />;
   }
   return (
     <>
