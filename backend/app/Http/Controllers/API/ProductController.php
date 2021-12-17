@@ -5,7 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use App\Models\ProductRating;
+use App\Models\Order;
+use App\Models\OrderItem;
+use Illuminate\Support\Arr;
 
 
 class ProductController extends Controller
@@ -79,11 +84,60 @@ class ProductController extends Controller
             }
         }
     }
-    public function get(){
-        $products = product::paginate(3);
+    public function getAll(Request $req){
+        $products = product::orderBy('id','desc')->paginate(3);
         return response()->json([
             'status'=>200,
             'products'=>$products
         ]);
+    }
+    public function getVisible(){
+        $products = DB::table('products')->where('hide',0)->paginate(3);
+        return response()->json([
+            'status'=>200,
+            'products'=>$products
+        ]);
+    }
+
+    public function test(Request $req){
+        // $products = Product::leftjoin('product_ratings','products.id','=','product_ratings.product_id')
+        // ->leftjoin('order_items','products.id','=','order_items.product_id')
+        // ->leftjoin('orders','order_items.order_id','=','orders.id')
+        // ->where('hide',0)->select('products.*',DB::raw('avg(product_ratings.rating) as rating'))->groupBy('products.id')->paginate(3);
+
+        $products = Product::where('hide',0)->paginate(8);
+        $data=[];
+        $pagination=[];
+        data_fill($pagination,'current_page',$products->currentPage());
+        data_fill($pagination,'last_page',$products->lastPage());
+        data_fill($pagination,'total',$products->total());
+
+        foreach($products->items() as $item){
+            $product = array(
+                'id'=>$item->id,'name'=>$item->name,
+                'img_main'=>$item->img_main,
+                'price'=>$item->price,'discount_price'=>$item->discount_price,
+                'discount_percent'=>$this->countPercent($item->price,$item->discount_price),
+                'origin'=>'Padang',
+                'rating'=>$this->getRating($item->id),
+                'sold'=>$this->soldCount($item->id),
+            );
+            array_push($data,$product);
+        };
+        
+        return response()->json(["status"=>200,"pagination"=>$pagination,"products"=>$data]);
+    }
+    public function getRating($product_id){
+        $rating = ProductRating::where('product_id',$product_id)->avg('rating');
+        return round($rating,1);
+    }
+    public function soldCount($product_id){
+        $sold =  OrderItem::leftjoin('orders','order_items.order_id','=','orders.id')
+        ->where('product_id','=',$product_id)->where('orders.status','delivered')->sum('order_items.quantity');
+        return $sold;
+    }
+    public function countPercent($price,$disc_price){
+        $percentage = ($price-$disc_price)/$price*100;
+        return round($percentage);
     }
 }

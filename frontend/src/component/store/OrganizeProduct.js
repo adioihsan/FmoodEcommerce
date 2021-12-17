@@ -18,14 +18,14 @@ function OrganizeProduct() {
     currentPage: 0,
     lastPage: 0,
     pages: [],
-    totalPages: 0,
+    totalItem: 0,
   });
   useEffect(() => {
     getProducts(1);
   }, []);
   function getProducts(page) {
     setLoading(true);
-    axios.get("/api/get-products?page=" + page).then((res) => {
+    axios.get("/api/get-products/all?page=" + page).then((res) => {
       if (res.data.status === 200) {
         setProducts(res.data.products.data);
         let arrPages = [];
@@ -36,7 +36,7 @@ function OrganizeProduct() {
           currentPage: res.data.products.current_page,
           lastPage: res.data.products.last_page,
           pages: arrPages,
-          totalPages: res.data.products.total,
+          totalItem: res.data.products.total,
         });
         setLoading(false);
       }

@@ -18,7 +18,9 @@ use App\Http\Controllers\API\ProductController;
 
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
-Route::get('get-products',[ProductController::class,'get']);
+Route::get('get-products/all',[ProductController::class,'getAll']);
+Route::get('get-products/visible',[ProductController::class,'getVisible']);
+Route::get('test',[ProductController::class,'test']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
