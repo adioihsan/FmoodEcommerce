@@ -126,7 +126,7 @@ function FormMedia(props) {
             <input
               type="file"
               name="imgMain"
-              accept=".jpg,jpeg,.png"
+              accept="image/*"
               style={{ display: "none" }}
               onChange={(e) => {
                 inputImages(e, 0);
@@ -152,7 +152,7 @@ function FormMedia(props) {
             <input
               type="file"
               name="imgSide"
-              accept=".jpg,jpeg,.png"
+              accept="image/*"
               style={{ display: "none" }}
               onChange={(e) => {
                 inputImages(e, 1);
@@ -178,7 +178,7 @@ function FormMedia(props) {
             <input
               type="file"
               name="imgFront"
-              accept=".jpg,jpeg,.png"
+              accept="image/*"
               style={{ display: "none" }}
               onChange={(e) => {
                 inputImages(e, 2);
@@ -204,7 +204,7 @@ function FormMedia(props) {
             <input
               type="file"
               name="imgTop"
-              accept=".jpg,jpeg,.png"
+              accept="image/*"
               style={{ display: "none" }}
               onChange={(e) => {
                 inputImages(e, 3);
@@ -230,7 +230,7 @@ function FormMedia(props) {
             <input
               type="file"
               name="imgOther"
-              accept=".jpg,jpeg,.png"
+              accept="image/*"
               style={{ display: "none" }}
               onChange={(e) => {
                 inputImages(e, 4);

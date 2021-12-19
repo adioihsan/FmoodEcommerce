@@ -15,12 +15,17 @@ function FormOthers(props) {
     discount: 0,
     discountPrice: "",
     hide: 0,
+    regCode: "",
   });
   function handleInput(e) {
     setOthersData({ ...othersData, [e.target.name]: e.target.value });
   }
   return (
     <>
+      <FormGroup className="mb-3">
+        <Label>BPOM/PIRT</Label>
+        <Input type="text" name="regCode" onChange={(e) => handleInput(e)} />
+      </FormGroup>
       <FormGroup className="mb-3">
         <Label>Kadaluarsa</Label>
         <Input type="date" name="expired" onChange={(e) => handleInput(e)} />
