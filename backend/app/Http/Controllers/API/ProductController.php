@@ -21,7 +21,7 @@ class ProductController extends Controller
             'price'=>'required|max:20',
             'weight'=>'required|max:5',
             'stock'=>'required|min:1',
-            'imgMain'=>'required|image|mimes:jpeg,png,jpg|max:2560',
+            'imgMain'=>'required|image|max:2560',
             'mainCategory'=>'required',
         ]);
         if($validator->fails()){
@@ -37,6 +37,7 @@ class ProductController extends Controller
             $product->description = $req->input('description');
             $product->main_category = $req->input('mainCategory');
             $product->sub_category = $req->input('subCategory');
+            $product->reg_code = $req->input('regCode');
             $product->expired = $req->input('expired');
             $product->durability = $req->input('durability');
             $product->preorder = $req->input('preorder');
@@ -99,13 +100,9 @@ class ProductController extends Controller
         ]);
     }
 
-    public function test(Request $req){
-        // $products = Product::leftjoin('product_ratings','products.id','=','product_ratings.product_id')
-        // ->leftjoin('order_items','products.id','=','order_items.product_id')
-        // ->leftjoin('orders','order_items.order_id','=','orders.id')
-        // ->where('hide',0)->select('products.*',DB::raw('avg(product_ratings.rating) as rating'))->groupBy('products.id')->paginate(3);
-
-        $products = Product::where('hide',0)->paginate(8);
+    public function findProductByName(Request $req){
+        $keyword = $req->input('keyword');
+        $products = Product::where('hide',0)->where('name','like','%'.$keyword.'%')->paginate(8);
         $data=[];
         $pagination=[];
         data_fill($pagination,'current_page',$products->currentPage());
