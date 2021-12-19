@@ -1,4 +1,4 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+// requires a loader
 import { Carousel } from "react-responsive-carousel";
 function SlidePromo() {
   return (
@@ -10,13 +10,13 @@ function SlidePromo() {
         infiniteLoop={true}
       >
         <div>
-          <img src="/images/slide1.png" className="rounded" />
+          <img src="/images/slide1.png" className="rounded" alt="slide 1" />
         </div>
         <div>
-          <img src="/images/pembayaran.png" className="rounded" />
+          <img src="/images/pembayaran.png" className="rounded" alt="slide 2" />
         </div>
         <div>
-          <img src="/images/slide3.png" className="rounded" />
+          <img src="/images/slide3.png" className="rounded" alt="slide 3" />
         </div>
       </Carousel>
     </div>
