@@ -29,6 +29,7 @@ class CreateProductsTable extends Migration
             $table->string('video'); 
             $table->string('main_category',30);
             $table->text('sub_category',200);
+            $table->string('reg_code');
             $table->date('expired');
             $table->integer('durability');
             $table->boolean('preorder');
