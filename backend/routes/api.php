@@ -20,7 +20,7 @@ Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 Route::get('get-products/all',[ProductController::class,'getAll']);
 Route::get('get-products/visible',[ProductController::class,'getVisible']);
-Route::get('test',[ProductController::class,'test']);
+Route::get('find-product-by-name',[ProductController::class,'findProductByName']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
