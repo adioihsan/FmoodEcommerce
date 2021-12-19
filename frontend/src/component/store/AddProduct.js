@@ -4,7 +4,6 @@ import {
   Card,
   Form,
   CardBody,
-  Button,
   TabPane,
   Nav,
   NavItem,
@@ -34,7 +33,6 @@ function AddProduct() {
     category: {},
     others: {},
   });
-  const [errors, setErrors] = useState([]);
 
   //get user id
   const userId = localStorage.getItem("auth_id");
@@ -75,7 +73,6 @@ function AddProduct() {
           timer: 1500,
         });
         navigate("/store/organize-product");
-        setErrors([]);
       } else if (res.data.status === 422) {
         Swal.fire({
           icon: "warning",
@@ -83,7 +80,6 @@ function AddProduct() {
           text: "Cek kembali data yang di input",
           showConfirmButton: true,
         });
-        setErrors(res.data.errors);
       } else {
         console.log(res);
       }

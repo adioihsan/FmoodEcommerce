@@ -58,6 +58,7 @@ function OrganizeProduct() {
               src={serverUrls.storage + "/" + item.img_main}
               height="96px"
               className="rounded float-start mx-2"
+              alt="product "
             />
             {item.name}
           </td>
