@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
-use App\Models\ProductRating;
+use App\Models\ProductReview;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\StoreProfile;
 use Illuminate\Support\Arr;
 
 
@@ -113,8 +114,11 @@ class ProductController extends Controller
             $product = array(
                 'id'=>$item->id,'name'=>$item->name,
                 'img_main'=>$item->img_main,
-                'price'=>$item->price,'discount_price'=>$item->discount_price,
-                'discount_percent'=>$this->countPercent($item->price,$item->discount_price),
+                'real_price'=>$item->price,
+                'sell_price'=>$this->getSellPrice($item->price,$item->discount_price,$item->discount),
+                'is_discount'=>$item->discount,
+                'discount_price'=>$item->discount_price,
+                'discount_percent'=>$this->countPercent($item->price,$item->discount_price,$item->discount),
                 'origin'=>'Padang',
                 'rating'=>$this->getRating($item->id),
                 'sold'=>$this->soldCount($item->id),
@@ -125,16 +129,48 @@ class ProductController extends Controller
         return response()->json(["status"=>200,"pagination"=>$pagination,"products"=>$data]);
     }
     public function getRating($product_id){
-        $rating = ProductRating::where('product_id',$product_id)->avg('rating');
+        $rating = ProductReview::where('product_id',$product_id)->avg('rating');
         return round($rating,1);
+    }
+    public function reviewsCount($product_id){
+        $reviewsCount = ProductReview::where('product_id',$product_id)->count('id');
+        return $reviewsCount;
     }
     public function soldCount($product_id){
         $sold =  OrderItem::leftjoin('orders','order_items.order_id','=','orders.id')
         ->where('product_id','=',$product_id)->where('orders.status','delivered')->sum('order_items.quantity');
         return $sold;
     }
-    public function countPercent($price,$disc_price){
+    public function getSellPrice($price,$disc_price,$is_discount){
+        $sell_price = $price;
+        $sell_price = (($price > $disc_price) && $is_discount) ? $disc_price : $price;
+        return $sell_price;
+    }
+    public function countPercent($price,$disc_price,$is_discount){
         $percentage = ($price-$disc_price)/$price*100;
+        if($percentage < 0 || $is_discount == "0" ) $percentage = 0;
         return round($percentage);
+    }
+    public function getProductDetail($id){
+        $product = Product::find($id);
+        $prices = ["sell_price"=>$this->getSellPrice($product->price,$product->discount_price,$product->discount),
+        "discount_price"=>$product->discount_price,
+        "real_price"=>$product->price,
+        "discount_percent"=> $this->countPercent($product->price,$product->discount_price,$product->discount),
+];
+        data_fill($product,'rating',$this->getRating($id));
+        data_fill($product,'sold',$this->soldCount($id));
+        data_fill($product,'reviews',$this->reviewsCount($id));
+        data_fill($product,'prices',$prices);
+    
+        $store = $this->getStoreProfile($product->user_id); 
+        return response()->json([
+            'status'=>200,
+            'product'=>$product,
+            'store'=>$store,
+        ]);
+    }
+    public function getStoreProfile($user_id){
+        return StoreProfile::where("user_id",$user_id)->first();
     }
 }
