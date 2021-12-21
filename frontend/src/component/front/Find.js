@@ -2,9 +2,9 @@ import MainNavbar from "../../layout/front/MainNavbar";
 import { Container, Row, Col } from "reactstrap";
 import Filter from "./find/Filter";
 import { useEffect, useState } from "react";
-import LoadingPage from "../general/LoadingPage";
+import LoadingPage from "../front/LoadingPage";
 import axios from "axios";
-import ProductCard from "../general/ProductCard";
+import ProductCard from "../front/product/ProductCard";
 import { useLocation } from "react-router-dom";
 function Find() {
   const [loading, setLoading] = useState(true);
