@@ -1,6 +1,6 @@
 import axios from "axios";
 import serverUrls from "../../serverUrls";
-import LoadingPage from "../general/LoadingPage";
+import LoadingPage from "../front/LoadingPage";
 import { useEffect, useState } from "react";
 import {
   Row,
@@ -58,7 +58,7 @@ function OrganizeProduct() {
               src={serverUrls.storage + "/" + item.img_main}
               height="96px"
               className="rounded float-start mx-2"
-              alt="product "
+              alt="product"
             />
             {item.name}
           </td>

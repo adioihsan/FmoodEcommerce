@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import LoadingPage from "../component/general/LoadingPage";
+import LoadingPage from "../component/front/LoadingPage";
 function StoreRoute(props) {
   let Cmp = props.Cmp;
   const navigate = useNavigate();
