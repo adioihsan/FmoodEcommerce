@@ -13,11 +13,12 @@ class CreateProductRatingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_ratings', function (Blueprint $table) {
+        Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("product_id");
             $table->bigInteger("user_id");
             $table->integer("rating",1);
+            $table->text("review");
             $table->timestamps();
         });
     }
