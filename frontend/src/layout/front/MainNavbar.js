@@ -14,8 +14,6 @@ import {
   InputGroupText,
   Button,
   Container,
-  Toast,
-  ToastBody,
 } from "reactstrap";
 import "../../assets/front/css/main-navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,9 +26,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 function MainNavbar() {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
   const userToggle = () => {
     setIsUserOpen((prevState) => !prevState);
   };
@@ -38,6 +38,9 @@ function MainNavbar() {
     setIsStoreOpen((prevState) => !prevState);
   };
   const navigate = useNavigate();
+  function handleInput(e) {
+    setSearchKeyword(e.target.value);
+  }
   const LoginComp = () => {
     let isLogin = localStorage.getItem("auth_token");
     if (isLogin) {
@@ -57,7 +60,11 @@ function MainNavbar() {
           >
             <DropdownToggle data-toggle="dropdown" tag="span">
               <div className="d-flex justify-content-center align-items-center">
-                <img src="/store-default.png" className="user-image-2" />
+                <img
+                  src="/store-default.png"
+                  className="user-image-2"
+                  alt="store"
+                />
                 <span className="user-name">Toko</span>
               </div>
             </DropdownToggle>
@@ -66,6 +73,7 @@ function MainNavbar() {
                 <img
                   src="/store-default.png"
                   className="user-image-3 rounded float-start"
+                  alt="user"
                 />{" "}
                 <small>Nama Toko</small>
                 <br />
@@ -78,6 +86,7 @@ function MainNavbar() {
               <DropdownItem></DropdownItem>
             </DropdownMenu>
           </Dropdown>
+
           {/* User button dropdown */}
           <Dropdown
             isOpen={isUserOpen}
@@ -91,29 +100,39 @@ function MainNavbar() {
           >
             <DropdownToggle data-toggle="dropdown" tag="span">
               <div className="d-flex justify-content-center align-items-center">
-                <img src="/user-default.png" className="user-image-2" />
+                <img
+                  src="/user-default.png"
+                  className="user-image-2"
+                  alt="user"
+                />
                 <span className="user-name">
                   {localStorage.getItem("auth_username")}
                 </span>
               </div>
             </DropdownToggle>
-            <DropdownMenu className="user-dropdown-menu bg-light shadow">
-              <DropdownItem>
-                <div className="bg-light shadow-sm p-3 w-100">
-                  <img
-                    src="/user-default.png"
-                    className="user-image-3 rounded float-start"
-                  />{" "}
-                  <small>Arung</small>
-                  <br />
-                  <a href="#">Profile {">>"}</a>
-                </div>
-              </DropdownItem>
-              <DropdownItem>
-                <Button size="sm" className="nav-button">
+            <DropdownMenu className="user-dropdown-menu bg-light shadow p-2">
+              <div className="bg-light shadow-sm p-3 w-100">
+                <img
+                  src="/user-default.png"
+                  className="user-image-3 rounded float-start"
+                  alt="user"
+                />{" "}
+                <small>Arung</small>
+                <br />
+                <Button size="sm">Profile {">>"}</Button>
+              </div>
+              <div>
+                <Button
+                  size="sm"
+                  className="nav-button"
+                  onClick={(e) => {
+                    askLogout(e);
+                  }}
+                >
                   Logout
                 </Button>
-              </DropdownItem>
+              </div>
+              <DropdownItem></DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </>
@@ -121,16 +140,11 @@ function MainNavbar() {
     } else {
       return (
         <>
-          <Button
-            size="sm"
-            outline
-            className="nav-button outline"
-            href="/login"
-          >
+          <Button outline className="nav-button outline mx-2" href="/login">
             Masuk
           </Button>
 
-          <Button size="sm" className="nav-button" href="/register">
+          <Button className="nav-button mx-2" href="/register">
             Daftar
           </Button>
         </>
@@ -138,7 +152,7 @@ function MainNavbar() {
     }
   };
 
-  const Logout = (e) => {
+  const askLogout = (e) => {
     e.preventDefault();
     Swal.fire({
       title: "Kamu yakin akan keluar?",
@@ -174,45 +188,54 @@ function MainNavbar() {
   };
 
   return (
-    <div>
-      <Container className="bg-light border" fluid>
-        <Navbar color="light" expand="md" light fixed="top">
-          <NavbarBrand href="/">
-            <img src="/logo-reg-fmood.png" alt="Fmood" className="logo" />
-            <span className="brand-text">Fmood</span>
-          </NavbarBrand>
-          <NavbarToggler onClick={function noRefCheck() {}} />
-          <Collapse navbar>
-            <Nav className="me-auto" navbar>
-              <UncontrolledDropdown inNavbar nav>
-                <DropdownToggle caret nav>
-                  Kategori
-                </DropdownToggle>
-                <DropdownMenu end>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-            <InputGroup className="input-search">
-              <Input bsSize="sm" placeholder="Cari yang enak di sini" />
-              <InputGroupText>
-                <FontAwesomeIcon icon={faSearch} />{" "}
-              </InputGroupText>
-            </InputGroup>
-            <FontAwesomeIcon
-              icon={faShoppingCart}
-              style={{ color: "gray", cursor: "pointer" }}
-              className="mx-3"
+    <Container className="bg-light border mb-3 sticky-top" fluid>
+      <Navbar color="light" expand="md" light>
+        <NavbarBrand href="/">
+          <img src="/logo-reg-fmood.png" alt="Fmood" className="logo" />
+          <span className="brand-text">Fmood</span>
+        </NavbarBrand>
+        <NavbarToggler onClick={function noRefCheck() {}} />
+        <Collapse navbar>
+          <Nav className="me-auto" navbar>
+            <UncontrolledDropdown inNavbar nav>
+              <DropdownToggle caret nav>
+                Kategori
+              </DropdownToggle>
+              <DropdownMenu end>
+                <DropdownItem>Option 1</DropdownItem>
+                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Reset</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+          <InputGroup className="input-search">
+            <Input
+              bsSize="sm"
+              placeholder="Cari yang enak di sini"
+              onChange={(e) => handleInput(e)}
             />
-            <span className="vertical-divider">&nbsp; </span>
-            {LoginComp()}
-          </Collapse>
-        </Navbar>
-      </Container>
-    </div>
+            <InputGroupText>
+              <Link
+                to={{
+                  pathname: "/find",
+                  search: searchKeyword,
+                }}
+              >
+                <FontAwesomeIcon icon={faSearch} />{" "}
+              </Link>
+            </InputGroupText>
+          </InputGroup>
+          <FontAwesomeIcon
+            icon={faShoppingCart}
+            style={{ color: "gray", cursor: "pointer" }}
+            className="mx-3"
+          />
+          <span className="vertical-divider">&nbsp; </span>
+          {LoginComp()}
+        </Collapse>
+      </Navbar>
+    </Container>
   );
 }
 export default MainNavbar;
