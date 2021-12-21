@@ -1,11 +1,24 @@
+html {
+  font-size: 95%;
+}
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: rgba(49, 53, 59, 0.96);
+  line-height: 20px;
+  text-overflow: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.text-orange {
+  color: #ff3d00 !important;
+}
+a {
+  text-decoration: none !important;
+  color: inherit !important;
+  font-weight: normal !important;
 }
