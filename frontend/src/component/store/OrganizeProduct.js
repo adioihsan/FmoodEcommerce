@@ -20,27 +20,30 @@ function OrganizeProduct() {
     pages: [],
     totalItem: 0,
   });
+  const userId = localStorage.getItem("auth_id");
   useEffect(() => {
     getProducts(1);
   }, []);
   function getProducts(page) {
     setLoading(true);
-    axios.get("/api/get-products/all?page=" + page).then((res) => {
-      if (res.data.status === 200) {
-        setProducts(res.data.products.data);
-        let arrPages = [];
-        for (let i = 1; i <= res.data.products.last_page; i++) {
-          arrPages.push(i);
+    axios
+      .get("/api/get-products/all/" + userId + "?page=" + page)
+      .then((res) => {
+        if (res.data.status === 200) {
+          setProducts(res.data.products.data);
+          let arrPages = [];
+          for (let i = 1; i <= res.data.products.last_page; i++) {
+            arrPages.push(i);
+          }
+          setPagination({
+            currentPage: res.data.products.current_page,
+            lastPage: res.data.products.last_page,
+            pages: arrPages,
+            totalItem: res.data.products.total,
+          });
+          setLoading(false);
         }
-        setPagination({
-          currentPage: res.data.products.current_page,
-          lastPage: res.data.products.last_page,
-          pages: arrPages,
-          totalItem: res.data.products.total,
-        });
-        setLoading(false);
-      }
-    });
+      });
   }
   let viewProduct = "";
   let viewPagination = "";
