@@ -19,11 +19,12 @@ use App\Http\Controllers\API\ProductController;
 
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
-Route::get('get-products/all',[ProductController::class,'getAll']);
+Route::get('get-products/all/{user_id}',[ProductController::class,'getAll']);
 Route::get('get-products/visible',[ProductController::class,'getVisible']);
 Route::get('find-product-by-name',[ProductController::class,'findProductByName']);
 Route::get('test',[ProductController::class,'getStoreProfile']);
 Route::get('get-product-detail/{id}',[ProductController::class,'getProductDetail']);
+Route::get('get-cart/{id}',[CartController::class,'getCart']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
