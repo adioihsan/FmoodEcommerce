@@ -106,7 +106,7 @@ function MainNavbar() {
                   alt="user"
                 />
                 <span className="user-name">
-                  {localStorage.getItem("auth_username")}
+                  {localStorage.getItem("auth_username").slice(0, 10)}
                 </span>
               </div>
             </DropdownToggle>
@@ -117,7 +117,10 @@ function MainNavbar() {
                   className="user-image-3 rounded float-start"
                   alt="user"
                 />{" "}
-                <small>Arung</small>
+                <small>
+                  {" "}
+                  {localStorage.getItem("auth_username").slice(0, 20)}
+                </small>
                 <br />
                 <Button size="sm">Profile {">>"}</Button>
               </div>
