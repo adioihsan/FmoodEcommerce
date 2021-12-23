@@ -14,6 +14,8 @@ import Store from "./component/store/Store";
 import TestPage from "./component/front/TestPage";
 import Find from "./component/front/Find";
 import ProductDetail from "./component/front/ProductDetail";
+import UserRoute from "./routes/UserRoute";
+import Cart from "./component/front/Cart";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -36,6 +38,7 @@ function App() {
           <Route path="/register" element={isLogin ? <Home /> : <Register />} />
           <Route path="/find" element={<Find />} />
           <Route path="/product-detail/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<UserRoute Cmp={Cart} />} />
           <Route path="/store" element={<StoreRoute Cmp={Store} />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
