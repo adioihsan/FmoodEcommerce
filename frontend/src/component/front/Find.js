@@ -68,7 +68,7 @@ function Find() {
     };
   }
   return (
-    <>
+    <div className="position-relative  lh-base">
       <MainNavbar />
       <Container className="p-3">
         <Row className="my-3">
@@ -79,7 +79,7 @@ function Find() {
           <Col sm="9">{productsView()}</Col>
         </Row>
       </Container>
-    </>
+    </div>
   );
 }
 export default Find;

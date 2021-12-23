@@ -4,7 +4,7 @@ import SlidePromo from "./home/SlidePromo";
 import ChoosenCategory from "./home/ChoosenCategory";
 function Home() {
   return (
-    <>
+    <div className="position-relative  lh-base">
       <MainNavbar />
       <Container className="p-3">
         <Row className="my-3">
@@ -18,7 +18,7 @@ function Home() {
           </Col>
         </Row>
       </Container>
-    </>
+    </div>
   );
 }
 export default Home;

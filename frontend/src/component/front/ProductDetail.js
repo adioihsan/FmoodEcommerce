@@ -24,6 +24,7 @@ import LoadingPage from "../front/LoadingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import serverUrls from "../../serverUrls";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 import withReactContent from "sweetalert2-react-content";
 import {
   faCartPlus,
@@ -42,11 +43,11 @@ function ProductDetail() {
   const [cartForm, setCartForm] = useState({
     userId: 0,
     productId: 0,
+    sellPrice: 0,
     totalPrice: 0,
     quantity: 1,
     note: "",
   });
-  const [note, setNote] = useState("");
   const [store, setStore] = useState([]);
   const params = useParams();
   function detailToggle(tabId) {
@@ -62,6 +63,7 @@ function ProductDetail() {
           userId: getUserId,
           productId: res.data.product.id,
           quantity: 1,
+          sellPrice: res.data.product.prices.sell_price,
           totalPrice: res.data.product.prices.sell_price,
         });
         setLoading(false);
@@ -106,13 +108,12 @@ function ProductDetail() {
     );
   }
   function addQuantity() {
-    if (cartForm.quantity <= product.stock) {
+    if (cartForm.quantity < product.stock) {
       setCartForm({
         ...cartForm,
         totalPrice: product.prices.sell_price * (cartForm.quantity + 1),
-        quantity: cartForm.quantity + 1,
+        quantity: parseInt(cartForm.quantity) + 1,
       });
-      // countTotalPrice();
     }
   }
   function removeQuantity() {
@@ -120,7 +121,7 @@ function ProductDetail() {
       setCartForm({
         ...cartForm,
         totalPrice: product.prices.sell_price * (cartForm.quantity - 1),
-        quantity: cartForm.quantity - 1,
+        quantity: parseInt(cartForm.quantity) - 1,
       });
     }
   }
@@ -138,7 +139,10 @@ function ProductDetail() {
         });
       }
     } else if (e.target.name === "note") {
-      setNote(e.target.value);
+      setCartForm({
+        ...cartForm,
+        note: e.target.value,
+      });
     } else {
     }
   }
@@ -147,7 +151,10 @@ function ProductDetail() {
     noteForm.classList.toggle("d-none");
     if (!noteForm.classList.contains("d-none")) {
       e.target.innerText = "- Hapus Catatan";
-      setNote("");
+      setCartForm({
+        ...cartForm,
+        note: "",
+      });
     } else {
       e.target.innerText = "+ Tambah Catatan";
     }
@@ -167,7 +174,9 @@ function ProductDetail() {
         <div>
           <p className="fw-5">{product.name + " x" + cartForm.quantity}</p>
         </div>
-        <Button className="orange-button">Lihat keranjang</Button>
+        <a href="/cart">
+          <Button className="orange-button">Lihat keranjang</Button>
+        </a>
       </div>
     );
   }
@@ -411,7 +420,7 @@ function ProductDetail() {
                         name="note"
                         placeholder="Tulis Catatan"
                         type="text"
-                        value={note}
+                        value={cartForm.note}
                         onChange={(e) => {
                           handelInput(e);
                         }}
