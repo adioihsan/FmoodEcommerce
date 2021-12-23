@@ -11,7 +11,6 @@ import {
   Card,
   CardBody,
 } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartList from "./cart/CartList";
 import MainNavbar from "../../layout/front/MainNavbar";
 import Swal from "sweetalert2";

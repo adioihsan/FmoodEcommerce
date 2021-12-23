@@ -24,7 +24,6 @@ import LoadingPage from "../front/LoadingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import serverUrls from "../../serverUrls";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import withReactContent from "sweetalert2-react-content";
 import {
   faCartPlus,
@@ -340,7 +339,7 @@ function ProductDetail() {
                             alt="store"
                           />
                           <p className="fw-bold mb-1 mx-3 ">
-                            Store Name{" "}
+                            {store.name}
                             <span className="text-success mt-2">
                               {" "}
                               <FontAwesomeIcon icon={faDotCircle} /> Online
