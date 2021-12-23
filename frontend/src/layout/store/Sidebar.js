@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = () => {
   return (
     <ul
-      className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+      className="navbar-nav bg-gradient-primary sidebar text-light sidebar-dark accordion"
       id="accordionSidebar"
     >
       {/* <!-- Sidebar - Brand --> */}
