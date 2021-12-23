@@ -21,7 +21,7 @@ import FormProductData from "./forms/FormProductData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-// import FormCategoriesCache from "./forms/FormCategoriesCache";
+import FormCategoriesCache from "./forms/FormCategoriesCache";
 
 function AddProduct() {
   const navigate = useNavigate();
@@ -155,7 +155,7 @@ function AddProduct() {
                   <Card className="mb-4">
                     <CardBody>
                       {/* Category */}
-                      <FormCategories
+                      <FormCategoriesCache
                         dataCourier={categoryCourier}
                         toggle={toggle}
                       />
