@@ -1,6 +1,6 @@
-import Cart from "./Cart";
+import Checkout from "./Checkout";
 
 function TestPage() {
-  return <Cart />;
+  return <Checkout />;
 }
 export default TestPage;

@@ -17,6 +17,9 @@ code {
 .text-orange {
   color: #ff3d00 !important;
 }
+.text-green {
+  color: #1d5f0a !important;
+}
 a {
   text-decoration: none !important;
   color: inherit !important;

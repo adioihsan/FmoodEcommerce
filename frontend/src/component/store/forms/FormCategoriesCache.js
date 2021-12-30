@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, ButtonGroup, FormGroup, Label } from "reactstrap";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { Button, FormGroup, Label } from "reactstrap";
+import { useState } from "react";
 import Categories from "../../../cache/Categories";
 function FormCategoriesCache(props) {
   const [subCategories, setSubCategories] = useState([]);
