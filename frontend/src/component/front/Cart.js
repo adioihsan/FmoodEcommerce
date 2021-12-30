@@ -15,7 +15,9 @@ import CartList from "./cart/CartList";
 import MainNavbar from "../../layout/front/MainNavbar";
 import Swal from "sweetalert2";
 import LoadingPage from "./LoadingPage";
+import { useNavigate } from "react-router";
 function Cart() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [carts, setCarts] = useState({});
   const [order, setOrder] = useState({});
@@ -99,6 +101,11 @@ function Cart() {
     });
     setTotalPrice(total);
   }
+  function checkout() {
+    localStorage.setItem("checkout_products", JSON.stringify(order));
+    navigate("/checkout");
+  }
+
   return (
     <div className="position-relative  lh-base">
       <MainNavbar />
@@ -127,7 +134,7 @@ function Cart() {
                   <div className="mt-3">
                     <Button
                       className="w-100 mb-2 orange-button fw-bold"
-                      onClick={(e) => countTotalPrice()}
+                      onClick={(e) => checkout()}
                     >
                       Beli ({Object.keys(order).length})
                     </Button>
