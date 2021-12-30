@@ -11,5 +11,6 @@ class FmoodPayController extends Controller
     function getBalance(Request $req){
         $userId =  $req->user()->id;
         return FmoodPay::where("user_id",$userId)->first()["balance"];
+        
     }
 }

@@ -27,6 +27,7 @@ function Checkout() {
     method: "",
     totalCost: 0,
     change: 0,
+    status: "unpaid",
   });
   const [userActiveAddress, setUserActiveAddress] = useState({});
   const [groupBystore, setGroupByStore] = useState({});
@@ -67,7 +68,6 @@ function Checkout() {
             products: [],
             productCost: product.sell_price * product.quantity,
             shipmentCost: 0,
-            totalCost: 0,
           };
           groupBystore[product.store_id].products.push(product);
         }
@@ -181,6 +181,9 @@ function Checkout() {
   function confirmPayment() {
     if (payment.method === "FmoodPay") {
       const confirmSwal = withReactContent(Swal);
+      payment.totalCost = total.totalCost;
+      payment.change = fmoodPay.balance - total.totalCost;
+      payment.status = "paid";
       confirmSwal
         .fire({
           html: (
@@ -211,14 +214,53 @@ function Checkout() {
         .then((result) => {
           console.log(result);
           if (result.isConfirmed) {
-            console.log("its OK");
+            processOrder();
           }
         });
     } else {
       Swal.fire("Pembayaran belum di pilih", "", "error");
     }
   }
-  function processOrder() {}
+  function processOrder() {
+    // const orderData = {
+    //   productData: Object.values(groupBystore),
+    //   payment: payment,
+    // };
+    // axios.post("/api/create-order", orderData).then((response) => {
+    //   console.log(response);
+    // });
+    Object.values(groupBystore).forEach((data) => {
+      let orderData = {
+        totalCost: data.productCost + data.shipmentCost,
+        shipmentCost: data.shipmentCost,
+        status: payment.status,
+        products: data.products.map((product) => {
+          return { productId: product.product_id, quantity: product.quantity };
+        }),
+      };
+      axios
+        .post("/api/create-order", orderData)
+        .then((response) => {
+          if (response.data.status === 200) {
+            Swal.fire(
+              "Pembayaran Berhasil",
+              "Mengalihkan mu ke halaman pemesanan",
+              "success"
+            );
+          } else {
+            Swal.fire(
+              "Terjadi kesalahan",
+              "Pesanan mu gagal , coba lagi nanti ",
+              "warning"
+            );
+          }
+        })
+        .catch((e) => {
+          Swal.fire("Terjadi kesalahan", "Cek koneksi internet mu ", "error");
+        });
+    });
+  }
+
   return (
     <div className="position-relative  lh-base">
       <MainNavbar />

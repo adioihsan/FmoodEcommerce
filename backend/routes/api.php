@@ -9,6 +9,7 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserAddressController;
 use App\Http\Controllers\API\FmoodPayController;
 use App\Http\Controllers\API\RajaOngkir;
+use App\Http\Controllers\API\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -61,5 +62,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //get user fmoodPay balance
     Route::get('get-fmood-pay-balance',[FmoodPayController::class,'getBalance']);
+
+    //create order
+    Route::post('create-order',[OrderController::class,'createOrder']);
 });
 

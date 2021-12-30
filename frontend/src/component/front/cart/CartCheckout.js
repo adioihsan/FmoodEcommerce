@@ -30,7 +30,7 @@ function CartCheckout(props) {
         origin: store.storeCityId,
         destination: address.city_id,
         weight: weightTotal,
-        courier: "jne",
+        courier: "tiki",
       };
       axios.post("/api/get-shipment-cost", shipmentForm).then((response) => {
         setShipmentChoices(
