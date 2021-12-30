@@ -6,6 +6,9 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\UserAddressController;
+use App\Http\Controllers\API\FmoodPayController;
+use App\Http\Controllers\API\RajaOngkir;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,6 +28,7 @@ Route::get('find-product-by-name',[ProductController::class,'findProductByName']
 Route::get('test',[ProductController::class,'getStoreProfile']);
 Route::get('get-product-detail/{id}',[ProductController::class,'getProductDetail']);
 Route::get('get-cart/{id}',[CartController::class,'getCart']);
+Route::get('get-user-address/',[UserAddressController::class,'getUserAddress']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -34,7 +38,6 @@ Route::middleware('auth:sanctum','hasStore')->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group(function(){
-
     Route::get('/isLogin',function(){
         return response()->json(['status'=>200,'message'=>"You are Logged in"]);
     });
@@ -49,5 +52,14 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //add to cart only for login user
     Route::post('add-cart',[CartController::class,'addCart']);
+
+    //get user address
+    Route::get('get-user-address',[UserAddressController::class,'getUserAddress']);
+
+    //get shipment cost
+    Route::post('get-shipment-cost',[RajaOngkir::class,'getShipmentCost']);
+
+    //get user fmoodPay balance
+    Route::get('get-fmood-pay-balance',[FmoodPayController::class,'getBalance']);
 });
 

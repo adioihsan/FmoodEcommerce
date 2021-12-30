@@ -58,8 +58,10 @@ class CartController extends Controller
         $cart = Cart::leftjoin('products','carts.product_id','=','products.id')
         ->leftJoin('store_profiles','products.user_id','=','store_profiles.user_id')
         ->where('carts.user_id',$user_id)
-        ->select('products.id as product_id','products.name as product_name','carts.sell_price as sell_price','products.stock as stock','carts.quantity as quantity','note','img_main',
-                'store_profiles.user_id as store_id','store_profiles.name as store_name','store_profiles.city as store_city')->get();
+        ->select('products.id as product_id','products.name as product_name','carts.sell_price as sell_price'
+        ,'products.stock as stock','products.weight as product_weight','carts.quantity as quantity','note','img_main',
+                'store_profiles.user_id as store_id','store_profiles.name as store_name',
+                'store_profiles.city as store_city','store_profiles.city_id as store_city_id')->get();
         $groupByStoreId = $this->group_by("store_id",$cart->toArray());
         return response()->json(['status'=>200,'carts'=>$groupByStoreId]);
     }
