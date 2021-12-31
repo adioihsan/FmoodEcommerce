@@ -43,7 +43,7 @@ class OrderController extends Controller
     public function getOrders(Request $req){
         $user_id = $req->user()->id;
         $order =  Order::leftjoin("order_items","orders.id","=","order_items.order_id")
-        ->where("user_id",$user_id)->get();
+        ->where("user_id",$user_id)->orderByDesc('orders.id')->get();
         $groupByOrderId = $this->group_order_by("order_id",$order->toArray());
         $store = StoreProfileController::getStoreById(4);
         return $groupByOrderId;
@@ -103,6 +103,25 @@ class OrderController extends Controller
     public function processOrder($orderId){
         $order = Order::find($orderId);
         $order->status = "onprocess";
+        if($order->save()){
+            return response()->json(["status"=>200,"message"=>"success"]);
+        }else{
+            return response()->json(["status"=>500,"message"=>"failed"]);
+        }
+    }
+    public function sendOrder($orderId,$shipmentCode){
+        $order = Order::find($orderId);
+        $order->status = "ondelivery";
+        $order->shipment_code = $shipmentCode;
+        if($order->save()){
+            return response()->json(["status"=>200,"message"=>"success"]);
+        }else{
+            return response()->json(["status"=>500,"message"=>"failed"]);
+        }
+    }
+    public function deliveredOrder($orderId){
+        $order = Order::find($orderId);
+        $order->status = "delivered";
         if($order->save()){
             return response()->json(["status"=>200,"message"=>"success"]);
         }else{

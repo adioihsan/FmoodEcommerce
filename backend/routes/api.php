@@ -81,5 +81,12 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //process order
     Route::get('process-order/{orderId}',[OrderController::class,'processOrder']);
+
+    //send order
+    Route::get('send-order/{orderId}/{shipmentCode}',[OrderController::class,'sendOrder']);
+
+    //order delivered
+    Route::get('delivered-order/{orderId}',[OrderController::class,'deliveredOrder']);
 });
+
 

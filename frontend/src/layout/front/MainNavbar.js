@@ -122,7 +122,13 @@ function MainNavbar() {
                   {localStorage.getItem("auth_username").slice(0, 20)}
                 </small>
                 <br />
-                <Button size="sm">Profile {">>"}</Button>
+                <Button
+                  href="/profile/address"
+                  className="text-light"
+                  size="sm"
+                >
+                  Profile {">>"}
+                </Button>
               </div>
               <div>
                 <Button

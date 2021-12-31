@@ -1,12 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Row, Col, Table, Button } from "reactstrap";
+import { Row, Col, Table, Button, FormGroup, Input, Label } from "reactstrap";
 import serverUrls from "../../serverUrls";
 import Swal from "sweetalert2";
-function NewOrders() {
+import withReactContent from "sweetalert2-react-content";
+function OnProcessOrders() {
   const [load, setLoad] = useState(false);
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState({});
+  const [shipmentCode, setShipmentCode] = useState({
+    code: "",
+  });
 
   useEffect(() => {
     getOrders(1);
@@ -14,7 +18,7 @@ function NewOrders() {
 
   function getOrders(page) {
     axios
-      .get("/api/get-store-orders/" + "paid" + "?page=" + page)
+      .get("/api/get-store-orders/" + "onprocess" + "?page=" + page)
       .then((response) => {
         if (response.status === 200) {
           setOrders(response.data.data);
@@ -27,28 +31,50 @@ function NewOrders() {
         Swal.fire("Terjadi Kesalahan", "cek koneksi internet mu", "error");
       });
   }
-  function processOrder(orderId) {
-    axios
-      .get("/api/process-order/" + orderId)
-      .then((response) => {
-        if (response.data.status === 200) {
-          Swal.fire(
-            "Berhasil",
-            "status pesanan di ubah ke 'onprocess'",
-            "success"
-          );
-          setLoad(!load);
-        } else {
-          Swal.fire("Terjadi Kesalahan", "coba beberapa saat lagi", "error");
-        }
-      })
-      .catch((e) => {
-        Swal.fire("Terjadi Kesalahan", "cek koneksi internet mu", "error");
-      });
+  const viewSendOrder = (
+    <FormGroup>
+      <Label for="shipmentCode">Resi Pengiriman</Label>
+      <Input
+        id="code"
+        name="code"
+        type="text"
+        onChange={(e) => {
+          shipmentCode.code = e.target.value;
+          console.log(shipmentCode.code);
+        }}
+      />
+    </FormGroup>
+  );
+  const sendSwal = withReactContent(Swal);
+  function sendOrder(orderId) {
+    sendSwal.fire(viewSendOrder).then((e) => {
+      if (e.isConfirmed) {
+        axios
+          .get("/api/send-order/" + orderId + "/" + shipmentCode.code)
+          .then((response) => {
+            if (response.data.status === 200) {
+              Swal.fire(
+                "Berhasil",
+                "status pesanan di ubah ke 'dalam proses pengiriman'",
+                "success"
+              );
+              setLoad(!load);
+            } else {
+              Swal.fire(
+                "Terjadi Kesalahan",
+                "coba beberapa saat lagi",
+                "error"
+              );
+            }
+          })
+          .catch((e) => {
+            Swal.fire("Terjadi Kesalahan", "cek koneksi internet mu", "error");
+          });
+      }
+    });
   }
   let viewOrders = "";
   if (!loading) {
-    console.log(orders);
     viewOrders = Object.values(orders).map((order) => {
       return (
         <tr>
@@ -91,13 +117,13 @@ function NewOrders() {
                 className="mx-2"
                 onClick={(e) => {
                   e.preventDefault();
-                  processOrder(order.detail.order_id);
+                  sendOrder(order.detail.order_id);
                 }}
               >
-                Proses
+                Kirim
               </Button>
               <Button color="danger" className="mx-2">
-                Tolak
+                Batalkan
               </Button>
             </div>
           </td>
@@ -108,7 +134,7 @@ function NewOrders() {
   return (
     <div className="container-fluid">
       {/* <!-- Page Heading --> */}
-      <h1 className="h3 mb-2 text-gray-800">Pesanan Baru</h1>
+      <h1 className="h3 mb-2 text-gray-800">Pesanan Sedang diproses</h1>
       <Row>
         <Col className="sm-12">
           <Table
@@ -135,4 +161,4 @@ function NewOrders() {
     </div>
   );
 }
-export default NewOrders;
+export default OnProcessOrders;

@@ -21,6 +21,8 @@ import UserProfile from "./component/front/UserProfile";
 import Transaction from "./component/front/profile/Transaction";
 import UserAddress from "./component/front/profile/UserAddress";
 import NewOrders from "./component/store/NewOrders";
+import OnProcessOrders from "./component/store/OnProcessOrders";
+import OnDeliveryOrders from "./component/store/OnDeliveryOrders";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -51,6 +53,8 @@ function App() {
             <Route path="add-product" element={<AddProduct />} />
             <Route path="organize-product" element={<OrganizeProduct />} />
             <Route path="new-orders" element={<NewOrders />} />
+            <Route path="onprocess-orders" element={<OnProcessOrders />} />
+            <Route path="ondelivery-orders" element={<OnDeliveryOrders />} />
           </Route>
           <Route path="/profile/" element={<UserRoute Cmp={UserProfile} />}>
             <Route path="transaction" element={<Transaction />} />

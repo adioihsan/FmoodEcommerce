@@ -6,6 +6,8 @@ import {
   faArchive,
   faSign,
   faSignInAlt,
+  faPeopleCarry,
+  faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = () => {
@@ -68,6 +70,19 @@ const Sidebar = () => {
           <span className="ml-2">Pesanan Baru</span>
         </Link>
       </li>
+      <li className="nav-item ">
+        <Link className="nav-link" to="/store/onprocess-orders">
+          <FontAwesomeIcon icon={faPeopleCarry} />
+          <span className="ml-2">Sedang diproses</span>
+        </Link>
+      </li>
+      <li className="nav-item ">
+        <Link className="nav-link" to="/store/ondelivery-orders">
+          <FontAwesomeIcon icon={faShippingFast} />
+          <span className="ml-2">Dalam Pengiriman</span>
+        </Link>
+      </li>
+
       {/* <!-- Nav Item - Pages Collapse Menu --> */}
 
       {/* <!-- Nav Item - Utilities Collapse Menu --> */}
