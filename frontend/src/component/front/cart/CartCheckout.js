@@ -93,9 +93,8 @@ function CartCheckout(props) {
   const selectShipmentCost = function (service, value) {
     let toggleInner = document.querySelector("#drop" + store.storeId);
     toggleInner.innerHTML = service + " (Rp. " + value + " )";
-    props.countTotalCost(store.storeId, value);
+    props.countTotalCost(store.storeId, service, value);
   };
-  const selectPayment = function () {};
   return (
     <div className=" d-flex flex-column border-top border-4">
       <div className="store mt-2 p-1">

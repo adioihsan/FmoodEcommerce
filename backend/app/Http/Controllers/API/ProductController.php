@@ -139,7 +139,7 @@ class ProductController extends Controller
     public function soldCount($product_id){
         $sold =  OrderItem::leftjoin('orders','order_items.order_id','=','orders.id')
         ->where('product_id','=',$product_id)->where('orders.status','delivered')
-        ->orWhere('order.status','reviewed')->sum('order_items.quantity');
+        ->orWhere('orders.status','reviewed')->sum('order_items.quantity');
         return $sold;
     }
     public function getSellPrice($price,$disc_price,$is_discount){

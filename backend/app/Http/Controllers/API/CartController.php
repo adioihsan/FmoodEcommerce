@@ -54,7 +54,8 @@ class CartController extends Controller
         return($cart->save());
     }
 
-    public function getCart($user_id){
+    public function getCart(Request $req){
+        $user_id = $req->user()->id;
         $cart = Cart::leftjoin('products','carts.product_id','=','products.id')
         ->leftJoin('store_profiles','products.user_id','=','store_profiles.user_id')
         ->where('carts.user_id',$user_id)

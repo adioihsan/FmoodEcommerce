@@ -28,8 +28,6 @@ Route::get('get-products/visible',[ProductController::class,'getVisible']);
 Route::get('find-product-by-name',[ProductController::class,'findProductByName']);
 Route::get('test',[ProductController::class,'getStoreProfile']);
 Route::get('get-product-detail/{id}',[ProductController::class,'getProductDetail']);
-Route::get('get-cart/{id}',[CartController::class,'getCart']);
-Route::get('get-user-address/',[UserAddressController::class,'getUserAddress']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -68,5 +66,20 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //get orders
     Route::get('get-orders',[OrderController::class,'getOrders']);
+
+    //create userAddress
+    Route::post('create-user-address',[UserAddressController::class,'CreateUserAddress']);
+
+    //get user cart
+    Route::get('get-cart',[CartController::class,'getCart']);
+
+    //get user adderss
+    Route::get('get-user-address',[UserAddressController::class,'getUserAddress']);
+
+    //get store orders
+    Route::get('get-store-orders/{status}',[OrderController::class,'getStoreOrders']);
+
+    //process order
+    Route::get('process-order/{orderId}',[OrderController::class,'processOrder']);
 });
 

@@ -3,6 +3,7 @@ import { Form, Col, Row, Button, FormGroup, Input, Label } from "reactstrap";
 import provinces from "../../../cache/provinces";
 import cities from "../../../cache/cities";
 import Swal from "sweetalert2";
+import axios from "axios";
 function AddAddress() {
   const [newAddress, setNewAddress] = useState({
     receiver: "",
@@ -12,7 +13,7 @@ function AddAddress() {
     provinceName: "",
     cityId: 0,
     cityName: "",
-
+    zipCode: 0,
     address: "",
   });
   const [load, setLoad] = useState(false);
@@ -67,8 +68,18 @@ function AddAddress() {
   }
   function saveAddress(e) {
     e.preventDefault();
-    console.log(newAddress);
-    Swal.fire("Coba tutup", "iya tutup", "success");
+    axios
+      .post("/api/create-user-address", newAddress)
+      .then((response) => {
+        if (response.data.status === 200) {
+          Swal.fire("Berhasil", "Alamat sudah di tambahkan", "success");
+        } else {
+          Swal.fire("Terjadi Kesalahan", "Coba lagi nanti", "error");
+        }
+      })
+      .catch((e) => {
+        Swal.fire("Terjadi Kesalahan", "Periksa koneksi internet mu", "error");
+      });
   }
   return (
     <div className="text-start p-3">
@@ -125,6 +136,16 @@ function AddAddress() {
           >
             {citiesInProvince};
           </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="phoneNumber">Kode Pos</Label>
+          <Input
+            id="zipCode"
+            name="zipCode"
+            type="number"
+            value={newAddress.zipCode}
+            onChange={inputHandler}
+          />
         </FormGroup>
         <FormGroup>
           <Label for="address">Alamat Lengkap</Label>

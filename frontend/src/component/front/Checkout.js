@@ -15,8 +15,10 @@ import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router";
 // import { faTrashRestoreAlt } from "@fortawesome/free-solid-svg-icons";
 function Checkout() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const checkoutProducts = JSON.parse(
     localStorage.getItem("checkout_products")
@@ -29,7 +31,14 @@ function Checkout() {
     change: 0,
     status: "unpaid",
   });
-  const [userActiveAddress, setUserActiveAddress] = useState({});
+  const [userActiveAddress, setUserActiveAddress] = useState({
+    receiver: "",
+    phone_number: "",
+    address: "",
+    zip_code: "",
+    province: "",
+    city: "",
+  });
   const [groupBystore, setGroupByStore] = useState({});
   const [total, setTotal] = useState({
     totalProduct: 0,
@@ -39,15 +48,30 @@ function Checkout() {
   });
   let viewCheckoutList = "Kamu belum membuat pesanan";
   useEffect(() => {
-    axios.get("/api/get-user-address").then((response) => {
-      setUserAddresses(response.data);
-      setUserActiveAddress(
-        response.data.find((address) => {
-          return address.active === 1;
-        })
-      );
-      setLoading(false);
-    });
+    axios
+      .get("/api/get-user-address")
+      .then((response) => {
+        if (response.data.length !== 0) {
+          setUserAddresses(response.data);
+          setUserActiveAddress(
+            response.data.find((address) => {
+              return address.active === 1;
+            })
+          );
+          setLoading(false);
+        } else {
+          Swal.fire({
+            title: "Kamu belum menambahkan alamat",
+            text: "mengalihkan mu ke profile->alamat",
+            timer: 3000,
+          }).then((e) => {
+            navigate("/profile/address");
+          });
+        }
+      })
+      .catch((e) => {
+        Swal.fire("Terjadi Kesalahan", "Gagal mengambil alamat", "error");
+      });
     axios.get("/api/get-fmood-pay-balance").then((response) => {
       setFmoodPay({ ...fmoodPay, balance: response.data });
     });
@@ -68,6 +92,7 @@ function Checkout() {
             products: [],
             productCost: product.sell_price * product.quantity,
             shipmentCost: 0,
+            shipmentService: "REG",
           };
           groupBystore[product.store_id].products.push(product);
         }
@@ -98,8 +123,9 @@ function Checkout() {
     console.log("no products to cheking out");
   }
 
-  function countTotalCost(storeId, value) {
+  function countTotalCost(storeId, service, value) {
     groupBystore[storeId].shipmentCost = value;
+    groupBystore[storeId].shipmentService = service;
     let shipment = 0;
     Object.values(groupBystore).forEach((data) => {
       shipment += data.shipmentCost;
@@ -222,20 +248,27 @@ function Checkout() {
     }
   }
   function processOrder() {
-    // const orderData = {
-    //   productData: Object.values(groupBystore),
-    //   payment: payment,
-    // };
-    // axios.post("/api/create-order", orderData).then((response) => {
-    //   console.log(response);
-    // });
     Object.values(groupBystore).forEach((data) => {
+      let address =
+        userActiveAddress.receiver +
+        "<br/>" +
+        userActiveAddress.phone_number +
+        " <br/>" +
+        userActiveAddress.address +
+        "<br/>" +
+        userActiveAddress.city +
+        "," +
+        userActiveAddress.zip_code +
+        "<br/>" +
+        userActiveAddress.province;
       let orderData = {
         totalCost: data.productCost + data.shipmentCost,
         shipmentCost: data.shipmentCost,
+        shipmentService: data.shipmentService,
         productCost: data.productCost,
         status: payment.status,
         storeId: data.storeId,
+        userAddress: address,
         products: data.products.map((product) => {
           return { productId: product.product_id, quantity: product.quantity };
         }),

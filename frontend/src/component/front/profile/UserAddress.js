@@ -1,7 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -57,19 +57,18 @@ function UserAddress() {
       <p className="fs-5 fw-bold">Alamat</p>
       <Card>
         <CardBody>
+          <div className="d-flex flex-row-reverse my-2">
+            <Button
+              className="orange-button"
+              onClick={(e) => {
+                e.preventDefault();
+                addAddress();
+              }}
+            >
+              Tambah Alamat
+            </Button>
+          </div>
           {viewAddresses}
-          <Card
-            className="orange-button outline"
-            onClick={(e) => {
-              addAddress();
-            }}
-          >
-            <CardBody className="d-flex justify-content-center align-items-center">
-              <span className="fs-4">
-                <FontAwesomeIcon icon={faPlus} /> Tambah Alamat
-              </span>
-            </CardBody>
-          </Card>
         </CardBody>
       </Card>
     </div>

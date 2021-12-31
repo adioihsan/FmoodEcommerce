@@ -4,6 +4,8 @@ import {
   faTachometerAlt,
   faStore,
   faArchive,
+  faSign,
+  faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = () => {
@@ -57,6 +59,13 @@ const Sidebar = () => {
         <Link className="nav-link" to="/store/organize-product">
           <FontAwesomeIcon icon={faArchive} />
           <span className="ml-2">Kelola Produk</span>
+        </Link>
+      </li>
+      <div className="sidebar-heading">Pesanan</div>
+      <li className="nav-item ">
+        <Link className="nav-link" to="/store/new-orders">
+          <FontAwesomeIcon icon={faSignInAlt} />
+          <span className="ml-2">Pesanan Baru</span>
         </Link>
       </li>
       {/* <!-- Nav Item - Pages Collapse Menu --> */}
