@@ -1,4 +1,4 @@
-const Cities = [
+const cities = [
   {
     city_id: "1",
     province_id: "21",
@@ -4008,4 +4008,4 @@ const Cities = [
     postal_code: "55111",
   },
 ];
-export default Cities;
+export default cities;

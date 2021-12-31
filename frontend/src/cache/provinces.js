@@ -1,4 +1,4 @@
-const Provinces = [
+const provinces = [
   {
     province_id: "1",
     province: "Bali",
@@ -136,4 +136,4 @@ const Provinces = [
     province: "Sumatera Utara",
   },
 ];
-export default Provinces;
+export default provinces;
