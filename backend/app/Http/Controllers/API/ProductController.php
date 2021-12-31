@@ -138,7 +138,8 @@ class ProductController extends Controller
     }
     public function soldCount($product_id){
         $sold =  OrderItem::leftjoin('orders','order_items.order_id','=','orders.id')
-        ->where('product_id','=',$product_id)->where('orders.status','delivered')->sum('order_items.quantity');
+        ->where('product_id','=',$product_id)->where('orders.status','delivered')
+        ->orWhere('order.status','reviewed')->sum('order_items.quantity');
         return $sold;
     }
     public function getSellPrice($price,$disc_price,$is_discount){
@@ -172,5 +173,8 @@ class ProductController extends Controller
     }
     public function getStoreProfile($user_id){
         return StoreProfile::where("user_id",$user_id)->first();
+    }
+    public static function getProductById($id){
+        return Product::where("id",$id)->select("id","name","img_main","price","discount_price","discount")->first();
     }
 }

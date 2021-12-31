@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\StoreProfileController;
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -16,7 +18,9 @@ class OrderController extends Controller
         $order->user_id = $req->user()->id;
         $order->total_cost = $req->totalCost;
         $order->shipment_cost = $req->shipmentCost;
+        $order->product_cost = $req->productCost;
         $order->status = $req->status;
+        $order->store_id = $req->storeId;
         $order->payment_id = 0;
         if($order->save()){
             $order_id = $order->id;
@@ -32,5 +36,35 @@ class OrderController extends Controller
         else{
             return response()->json(["status"=>500,"order_id"=>"0","message"=>"internal server error"]);
         }
+    }
+    public function getOrders(Request $req){
+        $user_id = $req->user()->id;
+        $order =  Order::leftjoin("order_items","orders.id","=","order_items.order_id")
+        ->where("user_id",$user_id)->get();
+        $groupByOrderId = $this->group_order_by("order_id",$order->toArray());
+        $store = StoreProfileController::getStoreById(4);
+        return $groupByOrderId;
+
+    }
+    function group_order_by($key, $data) {
+        $result = array();
+        foreach($data as $val) {
+            if(array_key_exists($key, $val)){
+                $product = $result[$val[$key]]["products"][] = ProductController::getProductById($val['product_id']);
+                $product["quantity"] = $val['quantity'];
+                if(!array_key_exists("store",$result[$val[$key]]))
+                    $result[$val[$key]]["store"] = StoreProfileController::getStoreById($val['store_id']);
+                    $result[$val[$key]]["detail"] = ["order_id"=>$val['order_id'],"total_cost"=>$val['total_cost'],"shipment_cost"=>$val['shipment_cost'],
+                    "product_cost"=>$val['product_cost'],"status"=>$val['status'],"required_date"=>$val['required_date'],
+                    "shipped_date"=>$val['shipped_date'],"created_at"=>$val['updated_at'],"updated_at"=>$val['updated_at'],
+        ];
+            }else{
+                $product = $result[""]["products"][] = ProductController::getProductById($val['product_id']);
+                $product["quantity"] = $val['quantity'];
+              
+            }
+        }
+    
+        return $result;
     }
 }

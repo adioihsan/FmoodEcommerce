@@ -233,7 +233,9 @@ function Checkout() {
       let orderData = {
         totalCost: data.productCost + data.shipmentCost,
         shipmentCost: data.shipmentCost,
+        productCost: data.productCost,
         status: payment.status,
+        storeId: data.storeId,
         products: data.products.map((product) => {
           return { productId: product.product_id, quantity: product.quantity };
         }),

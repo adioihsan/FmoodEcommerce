@@ -1,6 +1,6 @@
-import Checkout from "./Checkout";
+import Transaction from "./Transaction";
 
 function TestPage() {
-  return <Checkout />;
+  return <Transaction />;
 }
 export default TestPage;
