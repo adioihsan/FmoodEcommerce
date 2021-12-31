@@ -235,11 +235,18 @@ function MainNavbar() {
               </Link>
             </InputGroupText>
           </InputGroup>
-          <FontAwesomeIcon
-            icon={faShoppingCart}
-            style={{ color: "gray", cursor: "pointer" }}
-            className="mx-3"
-          />
+          <Link
+            to={{
+              pathname: "/cart",
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faShoppingCart}
+              style={{ color: "gray", cursor: "pointer" }}
+              className="mx-3 pe-none"
+            />
+          </Link>
+
           <span className="vertical-divider">&nbsp; </span>
           {LoginComp()}
         </Collapse>
