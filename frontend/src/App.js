@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import MainStore from "./layout/store/Main";
 import Dashboard from "./component/store/Dashboard";
-import Profile from "./component/store/Profile";
+import StoreProfile from "./component/store/StoreProfile";
 import Home from "./component/front/Home";
 import Login from "./component/front/auth/Login";
 import Register from "./component/front/auth/Register";
@@ -17,6 +17,9 @@ import ProductDetail from "./component/front/ProductDetail";
 import UserRoute from "./routes/UserRoute";
 import Cart from "./component/front/Cart";
 import Checkout from "./component/front/Checkout";
+import UserProfile from "./component/front/UserProfile";
+import Transaction from "./component/front/profile/Transaction";
+import UserAddress from "./component/front/profile/UserAddress";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -43,9 +46,13 @@ function App() {
           <Route path="/checkout" element={<UserRoute Cmp={Checkout} />} />
           <Route path="/store" element={<StoreRoute Cmp={Store} />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={<StoreProfile />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="organize-product" element={<OrganizeProduct />} />
+          </Route>
+          <Route path="/profile/" element={<UserRoute Cmp={UserProfile} />}>
+            <Route path="transaction" element={<Transaction />} />
+            <Route path="address" element={<UserAddress />} />
           </Route>
         </Routes>
       </Router>
