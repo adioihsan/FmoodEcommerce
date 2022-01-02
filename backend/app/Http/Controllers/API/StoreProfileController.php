@@ -12,4 +12,9 @@ class StoreProfileController extends Controller
         $storeProfile = StoreProfile::where("user_id",$id)->first();
         return $storeProfile;
     }
+    public function getStoreProfile(Request $req){
+        $user_id = $req->user()->id;
+        $storeProfile = StoreProfile::where("user_id",$user_id)->first();
+        return $storeProfile;
+    }
 }

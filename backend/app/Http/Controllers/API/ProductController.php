@@ -101,6 +101,69 @@ class ProductController extends Controller
         ]);
     }
 
+    public function getNewProducts(){
+      $data=[];
+       $products = Product::where('hide',0)->orderByDesc("id")->limit(5)->get();
+       foreach($products as $item){
+        $product = array(
+            'id'=>$item->id,'name'=>$item->name,
+            'img_main'=>$item->img_main,
+            'real_price'=>$item->price,
+            'sell_price'=>$this->getSellPrice($item->price,$item->discount_price,$item->discount),
+            'is_discount'=>$item->discount,
+            'discount_price'=>$item->discount_price,
+            'discount_percent'=>$this->countPercent($item->price,$item->discount_price,$item->discount),
+            'origin'=>'Padang',
+            'rating'=>$this->getRating($item->id),
+            'sold'=>$this->soldCount($item->id),
+        );
+        array_push($data,$product);
+    };
+       return $data;
+    }
+
+    public function getDiscountProducts(){
+        $data=[];
+         $products = Product::where('hide',0)->where("discount",1)->orderBy("id")->limit(5)->get();
+         foreach($products as $item){
+          $product = array(
+              'id'=>$item->id,'name'=>$item->name,
+              'img_main'=>$item->img_main,
+              'real_price'=>$item->price,
+              'sell_price'=>$this->getSellPrice($item->price,$item->discount_price,$item->discount),
+              'is_discount'=>$item->discount,
+              'discount_price'=>$item->discount_price,
+              'discount_percent'=>$this->countPercent($item->price,$item->discount_price,$item->discount),
+              'origin'=>'Padang',
+              'rating'=>$this->getRating($item->id),
+              'sold'=>$this->soldCount($item->id),
+          );
+          array_push($data,$product);
+      };
+         return $data;
+      }
+
+      public function getCheapProducts(){
+        $data=[];
+         $products = Product::where('hide',0)->orderBy("price")->limit(5)->get();
+         foreach($products as $item){
+          $product = array(
+              'id'=>$item->id,'name'=>$item->name,
+              'img_main'=>$item->img_main,
+              'real_price'=>$item->price,
+              'sell_price'=>$this->getSellPrice($item->price,$item->discount_price,$item->discount),
+              'is_discount'=>$item->discount,
+              'discount_price'=>$item->discount_price,
+              'discount_percent'=>$this->countPercent($item->price,$item->discount_price,$item->discount),
+              'origin'=>'Padang',
+              'rating'=>$this->getRating($item->id),
+              'sold'=>$this->soldCount($item->id),
+          );
+          array_push($data,$product);
+      };
+         return $data;
+      }
+
     public function findProductByName(Request $req){
         $keyword = $req->input('keyword');
         $products = Product::where('hide',0)->where('name','like','%'.$keyword.'%')->paginate(8);
@@ -128,6 +191,9 @@ class ProductController extends Controller
         
         return response()->json(["status"=>200,"pagination"=>$pagination,"products"=>$data]);
     }
+
+
+
     public function getRating($product_id){
         $rating = ProductReview::where('product_id',$product_id)->avg('rating');
         return round($rating,1);

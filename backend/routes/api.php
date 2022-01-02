@@ -7,6 +7,7 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserAddressController;
+use App\Http\Controllers\API\StoreProfileController;
 use App\Http\Controllers\API\FmoodPayController;
 use App\Http\Controllers\API\RajaOngkir;
 use App\Http\Controllers\API\OrderController;
@@ -25,8 +26,10 @@ Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 Route::get('get-products/all/{user_id}',[ProductController::class,'getAll']);
 Route::get('get-products/visible',[ProductController::class,'getVisible']);
+Route::get('get-new-products',[ProductController::class,'getNewProducts']);
+Route::get('get-discount-products',[ProductController::class,'getDiscountProducts']);
+Route::get('get-cheap-products',[ProductController::class,'getCheapProducts']);
 Route::get('find-product-by-name',[ProductController::class,'findProductByName']);
-Route::get('test',[ProductController::class,'getStoreProfile']);
 Route::get('get-product-detail/{id}',[ProductController::class,'getProductDetail']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -42,12 +45,16 @@ Route::middleware('auth:sanctum')->group(function(){
     });
     Route::post('logout',[AuthController::class,'logout']);
 
+
     // Categories, add to seperate auth group later !
     Route::get('category',[CategoryController::class,'getCategories']);
     Route::get('subcategory/{parent_id}',[CategoryController::class,'getSubCategories']);
 
     // Products add to seperate auth group later !
     Route::post('add-product',[ProductController::class,'add']);
+
+    // get store profile
+    Route::get('get-store-profile',[StoreProfileController::class,'getStoreProfile']);
 
     //add to cart only for login user
     Route::post('add-cart',[CartController::class,'addCart']);
