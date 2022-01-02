@@ -15,7 +15,9 @@ import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import AddAddress from "./profile/AddAddress";
+import LoadingPage from "./LoadingPage";
 import Footer from "../../layout/front/Footer";
 // import { faTrashRestoreAlt } from "@fortawesome/free-solid-svg-icons";
 function Checkout() {
@@ -47,6 +49,7 @@ function Checkout() {
     totalShipment: 0,
     totalCost: 0,
   });
+  const addAddressSwal = withReactContent(Swal);
   let viewCheckoutList = "Kamu belum membuat pesanan";
   useEffect(() => {
     axios
@@ -61,13 +64,25 @@ function Checkout() {
           );
           setLoading(false);
         } else {
-          Swal.fire({
-            title: "Kamu belum menambahkan alamat",
-            text: "mengalihkan mu ke profile->alamat",
-            timer: 3000,
-          }).then((e) => {
-            navigate("/profile/address");
-          });
+          addAddressSwal
+            .fire({
+              title: (
+                <div>
+                  <span className="fs-5 text-orange">
+                    Yaah, kamu belum punya alamat untuk checkout
+                  </span>
+                  <br />
+                  <span className="fs-6">
+                    Isi form dibawah untuk menambahkan alamat
+                  </span>
+                </div>
+              ),
+              html: <AddAddress />,
+              showConfirmButton: false,
+            })
+            .then((e) => {
+              window.location.reload();
+            });
         }
       })
       .catch((e) => {
@@ -121,7 +136,7 @@ function Checkout() {
       );
     });
   } else {
-    console.log("no products to cheking out");
+    return <LoadingPage />;
   }
 
   function countTotalCost(storeId, service, value) {
@@ -282,7 +297,9 @@ function Checkout() {
               "Pembayaran Berhasil",
               "Mengalihkan mu ke halaman pemesanan",
               "success"
-            );
+            ).then((e) => {
+              window.location.href = "/profile/transaction";
+            });
           } else {
             Swal.fire(
               "Terjadi kesalahan",

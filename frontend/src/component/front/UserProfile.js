@@ -4,6 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 import ProfileSidebar from "../../layout/front/profile/ProfileSidebar";
 import Footer from "../../layout/front/Footer";
 function UserProfile() {
+  console.log(window.history.state.prevUrl);
   return (
     <div className="position-relative  lh-base">
       <MainNavbar />

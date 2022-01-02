@@ -11,7 +11,6 @@ class CartController extends Controller
 {
     public function addCart(Request $req){
         $validator = Validator::make($req->all(),[
-            'userId'=>'required',
             'productId'=>'required',
             'quantity'=>'required|min:1',
             'note'=>'max:254',
@@ -20,7 +19,7 @@ class CartController extends Controller
             return response()->json(['status'=>422,'errors'=>$validator->messages()]);
         }else{
             $cart = new Cart;
-            $cart->user_id = $req->input('userId');
+            $cart->user_id = $req->user()->id;
             $cart->product_id = $req->input('productId');
             $cart->quantity = $req->input('quantity');
             $cart->sell_price = $req->input('sellPrice');

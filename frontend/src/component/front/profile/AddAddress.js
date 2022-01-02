@@ -72,7 +72,15 @@ function AddAddress() {
       .post("/api/create-user-address", newAddress)
       .then((response) => {
         if (response.data.status === 200) {
-          Swal.fire("Berhasil", "Alamat sudah di tambahkan", "success");
+          Swal.fire("Berhasil", "Alamat sudah di tambahkan", "success").then(
+            (e) => {
+              if (e.isConfirmed) {
+                window.location.reload();
+              } else {
+                window.location.reload();
+              }
+            }
+          );
         } else {
           Swal.fire("Terjadi Kesalahan", "Coba lagi nanti", "error");
         }
@@ -82,7 +90,7 @@ function AddAddress() {
       });
   }
   return (
-    <div className="text-start p-3">
+    <div className="text-start px-3">
       <Form>
         <FormGroup>
           <Label for="receciver">Nama Penerima</Label>
