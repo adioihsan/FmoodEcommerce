@@ -16,6 +16,7 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router";
+import Footer from "../../layout/front/Footer";
 // import { faTrashRestoreAlt } from "@fortawesome/free-solid-svg-icons";
 function Checkout() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function Checkout() {
     localStorage.getItem("checkout_products")
   );
   const [userAddresses, setUserAddresses] = useState([]);
-  const [fmoodPay, setFmoodPay] = useState({ balance: 0 });
+  const [fmoodPay, setFmoodPay] = useState({ balance: 7890000 });
   const [payment, setPayment] = useState({
     method: "",
     totalCost: 0,
@@ -356,6 +357,7 @@ function Checkout() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 }

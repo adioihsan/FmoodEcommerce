@@ -6,6 +6,7 @@ import LoadingPage from "../front/LoadingPage";
 import axios from "axios";
 import ProductCard from "../front/product/ProductCard";
 import { useLocation } from "react-router-dom";
+import Footer from "../../layout/front/Footer";
 function Find() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -79,6 +80,7 @@ function Find() {
           <Col sm="9">{productsView()}</Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 }

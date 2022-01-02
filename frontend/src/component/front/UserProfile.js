@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import MainNavbar from "../../layout/front/MainNavbar";
 import { Container, Row, Col } from "reactstrap";
 import ProfileSidebar from "../../layout/front/profile/ProfileSidebar";
+import Footer from "../../layout/front/Footer";
 function UserProfile() {
   return (
     <div className="position-relative  lh-base">
@@ -16,6 +17,7 @@ function UserProfile() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 }

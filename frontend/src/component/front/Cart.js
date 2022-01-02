@@ -16,6 +16,7 @@ import MainNavbar from "../../layout/front/MainNavbar";
 import Swal from "sweetalert2";
 import LoadingPage from "./LoadingPage";
 import { useNavigate } from "react-router";
+import Footer from "../../layout/front/Footer";
 function Cart() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -145,6 +146,7 @@ function Cart() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 }

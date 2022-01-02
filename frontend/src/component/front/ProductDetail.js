@@ -35,6 +35,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useParams } from "react-router";
+import Footer from "../../layout/front/Footer";
 function ProductDetail() {
   const [activeTabDetail, setActiveTabDetail] = useState("1");
   const [loading, setLoading] = useState([]);
@@ -338,13 +339,13 @@ function ProductDetail() {
                             height="64px"
                             alt="store"
                           />
-                          <p className="fw-bold mb-1 mx-3 ">
-                            {store.name}
-                            <span className="text-success mt-2">
+                          <div className="d-flex flex-column">
+                            <p className="fw-bold my-0 mx-2">{store.name}</p>
+                            <p className="text-success my-0 mx-2">
                               {" "}
                               <FontAwesomeIcon icon={faDotCircle} /> Online
-                            </span>
-                          </p>
+                            </p>
+                          </div>
                         </div>
                         <Button className="align-self-center orange-button">
                           <FontAwesomeIcon icon={faComments} /> Chat
@@ -448,6 +449,7 @@ function ProductDetail() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 }

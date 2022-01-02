@@ -25,11 +25,19 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 function MainNavbar() {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
+  const [storeProfile, setStoreProfile] = useState({
+    user_id: 0,
+    name: "",
+    city: "",
+    province: "",
+    address: "",
+    img_store: "",
+  });
   const [searchKeyword, setSearchKeyword] = useState("");
   const userToggle = () => {
     setIsUserOpen((prevState) => !prevState);
@@ -41,6 +49,13 @@ function MainNavbar() {
   function handleInput(e) {
     setSearchKeyword(e.target.value);
   }
+  useEffect(() => {
+    axios.get("api/get-store-profile").then((response) => {
+      if (response.status === 200) {
+        setStoreProfile(response.data);
+      }
+    });
+  }, []);
   const LoginComp = () => {
     let isLogin = localStorage.getItem("auth_token");
     if (isLogin) {
