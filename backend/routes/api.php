@@ -53,6 +53,9 @@ Route::middleware('auth:sanctum')->group(function(){
     // Products add to seperate auth group later !
     Route::post('add-product',[ProductController::class,'add']);
 
+    //create store profile
+    Route::post('create-store-profile',[StoreProfileController::class,'createStoreProfile']);
+
     // get store profile
     Route::get('get-store-profile',[StoreProfileController::class,'getStoreProfile']);
 

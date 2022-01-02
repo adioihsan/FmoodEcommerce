@@ -24,21 +24,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FormOpenStore from "../../component/store/forms/FormOpenStore";
 function MainNavbar() {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
-  const [storeProfile, setStoreProfile] = useState({
-    user_id: 0,
-    name: "",
-    city: "",
-    province: "",
-    address: "",
-    img_store: "",
-  });
+  const [storeProfile, setStoreProfile] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
+  const openStoreSwall = withReactContent(Swal);
   const userToggle = () => {
     setIsUserOpen((prevState) => !prevState);
   };
@@ -56,51 +52,75 @@ function MainNavbar() {
       }
     });
   }, []);
+  const openStoreForm = () => {
+    openStoreSwall.fire({
+      title: (
+        <h5 className="text-orange">
+          Lengkapi Data Toko mu dan Mulai Berjualan
+        </h5>
+      ),
+      html: <FormOpenStore />,
+      showConfirmButton: false,
+    });
+  };
   const LoginComp = () => {
     let isLogin = localStorage.getItem("auth_token");
     if (isLogin) {
       return (
         <>
           {/* Store button dropdown */}
-          <Dropdown
-            isOpen={isStoreOpen}
-            onMouseEnter={() => {
-              storeToggle();
-            }}
-            onMouseLeave={() => {
-              storeToggle();
-            }}
-            toggle={() => {}}
-            className="mx-3"
-          >
-            <DropdownToggle data-toggle="dropdown" tag="span">
-              <div className="d-flex justify-content-center align-items-center">
-                <img
-                  src="/store-default.png"
-                  className="user-image-2"
-                  alt="store"
-                />
-                <span className="user-name">Toko</span>
-              </div>
-            </DropdownToggle>
-            <DropdownMenu className="user-dropdown-menu bg-light shadow">
-              <div className="bg-light shadow-sm p-3 w-100">
-                <img
-                  src="/store-default.png"
-                  className="user-image-3 rounded float-start"
-                  alt="user"
-                />{" "}
-                <small>Nama Toko</small>
-                <br />
-                <a href="/store">
-                  <Button size="sm" className="nav-button mt-1">
-                    <FontAwesomeIcon icon={faTachometerAlt} /> Buka Dashboard
-                  </Button>
-                </a>
-              </div>
-              <DropdownItem></DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+          {storeProfile === "" ? (
+            <Button
+              className="orange-button outline mx-3 "
+              size="sm"
+              style={{ width: "11rem" }}
+              onClick={(e) => {
+                openStoreForm();
+              }}
+            >
+              Buka Toko
+            </Button>
+          ) : (
+            <Dropdown
+              isOpen={isStoreOpen}
+              onMouseEnter={() => {
+                storeToggle();
+              }}
+              onMouseLeave={() => {
+                storeToggle();
+              }}
+              toggle={() => {}}
+              className="mx-3"
+            >
+              <DropdownToggle data-toggle="dropdown" tag="span">
+                <div className="d-flex justify-content-center align-items-center">
+                  <img
+                    src="/store-default.png"
+                    className="user-image-2"
+                    alt="store"
+                  />
+                  <span className="user-name">Toko</span>
+                </div>
+              </DropdownToggle>
+              <DropdownMenu className="user-dropdown-menu bg-light shadow">
+                <div className="bg-light shadow-sm p-3 w-100">
+                  <img
+                    src="/store-default.png"
+                    className="user-image-3 rounded float-start"
+                    alt="user"
+                  />{" "}
+                  <small>{storeProfile.name}</small>
+                  <br />
+                  <a href="/store">
+                    <Button size="sm" className="nav-button mt-1">
+                      <FontAwesomeIcon icon={faTachometerAlt} /> Buka Dashboard
+                    </Button>
+                  </a>
+                </div>
+                <DropdownItem></DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          )}
 
           {/* User button dropdown */}
           <Dropdown
