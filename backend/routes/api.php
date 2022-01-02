@@ -97,6 +97,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //order delivered
     Route::get('delivered-order/{orderId}',[OrderController::class,'deliveredOrder']);
+
+    //cancel delivered
+    Route::put('cancel-order/{orderId}',[OrderController::class,'cancelOrder']);
 });
 
 

@@ -119,7 +119,39 @@ function CartTransaction(props) {
           });
         }
       });
-    console.log(props);
+  }
+  function cancelOrder() {
+    Swal.fire({
+      title: "Batalkan Pesanan",
+      text: "Yakin akan membatalkan pesanan ?",
+      icon: "question",
+      showCancelButton: true,
+    }).then((e) => {
+      if (e.isConfirmed) {
+        axios
+          .put("/api/cancel-order/" + props.detail.order_id)
+          .then((response) => {
+            if (response.data.status === 200) {
+              Swal.fire(
+                "Berhasil",
+                "Pesanan berhasil di batalkan",
+                "info"
+              ).then((e) => {
+                window.location.reload();
+              });
+            } else {
+              Swal.fire(
+                "Terjadi Kesalahan",
+                "coba beberapa saat lagi",
+                "error"
+              );
+            }
+          })
+          .catch((e) => {
+            Swal.fire("Terjadi Kesalahan", "cek koneksi internet mu", "error");
+          });
+      }
+    });
   }
   function createStatusMessage() {
     switch (props.detail.status) {
@@ -127,7 +159,7 @@ function CartTransaction(props) {
         setStatus({
           badge: <Badge color="secondary">Menuggu Respon</Badge>,
           button: (
-            <Button color="secondary" size="sm">
+            <Button color="secondary" size="sm" onClick={(e) => cancelOrder()}>
               <FontAwesomeIcon icon={faExclamation} /> Batalkan pesanan
             </Button>
           ),
@@ -207,6 +239,7 @@ function CartTransaction(props) {
         break;
     }
   }
+
   const viewProducts = props.products.map((product, index) => {
     return (
       <div key={product.id} className="mt-1 border-bottom border-1 pb-3">

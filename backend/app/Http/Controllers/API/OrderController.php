@@ -128,4 +128,13 @@ class OrderController extends Controller
             return response()->json(["status"=>500,"message"=>"failed"]);
         }
     }
+    public function cancelOrder($orderId){
+        $order = Order::find($orderId);
+        $order->status = "cancelled";
+        if($order->save()){
+            return response()->json(["status"=>200,"message"=>"success"]);
+        }else{
+            return response()->json(["status"=>500,"message"=>"failed"]);
+        }
+    }
 }
