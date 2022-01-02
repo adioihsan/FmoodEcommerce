@@ -25,7 +25,7 @@ function Register() {
     email: "",
     password: "",
     repassword: "",
-    error_list: {},
+    error_list: { name: "", email: "", password: "", repassword: "" },
   });
 
   const handleInput = (e) => {
@@ -39,6 +39,7 @@ function Register() {
       name: registerInput.name,
       email: registerInput.email,
       password: registerInput.password,
+      repassword: registerInput.repassword,
     };
     axios.get("/sanctum/csrf-cookie").then((response) => {
       axios.post(`/api/register`, userdata).then((res) => {
@@ -135,9 +136,13 @@ function Register() {
                     type="password"
                     onChange={handleInput}
                     value={registerInput.repassword}
+                    invalid={registerInput.error_list.repassword}
                     required
                   />
-                  <Label for="examplePassword">Ulangi Password</Label>
+                  <FormFeedback>
+                    {registerInput.error_list.repassword}
+                  </FormFeedback>
+                  <Label for="rePassword">Ulangi Password</Label>
                 </FormGroup>{" "}
                 <Button block className="orange-button mt-4">
                   Daftar

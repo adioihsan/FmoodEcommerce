@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\FmoodPayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -12,9 +13,10 @@ class AuthController extends Controller
 {
     public function register(Request $req){
         $validator = Validator::make($req->all(),[
-            'name'=>'required|min:5',
-            'email'=>'required|email|max:191|unique:users,email',
-            'password'=>'required|min:8',
+            'name' => ['required', 'string', 'max:20','min:5'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'password' => ['required','string', 'min:8'],
+            'repassword' =>['required_with:password','same:password'],
         ]);
         if($validator->fails()){
             return response()->json([
@@ -28,12 +30,13 @@ class AuthController extends Controller
                 'password'=>Hash::make($req->password)
             ]);
             $token = $user->createToken($user->email, ['server:update'])->plainTextToken;
-
+            $fmoodpay = FmoodPayController::createFmoodPay($user->id);
             return response()->json([
                 'status'=>200,
                 'username'=>$user->name,
                 'token'=> $token,
-                'message'=>'Registered Successfully'
+                'message'=>'Registered Successfully',
+                'fmoodpay'=>$fmoodpay,
             ]);
         }
     }
