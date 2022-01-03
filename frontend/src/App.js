@@ -23,6 +23,7 @@ import UserAddress from "./component/front/profile/UserAddress";
 import NewOrders from "./component/store/NewOrders";
 import OnProcessOrders from "./component/store/OnProcessOrders";
 import OnDeliveryOrders from "./component/store/OnDeliveryOrders";
+import SuccessOrders from "./component/store/SuccessOrders";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -55,6 +56,7 @@ function App() {
             <Route path="new-orders" element={<NewOrders />} />
             <Route path="onprocess-orders" element={<OnProcessOrders />} />
             <Route path="ondelivery-orders" element={<OnDeliveryOrders />} />
+            <Route path="success-orders" element={<SuccessOrders />} />
           </Route>
           <Route path="/profile/" element={<UserRoute Cmp={UserProfile} />}>
             <Route path="transaction" element={<Transaction />} />

@@ -8,6 +8,7 @@ import {
   faSignInAlt,
   faPeopleCarry,
   faShippingFast,
+  faBoxOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = () => {
@@ -80,6 +81,12 @@ const Sidebar = () => {
         <Link className="nav-link" to="/store/ondelivery-orders">
           <FontAwesomeIcon icon={faShippingFast} />
           <span className="ml-2">Dalam Pengiriman</span>
+        </Link>
+      </li>
+      <li className="nav-item ">
+        <Link className="nav-link" to="/store/success-orders">
+          <FontAwesomeIcon icon={faBoxOpen} />
+          <span className="ml-2">Pesanan Selesai</span>
         </Link>
       </li>
 

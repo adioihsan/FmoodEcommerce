@@ -7,15 +7,22 @@ function ProductCard(props) {
   return (
     <Link to={{ pathname: "/product-detail/" + data.id }}>
       <Card
-        style={{ minHeight: "360px", width: "200px", fontSize: "0.9rem" }}
+        style={{
+          height: "380px",
+          width: "200px",
+          fontSize: "0.9rem",
+        }}
         className="shadow-sm my-2 mx-2"
       >
-        <CardImg src={serverUrls.storage + "/" + data.img_main} />
+        <CardImg
+          src={serverUrls.storage + "/" + data.img_main}
+          style={{ maxHeight: "195px" }}
+        />
         <CardBody className="py-2 px-2 ">
-          <div className="d-flex flex-column justify-content-around h-100">
+          <div className="d-flex flex-column h-100">
             <span id="pruduct-name">
-              {data.name.slice(0, 50)}
-              {data.name.length > 50 ? "..." : ""}
+              {data.name.slice(0, 40).toLowerCase()}
+              {data.name.length > 40 ? "..." : ""}
             </span>
             <span className="fw-bold my-1">Rp. {data.sell_price}</span>
             <div
