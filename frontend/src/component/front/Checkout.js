@@ -135,6 +135,15 @@ function Checkout() {
         />
       );
     });
+  } else if (Object.values(groupBystore).length === 0) {
+    Swal.fire({
+      title: "Belum ada produk",
+      text: "yuk belanja dulu",
+      icon: "info",
+      backdrop: "#fff",
+    }).then((e) => {
+      window.location.href = "/";
+    });
   } else {
     return <LoadingPage />;
   }

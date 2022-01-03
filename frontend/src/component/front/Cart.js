@@ -52,6 +52,15 @@ function Cart() {
   };
   if (loading) {
     return <LoadingPage />;
+  } else if (viewCartList.length === 0) {
+    Swal.fire({
+      title: "Keranjang Kosong",
+      text: "yuk belanja dulu",
+      icon: "info",
+      backdrop: "#fff",
+    }).then((e) => {
+      window.location.href = "/";
+    });
   } else {
     const arrCarts = Object.values(carts);
     viewCartList = arrCarts.map((cart) => {
