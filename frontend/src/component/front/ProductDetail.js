@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import serverUrls from "../../serverUrls";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import ReactPlayer from "react-player";
 import {
   faCartPlus,
   faComments,
@@ -81,8 +82,19 @@ function ProductDetail() {
     if (product.img_other) arrImages.push(product.img_other);
     return (
       <Carousel showIndicators={false}>
-        {arrImages.map((image) => {
+        {arrImages.map((image, index) => {
           if (image !== null) {
+            return (
+              <div>
+                <img
+                  src={serverUrls.storage + "/" + image}
+                  alt="p1"
+                  className="rounded"
+                  style={{ maxHeight: "400px" }}
+                ></img>
+              </div>
+            );
+          } else {
             return (
               <div>
                 <img
@@ -92,20 +104,42 @@ function ProductDetail() {
                 ></img>
               </div>
             );
-          } else {
-            return (
-              <div>
-                <img
-                  src={"/images/no-images.png"}
-                  alt="p1"
-                  className="rounded"
-                ></img>
-              </div>
-            );
           }
         })}
+        {showVideo()}
       </Carousel>
     );
+  }
+  // show video if its available
+  function showVideo() {
+    if (product.video !== null) {
+      return (
+        <div className="position-relative" style={{ maxHeight: "300px" }}>
+          <ReactPlayer
+            url={serverUrls.storage + "/" + product.video}
+            controls={true}
+            width="100%"
+            className="position-absolute top-0"
+          />
+          <img
+            src={"/images/video-placeholder-2.png"}
+            alt="p1"
+            className="rounded"
+          ></img>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <img
+            src={serverUrls.storage + "/" + product.img_main}
+            alt="p1"
+            className="rounded"
+            style={{ maxHeight: "400px" }}
+          ></img>
+        </div>
+      );
+    }
   }
   function addQuantity() {
     if (cartForm.quantity < product.stock) {
