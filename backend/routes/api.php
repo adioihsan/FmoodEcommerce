@@ -32,6 +32,7 @@ Route::get('get-discount-products',[ProductController::class,'getDiscountProduct
 Route::get('get-cheap-products',[ProductController::class,'getCheapProducts']);
 Route::get('find-product-by-name',[ProductController::class,'findProductByName']);
 Route::get('get-product-detail/{id}',[ProductController::class,'getProductDetail']);
+Route::get('get-reviews/{product_id}',[ProductReviewController::class,'getReviews']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

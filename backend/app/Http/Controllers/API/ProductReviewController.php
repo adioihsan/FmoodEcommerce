@@ -23,4 +23,17 @@ class ProductReviewController extends Controller
             return response()->json(["status"=>500,"message"=>"failed"]);
         }
     }
+    public function getReviews($product_id){
+        $productReview = new ProductReview;
+        $results = $productReview::leftjoin('users','users.id','=','product_reviews.user_id')->where('product_id',$product_id)->paginate(15);
+        $pagination=[];
+        data_fill($pagination,'current_page',$results->currentPage());
+        data_fill($pagination,'last_page',$results->lastPage());
+        data_fill($pagination,'total',$results->total());
+        if(sizeof($results) !=0){
+            return response()->json(["status"=>200,"data"=>$results->items(),"pagination"=>$pagination]);
+        }else{
+            return response()->json(["status"=>204,"message"=>'No Content']);
+        }
+    }
 }
