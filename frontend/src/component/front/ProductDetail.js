@@ -59,6 +59,7 @@ function ProductDetail() {
     axios.get("/api/get-product-detail/" + params.id).then((res) => {
       if (res.data.status === 200) {
         setProduct(res.data.product);
+        console.log(res.data.product);
         setStore(res.data.store);
         const getUserId = localStorage.getItem("auth_id");
         setCartForm({
@@ -280,7 +281,7 @@ function ProductDetail() {
                 <div className="d-flex justify-content-start align-items-center text-secondary">
                   <span>
                     {" "}
-                    Terjual<span id="sold"> 1500 </span>
+                    Terjual<span id="sold"> {product.sold} </span>
                   </span>
                   <span className="mx-1">|</span>
                   <img
@@ -290,11 +291,11 @@ function ProductDetail() {
                     className="float-start mx-1"
                     alt="rating: "
                   />{" "}
-                  <span id="rating"> 4.5</span>
+                  <span id="rating"> {product.rating}</span>
                   <span className="mx-1">|</span>
                   <span>
                     {" "}
-                    Diskusi<span id="sold"> (7) </span>
+                    Penilaian<span id="sold"> {product.reviews}</span>
                   </span>
                 </div>
                 <div id="price " className="fw-bold mt-1 fs-3">

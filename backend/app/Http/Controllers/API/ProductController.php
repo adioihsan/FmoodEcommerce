@@ -205,7 +205,7 @@ class ProductController extends Controller
     }
     public function soldCount($product_id){
         $sold =  OrderItem::leftjoin('orders','order_items.order_id','=','orders.id')
-        ->where('product_id','=',$product_id)->where('orders.status','delivered')
+        ->where('product_id',$product_id)->where('orders.status','delivered')
         ->orWhere('orders.status','reviewed')->sum('order_items.quantity');
         return $sold;
     }
@@ -224,8 +224,7 @@ class ProductController extends Controller
         $prices = ["sell_price"=>$this->getSellPrice($product->price,$product->discount_price,$product->discount),
         "discount_price"=>$product->discount_price,
         "real_price"=>$product->price,
-        "discount_percent"=> $this->countPercent($product->price,$product->discount_price,$product->discount),
-];
+        "discount_percent"=> $this->countPercent($product->price,$product->discount_price,$product->discount)];
         data_fill($product,'rating',$this->getRating($id));
         data_fill($product,'sold',$this->soldCount($id));
         data_fill($product,'reviews',$this->reviewsCount($id));

@@ -24,6 +24,7 @@ import NewOrders from "./component/store/NewOrders";
 import OnProcessOrders from "./component/store/OnProcessOrders";
 import OnDeliveryOrders from "./component/store/OnDeliveryOrders";
 import SuccessOrders from "./component/store/SuccessOrders";
+import { useEffect, useState } from "react";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -35,6 +36,13 @@ axios.interceptors.request.use(function (config) {
 });
 
 function App() {
+  const [title, setTitle] = useState("Fmood : Food fFor Your Mood");
+  useEffect(
+    (e) => {
+      document.title = title;
+    },
+    [title]
+  );
   let isLogin = localStorage.getItem("auth_token") ? true : false;
   return (
     <div className="App">

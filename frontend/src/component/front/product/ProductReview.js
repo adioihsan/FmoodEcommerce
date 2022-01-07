@@ -79,7 +79,6 @@ function ProductReview(props) {
   if (loading) {
     return <LoadingPage />;
   } else if (reviews.length !== 0) {
-    console.log(reviews);
     viewReview = reviews.map((review) => {
       return (
         <div className="d-flex flex-column border-bottom p-3">
