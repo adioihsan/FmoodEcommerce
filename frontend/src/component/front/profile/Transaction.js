@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 import CartTransaction from "../cart/CartTransaction";
 function Transaction() {
   const [loading, setLoading] = useState(true);
-  const [orders, setOrders] = useState({});
+  const [orders, setOrders] = useState([]);
   useEffect(() => {
     axios
       .get("/api/get-orders")
@@ -38,15 +38,18 @@ function Transaction() {
   }, []);
   let viewCart = <div>Belum ada transaksi</div>;
   if (!loading) {
-    viewCart = Object.values(orders).map((order) => {
-      return (
-        <CartTransaction
-          products={order.products}
-          store={order.store}
-          detail={order.detail}
-        />
-      );
-    });
+    console.log(orders);
+    viewCart = Object.values(orders)
+      .reverse()
+      .map((order) => {
+        return (
+          <CartTransaction
+            products={order.products}
+            store={order.store}
+            detail={order.detail}
+          />
+        );
+      });
   }
   return (
     <div className="position-relative  lh-base">

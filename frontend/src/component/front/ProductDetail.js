@@ -37,6 +37,7 @@ import {
 import axios from "axios";
 import { useParams } from "react-router";
 import Footer from "../../layout/front/Footer";
+import ProductReview from "./product/ProductReview";
 function ProductDetail() {
   const [activeTabDetail, setActiveTabDetail] = useState("1");
   const [loading, setLoading] = useState([]);
@@ -50,7 +51,6 @@ function ProductDetail() {
     note: "",
   });
   const [store, setStore] = useState([]);
-  const [reviews, setReviews] = useState([]);
   const params = useParams();
   function detailToggle(tabId) {
     if (activeTabDetail !== tabId) setActiveTabDetail(tabId);
@@ -413,33 +413,7 @@ function ProductDetail() {
             </Row>
             <Row>
               <Col sm="12">
-                <p className="fs-6 fw-bold">Ulasan(10)</p>
-                <div className="d-flex flex-column border-bottom p-3">
-                  <Row>
-                    <Col sm="3">
-                      <img
-                        src="/user-default.png"
-                        width="62px"
-                        className="rounded-circle border border-2 float-start"
-                        alt="user"
-                      />
-                      <p className="fs-6 fw-bold mb-0">Virda uuyeeeee</p>
-                      <small className="text-secondary">12-02-2021</small>
-                    </Col>
-                    <Col sm="9">
-                      <div>
-                        <img
-                          src="/images/stars/4star.png"
-                          width="auto"
-                          height="16px"
-                        />
-                        <p className="text-secondary">
-                          Enak banget , sampe pengen hidup abadi
-                        </p>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
+                <ProductReview productId={product.id} />
               </Col>
             </Row>
           </Col>
