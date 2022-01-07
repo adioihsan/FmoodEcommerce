@@ -64,7 +64,7 @@ function Register() {
     });
   };
   return (
-    <div>
+    <div className="position-relative  lh-base">
       <LogoCenterNavbar />
       <div className="centerize">
         <Container fluid="md">
@@ -81,7 +81,10 @@ function Register() {
             <Col>
               <h4 className="text-center mt-4 mb-3">Daftar Sekarang</h4>
               <h6 className="text-center mb-4">
-                Sudah punya akun Fmood? <a href="/login">Masuk</a>
+                Sudah punya akun Fmood?{" "}
+                <a href="/login" className="text-orange">
+                  Masuk
+                </a>
               </h6>
               <Form inline onSubmit={registerSubmit}>
                 <FormGroup floating>

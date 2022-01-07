@@ -29,6 +29,11 @@
   margin: 1rem;
   cursor: pointer;
 }
+.input-image.small {
+  width: 5rem;
+  height: 5rem;
+  margin: 0.5rem;
+}
 .input-image-header,
 .input-video-header {
   position: absolute;

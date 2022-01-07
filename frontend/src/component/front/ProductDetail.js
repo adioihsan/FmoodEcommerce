@@ -50,6 +50,7 @@ function ProductDetail() {
     note: "",
   });
   const [store, setStore] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const params = useParams();
   function detailToggle(tabId) {
     if (activeTabDetail !== tabId) setActiveTabDetail(tabId);
@@ -264,139 +265,183 @@ function ProductDetail() {
       <MainNavbar />
       <Container className="">
         <Row>
-          <Col sm="4" className="position-relative px-4">
-            <div className=" position-sticky top-0 overflow-hidden">
-              {loadProductImages()}
-            </div>
-          </Col>
-          <Col sm="5" className="px-4">
-            <div id="product-name" className="fs-4 fw-bold my-1">
-              {product.name}
-            </div>
-            <div className="d-flex justify-content-start align-items-center text-secondary">
-              <span>
-                {" "}
-                Terjual<span id="sold"> 1500 </span>
-              </span>
-              <span className="mx-1">|</span>
-              <img
-                src="/images/star.png"
-                width="16px"
-                height="16px"
-                className="float-start mx-1"
-                alt="rating: "
-              />{" "}
-              <span id="rating"> 4.5</span>
-              <span className="mx-1">|</span>
-              <span>
-                {" "}
-                Diskusi<span id="sold"> (7) </span>
-              </span>
-            </div>
-            <div id="price " className="fw-bold mt-1 fs-3">
-              Rp. {product.prices.sell_price}
-            </div>
-            <div
-              id="discount"
-              className={classnames({
-                "d-none":
-                  product.prices.discount_price == null ||
-                  product.prices.discount_percent === 0,
-              })}
-            >
+          <Col sm="9">
+            <Row>
               {" "}
-              <Badge color="danger">{product.prices.discount_percent}%</Badge>
-              <span
-                id="dicount-price"
-                className="fw-light text-decoration-line-through mx-1"
-              >
-                Rp. {product.prices.real_price + " "}
-              </span>
-            </div>
-            <div id="tab-detail" className="my-3">
-              <Nav tabs>
-                <NavItem>
-                  <NavLink
-                    className={classnames({
-                      active: activeTabDetail === "1",
-                      "text-secondary": activeTabDetail !== "1",
-                      "text-orange": activeTabDetail === "1",
-                    })}
-                    onClick={() => detailToggle("1")}
+              <Col sm="5" className="position-relative px-4">
+                <div className=" position-sticky top-0 overflow-hidden">
+                  {loadProductImages()}
+                </div>
+              </Col>
+              <Col sm="7" className="px-4">
+                <div id="product-name" className="fs-4 fw-bold my-1">
+                  {product.name}
+                </div>
+                <div className="d-flex justify-content-start align-items-center text-secondary">
+                  <span>
+                    {" "}
+                    Terjual<span id="sold"> 1500 </span>
+                  </span>
+                  <span className="mx-1">|</span>
+                  <img
+                    src="/images/star.png"
+                    width="16px"
+                    height="16px"
+                    className="float-start mx-1"
+                    alt="rating: "
+                  />{" "}
+                  <span id="rating"> 4.5</span>
+                  <span className="mx-1">|</span>
+                  <span>
+                    {" "}
+                    Diskusi<span id="sold"> (7) </span>
+                  </span>
+                </div>
+                <div id="price " className="fw-bold mt-1 fs-3">
+                  Rp. {product.prices.sell_price}
+                </div>
+                <div
+                  id="discount"
+                  className={classnames({
+                    "d-none":
+                      product.prices.discount_price == null ||
+                      product.prices.discount_percent === 0,
+                  })}
+                >
+                  {" "}
+                  <Badge color="danger">
+                    {product.prices.discount_percent}%
+                  </Badge>
+                  <span
+                    id="dicount-price"
+                    className="fw-light text-decoration-line-through mx-1"
                   >
-                    Detail
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    className={classnames({
-                      active: activeTabDetail === "2",
-                      "text-secondary": activeTabDetail !== "2",
-                      "text-orange": activeTabDetail === "2",
-                    })}
-                    onClick={() => detailToggle("2")}
-                  >
-                    Info Penting
-                  </NavLink>
-                </NavItem>
-              </Nav>
-              <TabContent activeTab={activeTabDetail}>
-                <TabPane tabId="1">
-                  <Row>
-                    <Col sm="12">
-                      <div id="detail-short" className="">
-                        <span className="text-secondary">Berat : </span>
-                        <span>{product.weight} gram</span>
-                        <br className="my-1" />
-                        <span className="text-secondary">Kategori : </span>
-                        <span>{product.main_category}</span>
-                        <br className="my-1" />
-                        <span className="text-secondary">Sub-Kategori : </span>
-                        <span>{product.sub_category}</span>
-                        <br className="my-1" />
-                        <span className="text-secondary">BPOM/PIRT/SNI : </span>
-                        <span>{product.reg_code}</span>
-                        <br className="my-1" />
-                      </div>
-                      <div
-                        id="detail-description"
-                        className="mt-2"
-                        dangerouslySetInnerHTML={{
-                          __html: product.description,
-                        }}
-                      ></div>
-                      <div className="d-flex justify-content-between border-top mt-3 p-3">
-                        <div className="d-flex">
-                          <img
-                            src="/store-default.png"
-                            className="rounded-circle float-start"
-                            height="64px"
-                            alt="store"
-                          />
-                          <div className="d-flex flex-column">
-                            <p className="fw-bold my-0 mx-2">{store.name}</p>
-                            <p className="text-success my-0 mx-2">
-                              {" "}
-                              <FontAwesomeIcon icon={faDotCircle} /> Online
-                            </p>
+                    Rp. {product.prices.real_price + " "}
+                  </span>
+                </div>
+                <div id="tab-detail" className="my-3">
+                  <Nav tabs>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({
+                          active: activeTabDetail === "1",
+                          "text-secondary": activeTabDetail !== "1",
+                          "text-orange": activeTabDetail === "1",
+                        })}
+                        onClick={() => detailToggle("1")}
+                      >
+                        Detail
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({
+                          active: activeTabDetail === "2",
+                          "text-secondary": activeTabDetail !== "2",
+                          "text-orange": activeTabDetail === "2",
+                        })}
+                        onClick={() => detailToggle("2")}
+                      >
+                        Info Penting
+                      </NavLink>
+                    </NavItem>
+                  </Nav>
+                  <TabContent activeTab={activeTabDetail}>
+                    <TabPane tabId="1">
+                      <Row>
+                        <Col sm="12">
+                          <div id="detail-short" className="">
+                            <span className="text-secondary">Berat : </span>
+                            <span>{product.weight} gram</span>
+                            <br className="my-1" />
+                            <span className="text-secondary">Kategori : </span>
+                            <span>{product.main_category}</span>
+                            <br className="my-1" />
+                            <span className="text-secondary">
+                              Sub-Kategori :{" "}
+                            </span>
+                            <span>{product.sub_category}</span>
+                            <br className="my-1" />
+                            <span className="text-secondary">
+                              BPOM/PIRT/SNI :{" "}
+                            </span>
+                            <span>{product.reg_code}</span>
+                            <br className="my-1" />
                           </div>
-                        </div>
-                        <Button className="align-self-center orange-button">
-                          <FontAwesomeIcon icon={faComments} /> Chat
-                        </Button>
+                          <div
+                            id="detail-description"
+                            className="mt-2"
+                            dangerouslySetInnerHTML={{
+                              __html: product.description,
+                            }}
+                          ></div>
+                          <div className="d-flex justify-content-between border-top mt-3 p-3">
+                            <div className="d-flex">
+                              <img
+                                src="/store-default.png"
+                                className="rounded-circle float-start"
+                                height="64px"
+                                alt="store"
+                              />
+                              <div className="d-flex flex-column">
+                                <p className="fw-bold my-0 mx-2">
+                                  {store.name}
+                                </p>
+                                <p className="text-success my-0 mx-2">
+                                  {" "}
+                                  <FontAwesomeIcon icon={faDotCircle} /> Online
+                                </p>
+                              </div>
+                            </div>
+                            <Button className="align-self-center orange-button">
+                              <FontAwesomeIcon icon={faComments} /> Chat
+                            </Button>
+                          </div>
+                        </Col>
+                      </Row>
+                    </TabPane>
+                    <TabPane tabId="2">
+                      <Row>
+                        <Col sm="12">
+                          <h4>Tab 2 Content</h4>
+                        </Col>
+                      </Row>
+                    </TabPane>
+                  </TabContent>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm="12">
+                <p className="fs-6 fw-bold">Ulasan(10)</p>
+                <div className="d-flex flex-column border-bottom p-3">
+                  <Row>
+                    <Col sm="3">
+                      <img
+                        src="/user-default.png"
+                        width="62px"
+                        className="rounded-circle border border-2 float-start"
+                        alt="user"
+                      />
+                      <p className="fs-6 fw-bold mb-0">Virda uuyeeeee</p>
+                      <small className="text-secondary">12-02-2021</small>
+                    </Col>
+                    <Col sm="9">
+                      <div>
+                        <img
+                          src="/images/stars/4star.png"
+                          width="auto"
+                          height="16px"
+                        />
+                        <p className="text-secondary">
+                          Enak banget , sampe pengen hidup abadi
+                        </p>
                       </div>
                     </Col>
                   </Row>
-                </TabPane>
-                <TabPane tabId="2">
-                  <Row>
-                    <Col sm="12">
-                      <h4>Tab 2 Content</h4>
-                    </Col>
-                  </Row>
-                </TabPane>
-              </TabContent>
-            </div>
+                </div>
+              </Col>
+            </Row>
           </Col>
           <Col sm="3" className="position-relative px-4">
             <div className="position-fixed overflow-hidden">

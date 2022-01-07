@@ -11,6 +11,7 @@ use App\Http\Controllers\API\StoreProfileController;
 use App\Http\Controllers\API\FmoodPayController;
 use App\Http\Controllers\API\RajaOngkir;
 use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\ProductReviewController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -100,6 +101,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //cancel delivered
     Route::put('cancel-order/{orderId}',[OrderController::class,'cancelOrder']);
+
+    //review product
+    Route::post('add-review',[ProductReviewController::class,'addReview']);
 });
 
 

@@ -64,7 +64,7 @@ function Login() {
     });
   };
   return (
-    <div>
+    <div className="position-relative  lh-base">
       <LogoCenterNavbar />
       <div className="centerize">
         <Container fluid="md">
@@ -81,7 +81,10 @@ function Login() {
             <Col>
               <h4 className="text-center mt-4 mb-3">Masuk</h4>
               <h6 className="text-center mb-4">
-                Belum punya akun Fmood? <a href="/register">Daftar sekarang</a>
+                Belum punya akun Fmood?{" "}
+                <a href="/register" className="text-orange">
+                  Daftar sekarang
+                </a>
               </h6>
               <Form inline onSubmit={loginSubmit}>
                 <FormGroup floating>

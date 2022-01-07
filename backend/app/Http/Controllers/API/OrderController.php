@@ -137,4 +137,9 @@ class OrderController extends Controller
             return response()->json(["status"=>500,"message"=>"failed"]);
         }
     }
+    public static function reviewedOrder($orderId){
+        $order = Order::find($orderId);
+        $order->status = "reviewed";
+        return $order->save();
+    }
 }

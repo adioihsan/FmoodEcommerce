@@ -25,3 +25,25 @@ a {
   color: inherit !important;
   font-weight: normal !important;
 }
+.star-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  z-index: -1;
+}
+.star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  z-index: 1;
+}
+.star-box {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-right: 0.3rem;
+}

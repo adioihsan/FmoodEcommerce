@@ -11,6 +11,7 @@ import serverUrls from "../../../serverUrls";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
+import ReviewProduct from "../product/ReviewProduct";
 
 function CartTransaction(props) {
   const [load, setLoad] = useState(false);
@@ -21,6 +22,7 @@ function CartTransaction(props) {
   useEffect(() => {
     createStatusMessage();
   }, [load]);
+  const reviewSwal = withReactContent(Swal);
   const traceSwal = withReactContent(Swal);
   const viewTrace = (
     <Table bordered responsive hover>
@@ -153,6 +155,19 @@ function CartTransaction(props) {
       }
     });
   }
+  function reviewProduct() {
+    reviewSwal.fire({
+      title: <span className="fs-5">Berikan penilaian mu</span>,
+      html: (
+        <ReviewProduct
+          products={props.products}
+          orderId={props.detail.order_id}
+        />
+      ),
+      showConfirmButton: false,
+      showCloseButton: true,
+    });
+  }
   function createStatusMessage() {
     switch (props.detail.status) {
       case "paid":
@@ -205,7 +220,7 @@ function CartTransaction(props) {
         setStatus({
           badge: <Badge color="success">Sukses</Badge>,
           button: (
-            <Button color="success" size="sm">
+            <Button color="success" size="sm" onClick={(e) => reviewProduct()}>
               <FontAwesomeIcon icon={faStar} /> Berikan penilain
             </Button>
           ),

@@ -20,7 +20,7 @@ import Footer from "../../layout/front/Footer";
 function Cart() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [carts, setCarts] = useState({});
+  const [carts, setCarts] = useState([]);
   const [order, setOrder] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
@@ -52,7 +52,7 @@ function Cart() {
   };
   if (loading) {
     return <LoadingPage />;
-  } else if (viewCartList.length === 0) {
+  } else if (carts.length === 0) {
     Swal.fire({
       title: "Keranjang Kosong",
       text: "yuk belanja dulu",
