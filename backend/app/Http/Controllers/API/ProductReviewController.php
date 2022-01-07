@@ -25,7 +25,8 @@ class ProductReviewController extends Controller
     }
     public function getReviews($product_id){
         $productReview = new ProductReview;
-        $results = $productReview::leftjoin('users','users.id','=','product_reviews.user_id')->where('product_id',$product_id)->paginate(15);
+        $results = $productReview::leftjoin('users','users.id','=','product_reviews.user_id')
+        ->where('product_id',$product_id)->orderByDesc('product_reviews.id')->paginate(15);
         $pagination=[];
         data_fill($pagination,'current_page',$results->currentPage());
         data_fill($pagination,'last_page',$results->lastPage());

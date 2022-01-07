@@ -43,7 +43,7 @@ class OrderController extends Controller
     public function getOrders(Request $req){
         $user_id = $req->user()->id;
         $order =  Order::leftjoin("order_items","orders.id","=","order_items.order_id")
-        ->where("user_id",$user_id)->orderByDesc('orders.id')->get();
+        ->where("user_id",$user_id)->orderBy('orders.created_at')->get();
         $groupByOrderId = $this->group_order_by("order_id",$order->toArray());
         $store = StoreProfileController::getStoreById(4);
         return $groupByOrderId;
