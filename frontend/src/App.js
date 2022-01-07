@@ -36,7 +36,7 @@ axios.interceptors.request.use(function (config) {
 });
 
 function App() {
-  const [title, setTitle] = useState("Fmood : Food fFor Your Mood");
+  const [title, setTitle] = useState("Fmood : Food For Your Mood");
   useEffect(
     (e) => {
       document.title = title;

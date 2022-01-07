@@ -24,7 +24,9 @@ function ProductCard(props) {
               {data.name.slice(0, 40).toLowerCase()}
               {data.name.length > 40 ? "..." : ""}
             </span>
-            <span className="fw-bold my-1">Rp. {data.sell_price}</span>
+            <span className="fw-bold my-1">
+              Rp. {data.sell_price.toLocaleString("id-ID")}
+            </span>
             <div
               className={classnames({
                 "my-1": true,
@@ -38,7 +40,7 @@ function ProductCard(props) {
                 id="dicount-price"
                 className="fw-light text-decoration-line-through mx-1"
               >
-                Rp. {data.real_price}{" "}
+                Rp. {data.real_price.toLocaleString("id-ID")}{" "}
               </small>
             </div>
             <div style={{ fontSize: "0.8rem" }} className="my-1">

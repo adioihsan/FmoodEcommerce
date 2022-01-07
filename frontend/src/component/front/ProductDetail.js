@@ -299,7 +299,7 @@ function ProductDetail() {
                   </span>
                 </div>
                 <div id="price " className="fw-bold mt-1 fs-3">
-                  Rp. {product.prices.sell_price}
+                  Rp. {product.prices.sell_price.toLocaleString("id-ID")}
                 </div>
                 <div
                   id="discount"
@@ -317,7 +317,8 @@ function ProductDetail() {
                     id="dicount-price"
                     className="fw-light text-decoration-line-through mx-1"
                   >
-                    Rp. {product.prices.real_price + " "}
+                    Rp.{" "}
+                    {product.prices.real_price.toLocaleString("id-ID") + " "}
                   </span>
                 </div>
                 <div id="tab-detail" className="my-3">
@@ -484,7 +485,9 @@ function ProductDetail() {
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="text-secondary me-2">Subtotal</p>
-                    <p className="fs-5 fw-bold">Rp. {cartForm.totalPrice}</p>
+                    <p className="fs-5 fw-bold">
+                      Rp. {cartForm.totalPrice.toLocaleString("id-ID")}
+                    </p>
                   </div>
                   <div className="mt-3">
                     <Button

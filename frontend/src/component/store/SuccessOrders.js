@@ -76,6 +76,7 @@ function SuccessOrders() {
   let viewOrders = "";
   if (!loading) {
     viewOrders = Object.values(orders).map((order) => {
+      console.log(order);
       return (
         <tr>
           <td>{order.detail.order_id}</td>
@@ -102,31 +103,12 @@ function SuccessOrders() {
               );
             })}
           </td>
-          <td>{order.detail.created_at}</td>
-          <td>{order.detail.shipment_service}</td>
-          <td
-            dangerouslySetInnerHTML={{ __html: order.detail.user_address }}
-          ></td>
           <td>
             {order.user.name} <br /> ({order.user.email})
           </td>
-          <td>
-            <div className="d-flex">
-              <Button
-                color="primary"
-                className="mx-2"
-                onClick={(e) => {
-                  e.preventDefault();
-                  sendOrder(order.detail.order_id);
-                }}
-              >
-                Kirim
-              </Button>
-              <Button color="danger" className="mx-2">
-                Batalkan
-              </Button>
-            </div>
-          </td>
+          <td>{order.detail.created_at}</td>
+          <td>{order.detail.updated_at}</td>
+          <td>Rp. {order.detail.total_cost.toLocaleString("id-ID")}</td>
         </tr>
       );
     });
@@ -134,7 +116,7 @@ function SuccessOrders() {
   return (
     <div className="container-fluid">
       {/* <!-- Page Heading --> */}
-      <h1 className="h3 mb-2 text-gray-800">Pesanan Sedang diproses</h1>
+      <h1 className="h3 mb-2 text-gray-800">Pesanan Selesai</h1>
       <Row>
         <Col className="sm-12">
           <Table
@@ -147,11 +129,10 @@ function SuccessOrders() {
               <tr>
                 <th>Id</th>
                 <th>Info Produk</th>
+                <th>Info Pelanggan </th>
                 <th>Tanggal Pemesanan</th>
-                <th>Jasa Pengiriman</th>
-                <th>Alamat Pengiriman</th>
-                <th>Pelanggan</th>
-                <th>Tindakan </th>
+                <th>Tanggal Selesai</th>
+                <th>Total Pembayaran</th>
               </tr>
             </thead>
             <tbody className="text-black">{viewOrders}</tbody>

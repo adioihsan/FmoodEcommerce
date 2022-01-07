@@ -136,7 +136,10 @@ function MainNavbar() {
             <DropdownToggle data-toggle="dropdown" tag="span">
               <div className="d-flex justify-content-center align-items-center">
                 <img
-                  src="/user-default.png"
+                  src={
+                    "https://i.pravatar.cc/100?u=" +
+                    localStorage.getItem("auth_id")
+                  }
                   className="user-image-2"
                   alt="user"
                 />
@@ -148,7 +151,10 @@ function MainNavbar() {
             <DropdownMenu className="user-dropdown-menu bg-light shadow p-2">
               <div className="bg-light shadow-sm p-3 w-100">
                 <img
-                  src="/user-default.png"
+                  src={
+                    "https://i.pravatar.cc/100?u=" +
+                    localStorage.getItem("auth_id")
+                  }
                   className="user-image-3 rounded float-start"
                   alt="user"
                 />{" "}
@@ -165,7 +171,7 @@ function MainNavbar() {
                   Profile {">>"}
                 </Button>
               </div>
-              <div>
+              <div className="m-2 d-flex flex-row-reverse">
                 <Button
                   size="sm"
                   className="nav-button"

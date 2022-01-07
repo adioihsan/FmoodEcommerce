@@ -185,7 +185,7 @@ function Checkout() {
                 <small className="align-self-end">
                   Saldo{" "}
                   <span className="text-green fw-bold">
-                    Rp.{fmoodPay.balance}
+                    Rp.{fmoodPay.balance.toLocaleString("id-ID")}
                   </span>
                 </small>
               </CardBody>
@@ -242,16 +242,19 @@ function Checkout() {
               <h2 className="text-orange fw-bold">FmoodPay</h2>
               <div className="d-flex justify-content-between">
                 <p>Saldo</p>
-                <p>Rp.{fmoodPay.balance}</p>
+                <p>Rp.{fmoodPay.balance.toLocaleString("id-ID")}</p>
               </div>
               <div className="d-flex justify-content-between">
                 <p>Total Tagihan</p>
-                <p className="text-danger">- Rp.{total.totalCost}</p>
+                <p className="text-danger">
+                  - Rp.{total.totalCost.toLocaleString("id-ID")}
+                </p>
               </div>
               <div className="d-flex justify-content-between border-top">
                 <p>Sisa Saldo</p>
                 <p className="text-success">
-                  Rp.{fmoodPay.balance - total.totalCost}
+                  Rp.
+                  {(fmoodPay.balance - total.totalCost).toLocaleString("id-ID")}
                 </p>
               </div>
             </div>
@@ -357,16 +360,20 @@ function Checkout() {
                     <p className="fs-6 me-3">
                       Total Harga ({total.totalProduct} Produk)
                     </p>
-                    <p className="fs-6">Rp.{total.totalProductCost} </p>
+                    <p className="fs-6">
+                      Rp.{total.totalProductCost.toLocaleString("id-ID")}{" "}
+                    </p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="fs-6 me-3">Total Ongkos Kirim</p>
-                    <p className="fs-6">Rp.{total.totalShipment} </p>
+                    <p className="fs-6">
+                      Rp.{total.totalShipment.toLocaleString("id-ID")}{" "}
+                    </p>
                   </div>
                   <div className="mt-3 border-top d-flex justify-content-between">
                     <p className="fs-6 fw-bold">Total Tagihan</p>
                     <p className="fs-5 text-green fw-bold">
-                      Rp.{total.totalCost}{" "}
+                      Rp.{total.totalCost.toLocaleString("id-ID")}{" "}
                     </p>
                   </div>
                   <div className="mt-3">

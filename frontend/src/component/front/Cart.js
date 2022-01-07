@@ -139,7 +139,9 @@ function Cart() {
                   <p className="fs-6 fw-bold mb-3">Ringkasan belanja</p>
                   <div className="d-flex justify-content-between">
                     <p className="fs-6 me-2">Total Harga</p>
-                    <p className="fs-6 fw-bold">Rp. {totalPrice}</p>
+                    <p className="fs-6 fw-bold">
+                      Rp. {totalPrice.toLocaleString("id-ID")}
+                    </p>
                   </div>
                   <div className="mt-3">
                     <Button

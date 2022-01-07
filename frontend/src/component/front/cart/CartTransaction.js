@@ -268,7 +268,8 @@ function CartTransaction(props) {
           <div>
             <p className="my-1">{product.name}</p>
             <small className="text-secondary">
-              {product.quantity} barang x Rp. {product.price}
+              {product.quantity} barang x Rp.{" "}
+              {product.price.toLocaleString("id-ID")}
             </small>
           </div>
         </div>
@@ -301,14 +302,25 @@ function CartTransaction(props) {
           {status.button}
           <div className="d-flex">
             <small className=" text-secondary border-end px-2">
-              Total Harga <span> Rp.{props.detail.product_cost} </span>
+              Total Harga{" "}
+              <span>
+                {" "}
+                Rp. {props.detail.product_cost.toLocaleString("id-ID")}{" "}
+              </span>
             </small>
             <small className=" text-secondary border-end px-2">
-              Biaya Ongkir <span> Rp.{props.detail.shipment_cost} </span>
+              Biaya Ongkir{" "}
+              <span>
+                {" "}
+                Rp. {props.detail.shipment_cost.toLocaleString("id-ID")}{" "}
+              </span>
             </small>
             <small className=" ms-2">
               Total Bayar{" "}
-              <span className="fw-bold"> Rp.{props.detail.total_cost} </span>
+              <span className="fw-bold">
+                {" "}
+                Rp. {props.detail.total_cost.toLocaleString("id-ID")}{" "}
+              </span>
             </small>
           </div>
         </div>

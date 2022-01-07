@@ -92,7 +92,8 @@ function CartCheckout(props) {
   });
   const selectShipmentCost = function (service, value) {
     let toggleInner = document.querySelector("#drop" + store.storeId);
-    toggleInner.innerHTML = service + " (Rp. " + value + " )";
+    toggleInner.innerHTML =
+      service + " (Rp. " + value.toLocaleString("id-ID") + " )";
     props.countTotalCost(store.storeId, service, value);
   };
   return (

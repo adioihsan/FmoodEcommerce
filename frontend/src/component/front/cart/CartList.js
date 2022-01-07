@@ -55,7 +55,9 @@ function CartList(props) {
           />
           <div>
             <p className="my-1">{product.product_name}</p>
-            <span className="fw-bold">{product.sell_price}</span>
+            <span className="fw-bold">
+              Rp. {product.sell_price.toLocaleString("id-ID")}
+            </span>
           </div>
         </div>
         <div className="actions d-flex justify-content-between mt-3 border-bottom border-1 pb-3">

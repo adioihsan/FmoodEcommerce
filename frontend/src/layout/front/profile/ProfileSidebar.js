@@ -9,7 +9,9 @@ function ProfileSidebar() {
         {" "}
         <div className="d-flex align-items-center">
           <img
-            src="/user-default.png"
+            src={
+              "https://i.pravatar.cc/100?u=" + localStorage.getItem("auth_id")
+            }
             width="62px"
             className="rounded-circle border border-2"
             alt="user"
