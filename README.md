@@ -1,5 +1,5 @@
 ## FmoodEcommerce - E-Commerce Website  
-[Banner](frontend/public/banner.jpg)
+![Banner](frontend/public/banner.jpg)
 ### Features :  
 #### Guest :
 1. Register
