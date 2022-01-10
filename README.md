@@ -1,19 +1,19 @@
-# FmoodEcommerce - E-Commerce Website
-Fitur :  
-### Guest :
+## FmoodEcommerce - E-Commerce Website
+##3Fitur :  
+#### Guest :
 1. Register
 2. Login
 3. View Product
 4. Find Product
 
-### User :
+#### User :
 1. Add to cart
 2. Checkout
 3. Trace Transaction
 4. View Transaction
 5. Open Their Own Store
 
-### Admin Store
+#### Admin Store
 1. Product CRUD (Create Read Update Delete)
 2. Add a product video and photo upto 5 photo / product
 3. Manage Order  
@@ -22,6 +22,6 @@ Fitur :
     - Trace Order
     - View Success Order
     
-### Installation  
+#### Installation  
 info : This app is underdevelopment , no installation available yet.
 
