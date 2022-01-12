@@ -25,6 +25,7 @@ import OnProcessOrders from "./component/store/OnProcessOrders";
 import OnDeliveryOrders from "./component/store/OnDeliveryOrders";
 import SuccessOrders from "./component/store/SuccessOrders";
 import { useEffect, useState } from "react";
+import Biodata from "./component/front/profile/Biodata";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -69,6 +70,7 @@ function App() {
           <Route path="/profile/" element={<UserRoute Cmp={UserProfile} />}>
             <Route path="transaction" element={<Transaction />} />
             <Route path="address" element={<UserAddress />} />
+            <Route path="biodata" element={<Biodata />} />
           </Route>
         </Routes>
       </Router>

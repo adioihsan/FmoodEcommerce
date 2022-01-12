@@ -16,6 +16,7 @@ code {
 
 .text-orange {
   color: #ff3d00 !important;
+  cursor: pointer;
 }
 .text-green {
   color: #1d5f0a !important;

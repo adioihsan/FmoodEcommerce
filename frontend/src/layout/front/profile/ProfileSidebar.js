@@ -23,7 +23,7 @@ function ProfileSidebar() {
       </CardHeader>
       <CardBody>
         <div className="d-flex flex-column">
-          <Link to="/profile" className="my-3">
+          <Link to="/profile/biodata" className="my-3">
             <FontAwesomeIcon icon={faUser} className="mx-2" />
             <span>Biodata</span>
           </Link>
