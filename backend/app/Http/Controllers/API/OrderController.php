@@ -72,13 +72,13 @@ class OrderController extends Controller
     function getStoreOrders(Request $req,$status){
         $store_id = $req->user()->id;
         $orderWpaginate =  Order::leftjoin("order_items","orders.id","=","order_items.order_id")
-        ->where("store_id",$store_id)->where("status",$status)->paginate(13)->toArray();
+        ->where("store_id",$store_id)->where("status",$status)->paginate(10)->toArray();
         if($status === "delivered"){
             $orderWpaginate =  Order::leftjoin("order_items","orders.id","=","order_items.order_id")
             ->where('store_id',$store_id)->where(function($query) {
                 $query->where('status', 'delivered')
                       ->orWhere('status', 'reviewed');
-            })->paginate(13)->toArray();
+            })->paginate(10)->toArray();
         }
         $order = $orderWpaginate['data'];
         $groupByOrderId = $this->group_order_by_2("order_id",$order);
