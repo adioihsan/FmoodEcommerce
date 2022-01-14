@@ -19,11 +19,7 @@ function FormOpenStore() {
   const [citiesInProvince, setCityInProvince] = useState("");
   const viewProvinces = provinces.map((province) => {
     return (
-      <option
-        value={province.province_id}
-        onClick={() => setCities(province.province_id, province.province)}
-        key={province.province_id}
-      >
+      <option value={province.province_id} key={province.province_id}>
         {province.province}
       </option>
     );
@@ -64,6 +60,13 @@ function FormOpenStore() {
   function inputHandler(e) {
     e.persist();
     setNewStore({ ...newStore, [e.target.name]: e.target.value });
+  }
+  function onProvinceChange(e) {
+    let provinceIndex = e.target.selectedIndex;
+    let province = provinces.find((prov, index) => {
+      return index === provinceIndex;
+    });
+    setCities(province.province_id, province.province);
   }
   function saveStore(e) {
     e.preventDefault();
@@ -138,6 +141,9 @@ function FormOpenStore() {
             name="provinceId"
             type="select"
             placeholder="pilih provinsi"
+            onChange={(e) => {
+              onProvinceChange(e);
+            }}
           >
             {viewProvinces}
           </Input>
