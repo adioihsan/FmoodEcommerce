@@ -16,19 +16,15 @@ function AddAddress() {
     zipCode: 0,
     address: "",
   });
-  const [load, setLoad] = useState(false);
-  const [citiesInProvince, setCityInProvince] = useState("");
+  const [citiesInProvince, setCityInProvince] = useState(<option></option>);
   const viewProvinces = provinces.map((province) => {
     return (
-      <option
-        value={province.province_id}
-        onClick={() => setCities(province.province_id, province.province)}
-        key={province.province_id}
-      >
+      <option value={province.province_id} key={province.province_id}>
         {province.province}
       </option>
     );
   });
+
   function setCities(provinceId, provinceName) {
     newAddress.provinceId = provinceId;
     newAddress.provinceName = provinceName;
@@ -61,6 +57,13 @@ function AddAddress() {
         );
       });
     setCityInProvince(viewCities);
+  }
+  function onProvinceChange(e) {
+    let provinceIndex = e.target.selectedIndex;
+    let province = provinces.find((prov, index) => {
+      return index === provinceIndex;
+    });
+    setCities(province.province_id, province.province);
   }
   function inputHandler(e) {
     e.persist();
@@ -130,6 +133,9 @@ function AddAddress() {
             name="provinceId"
             type="select"
             placeholder="pilih provinsi"
+            onChange={(e) => {
+              onProvinceChange(e);
+            }}
           >
             {viewProvinces}
           </Input>
