@@ -73,6 +73,13 @@ class OrderController extends Controller
         $store_id = $req->user()->id;
         $orderWpaginate =  Order::leftjoin("order_items","orders.id","=","order_items.order_id")
         ->where("store_id",$store_id)->where("status",$status)->paginate(13)->toArray();
+        if($status === "delivered"){
+            $orderWpaginate =  Order::leftjoin("order_items","orders.id","=","order_items.order_id")
+            ->where('store_id',$store_id)->where(function($query) {
+                $query->where('status', 'delivered')
+                      ->orWhere('status', 'reviewed');
+            })->paginate(13)->toArray();
+        }
         $order = $orderWpaginate['data'];
         $groupByOrderId = $this->group_order_by_2("order_id",$order);
         $orderWpaginate['data'] = $groupByOrderId; 
@@ -137,9 +144,48 @@ class OrderController extends Controller
             return response()->json(["status"=>500,"message"=>"failed"]);
         }
     }
+
+    public function countOrders(Request $req){
+        $store_id = $req->user()->id;
+        $new = Order::where("status","paid")->where("store_id",$store_id)->count();
+        $onProcess = Order::where("status","onprocess")->where("store_id",$store_id)->count();
+        $onDelivery = Order::where("status","ondelivery")->where("store_id",$store_id)->count();
+        $success = Order::where("store_id",$store_id)->where(function($query) {
+            $query->where('status', 'delivered')
+                  ->orWhere('status', 'reviewed');
+        })->count();
+        $cancelled = Order::where("status","cancelled")->where("store_id",$store_id)->count();
+        return response()->json(["new"=>$new,"onProcess"=>$onProcess,"onDelivery"=>$onDelivery,"success"=>$success,
+        "cancelled"=>$cancelled]);
+    }
+    public function countTotalCustomers(Request $req){
+        $store_id = $req->user()->id;
+        $totalCustomers = Order::where("store_id",$store_id)->select("user_id")->distinct()->count();
+        return response()->json(["totalCustomers"=>$totalCustomers]);
+    }
+
+    public function countStoreRating(Request $req){
+        $store_id = $req->user()->id;
+        $storeRating =  Order::join('product_reviews','orders.id','product_reviews.order_id')->where("orders.store_id",$store_id)->select("rating")->avg("rating");
+        return response()->json(["storeRating"=>round($storeRating,1)]);
+    }
+
+    public function countStoreIncome( Request $req){
+        $store_id = $req->user()->id;
+        $storeIncome = Order::where("store_id",$store_id)->where(function($query) {
+            $query->where('status', 'delivered')
+                  ->orWhere('status', 'reviewed');
+        })->whereMonth('updated_at', date('m'))->sum("product_cost");
+        return response()->json(["storeIncome"=>$storeIncome]);
+    }
+
     public static function reviewedOrder($orderId){
         $order = Order::find($orderId);
         $order->status = "reviewed";
         return $order->save();
     }
+
+
+
+
 }

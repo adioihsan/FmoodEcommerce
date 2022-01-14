@@ -131,6 +131,18 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //update 
     Route::patch('update-user-dob',[UserProfileController::class,'updateDOB']);
+
+    //cont order
+    Route::get('count-orders',[OrderController::class,'countOrders']);
+
+    //cont total customers
+    Route::get('count-total-customers',[OrderController::class,'countTotalCustomers']);
+
+    //counst store rating
+    Route::get('count-store-rating',[OrderController::class,'countStoreRating']);
+
+    //counst store income
+    Route::get('count-store-income',[OrderController::class,'countStoreIncome']);
 });
 
 

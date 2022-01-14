@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Row, Col, Table, Button, FormGroup, Input, Label } from "reactstrap";
+import { Row, Col, Table } from "reactstrap";
 import serverUrls from "../../serverUrls";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 function SuccessOrders() {
   const [load, setLoad] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -30,48 +29,6 @@ function SuccessOrders() {
       .catch((e) => {
         Swal.fire("Terjadi Kesalahan", "cek koneksi internet mu", "error");
       });
-  }
-  const viewSendOrder = (
-    <FormGroup>
-      <Label for="shipmentCode">Resi Pengiriman</Label>
-      <Input
-        id="code"
-        name="code"
-        type="text"
-        onChange={(e) => {
-          shipmentCode.code = e.target.value;
-          console.log(shipmentCode.code);
-        }}
-      />
-    </FormGroup>
-  );
-  const sendSwal = withReactContent(Swal);
-  function sendOrder(orderId) {
-    sendSwal.fire(viewSendOrder).then((e) => {
-      if (e.isConfirmed) {
-        axios
-          .get("/api/send-order/" + orderId + "/" + shipmentCode.code)
-          .then((response) => {
-            if (response.data.status === 200) {
-              Swal.fire(
-                "Berhasil",
-                "status pesanan di ubah ke 'dalam proses pengiriman'",
-                "success"
-              );
-              setLoad(!load);
-            } else {
-              Swal.fire(
-                "Terjadi Kesalahan",
-                "coba beberapa saat lagi",
-                "error"
-              );
-            }
-          })
-          .catch((e) => {
-            Swal.fire("Terjadi Kesalahan", "cek koneksi internet mu", "error");
-          });
-      }
-    });
   }
   let viewOrders = "";
   if (!loading) {
@@ -109,6 +66,8 @@ function SuccessOrders() {
           <td>{order.detail.created_at}</td>
           <td>{order.detail.updated_at}</td>
           <td>Rp. {order.detail.total_cost.toLocaleString("id-ID")}</td>
+          <td>Rp. {order.detail.shipment_cost.toLocaleString("id-ID")}</td>
+          <td>Rp. {order.detail.product_cost.toLocaleString("id-ID")}</td>
         </tr>
       );
     });
@@ -133,6 +92,8 @@ function SuccessOrders() {
                 <th>Tanggal Pemesanan</th>
                 <th>Tanggal Selesai</th>
                 <th>Total Pembayaran</th>
+                <th>Biaya Pengiriman</th>
+                <th>Total Pendapatan</th>
               </tr>
             </thead>
             <tbody className="text-black">{viewOrders}</tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\UserProfileController;
 use Illuminate\Http\Request;
 use App\Models\ProductReview;
 class ProductReviewController extends Controller
@@ -26,7 +27,9 @@ class ProductReviewController extends Controller
     public function getReviews($product_id){
         $productReview = new ProductReview;
         $results = $productReview::leftjoin('users','users.id','=','product_reviews.user_id')
-        ->where('product_id',$product_id)->orderByDesc('product_reviews.id')->paginate(15);
+        ->leftjoin('user_profiles','users.id','user_profiles.user_id')
+        ->where('product_id',$product_id)->orderByDesc('product_reviews.id')
+        ->select('name','review','rating','profile_picture','product_reviews.updated_at')->paginate(15);
         $pagination=[];
         data_fill($pagination,'current_page',$results->currentPage());
         data_fill($pagination,'last_page',$results->lastPage());

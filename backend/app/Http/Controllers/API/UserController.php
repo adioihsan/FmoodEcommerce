@@ -11,5 +11,4 @@ class UserController extends Controller
     public static function getUserById($id){
        return User::find($id);
     }
-    
 }

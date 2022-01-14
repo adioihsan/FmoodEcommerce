@@ -15,6 +15,11 @@ class UserProfileController extends Controller
         else return response()->json(["status"=>500,"message"=>"internal serve error"]);
     }
 
+    public static function getUserPicture($id){
+        return UserProfile::where("user_id",$id)->select("profile_picture");
+    }
+    
+
     public static function setInitilaProfilePicture($user_id){
         UserProfile::updateOrCreate(
             ['user_id' => $user_id],
@@ -32,7 +37,7 @@ class UserProfileController extends Controller
             ['profile_picture'=>$saved_path]
         );
         if($result){
-            return response()->json(["status"=>200]);
+            return response()->json(["status"=>200,"profile_picture"=>$saved_path]);
         }
         else{
             return response()->json(["status"=>500]);
