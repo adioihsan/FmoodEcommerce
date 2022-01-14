@@ -224,9 +224,6 @@ function MainNavbar() {
     function logout() {
       axios.post("/api/logout").then((response) => {
         if (response.data.status === 200) {
-          localStorage.removeItem("auth_token");
-          localStorage.removeItem("auth_username");
-          localStorage.removeItem("auth_id");
           Swal.fire({
             icon: "info",
             title: "Kamu telah keluar",
@@ -234,6 +231,10 @@ function MainNavbar() {
             showConfirmButton: false,
             timer: 1500,
           });
+          localStorage.removeItem("auth_token");
+          localStorage.removeItem("auth_username");
+          localStorage.removeItem("auth_id");
+          localStorage.removeItem("auth_profile_picture");
           navigate("/");
         }
       });

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Row, Col, Table, Button } from "reactstrap";
 import serverUrls from "../../serverUrls";
 import Swal from "sweetalert2";
+import LoadingPage from "../front/LoadingPage";
 function NewOrders() {
   const [load, setLoad] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -47,7 +48,9 @@ function NewOrders() {
       });
   }
   let viewOrders = "";
-  if (!loading) {
+  if (loading) {
+    return <LoadingPage />;
+  } else {
     console.log(orders);
     viewOrders = Object.values(orders).map((order) => {
       return (

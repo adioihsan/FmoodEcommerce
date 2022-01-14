@@ -46,6 +46,10 @@ function Register() {
         if (res.data.status === 200) {
           localStorage.setItem("auth_token", res.data.token);
           localStorage.setItem("auth_username", res.data.username);
+          localStorage.setItem(
+            "auth_profile_picture",
+            "profile-pictures/0/user-default.png"
+          );
           Swal.fire({
             icon: "success",
             title: "Selamat kamu sudah terdaftar",
