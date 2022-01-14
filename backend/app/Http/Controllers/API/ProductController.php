@@ -86,8 +86,8 @@ class ProductController extends Controller
             }
         }
     }
-    public function getAll($userId){
-        $products = product::orderBy('id','desc')->where('user_id',$userId)->paginate(3);
+    public function getAll(Request $req){
+        $products = product::orderBy('id','desc')->where('user_id',$req->user()->id)->paginate(10);
         return response()->json([
             'status'=>200,
             'products'=>$products

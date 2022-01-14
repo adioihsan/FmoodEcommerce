@@ -26,7 +26,6 @@ use App\Http\Controllers\API\UserProfileController;
 
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
-Route::get('get-products/all/{user_id}',[ProductController::class,'getAll']);
 Route::get('get-products/visible',[ProductController::class,'getVisible']);
 Route::get('get-new-products',[ProductController::class,'getNewProducts']);
 Route::get('get-discount-products',[ProductController::class,'getDiscountProducts']);
@@ -48,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function(){
     });
     Route::post('logout',[AuthController::class,'logout']);
 
+    //get store products
+    Route::get('get-products/all',[ProductController::class,'getAll']);
 
     // Categories, add to seperate auth group later !
     Route::get('category',[CategoryController::class,'getCategories']);

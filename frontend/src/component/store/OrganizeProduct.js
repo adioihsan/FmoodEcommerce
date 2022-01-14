@@ -26,31 +26,29 @@ function OrganizeProduct() {
   }, []);
   function getProducts(page) {
     setLoading(true);
-    axios
-      .get("/api/get-products/all/" + userId + "?page=" + page)
-      .then((res) => {
-        if (res.data.status === 200) {
-          setProducts(res.data.products.data);
-          let arrPages = [];
-          for (let i = 1; i <= res.data.products.last_page; i++) {
-            arrPages.push(i);
-          }
-          setPagination({
-            currentPage: res.data.products.current_page,
-            lastPage: res.data.products.last_page,
-            pages: arrPages,
-            totalItem: res.data.products.total,
-          });
-          setLoading(false);
+    axios.get("/api/get-products/all" + "?page=" + page).then((res) => {
+      if (res.data.status === 200) {
+        setProducts(res.data.products.data);
+        let arrPages = [];
+        for (let i = 1; i <= res.data.products.last_page; i++) {
+          arrPages.push(i);
         }
-      });
+        setPagination({
+          currentPage: res.data.products.current_page,
+          lastPage: res.data.products.last_page,
+          pages: arrPages,
+          totalItem: res.data.products.total,
+        });
+        setLoading(false);
+      }
+    });
   }
   let viewProduct = "";
   let viewPagination = "";
   if (loading) {
     return <LoadingPage />;
-  } else if (pagination.totalPages === 0) {
-    return <h4>Belum ada produk</h4>;
+  } else if (pagination.totalItem === 0) {
+    return <h4 className="m-3">Belum ada produk</h4>;
   } else {
     //show products
     viewProduct = products.map((item) => {
