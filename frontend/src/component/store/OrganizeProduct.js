@@ -1,6 +1,7 @@
 import axios from "axios";
 import serverUrls from "../../serverUrls";
 import LoadingPage from "../front/LoadingPage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import {
   Row,
@@ -11,6 +12,11 @@ import {
   PaginationItem,
   PaginationLink,
 } from "reactstrap";
+import {
+  faPenAlt,
+  faPencilAlt,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 function OrganizeProduct() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -109,7 +115,22 @@ function OrganizeProduct() {
               }}
             />
           </td>
-          <td></td>
+          <td>
+            <div className="mb-2">
+              <FontAwesomeIcon
+                icon={faPencilAlt}
+                className="text-primary pe-none"
+              />{" "}
+              Edit
+            </div>
+            <div className="mb-2" onClick={removeProduct(item.id)}>
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                className="text-danger pe-none"
+              />{" "}
+              Hapus
+            </div>
+          </td>
         </tr>
       );
     });
@@ -179,6 +200,9 @@ function OrganizeProduct() {
     let number = 1;
     if (pagination.lastPage !== 0) getProducts(number);
   }
+
+  //action functions
+  function removeProduct(product_id) {}
   return (
     <div className="container-fluid">
       {/* <!-- Page Heading --> */}
@@ -202,7 +226,7 @@ function OrganizeProduct() {
               <th style={{ width: "auto" }}>Harga Diskon</th>
               <th style={{ width: "auto" }}>Stok</th>
               <th style={{ width: "5%" }}>Aktif</th>
-              <th style={{ width: "10%" }}> </th>
+              <th style={{ width: "10%" }}>Tindakan</th>
             </tr>
           </thead>
           <tbody>{viewProduct}</tbody>
