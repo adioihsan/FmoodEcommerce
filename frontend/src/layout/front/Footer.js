@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Footer() {
   return (
-    <footer className="bg-light p-3">
+    <footer className="bg-light p-3 mt-5">
       <div className="container text-start text-md-left mt-5">
         <div className="row">
           <div className="col-md-4 mx-auto mb-4">
