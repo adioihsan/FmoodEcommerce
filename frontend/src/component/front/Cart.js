@@ -20,6 +20,7 @@ import Footer from "../../layout/front/Footer";
 function Cart() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [loadPage, setLoadPage] = useState(false);
   const [carts, setCarts] = useState([]);
   const [order, setOrder] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
@@ -43,7 +44,7 @@ function Cart() {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [loadPage]);
   useEffect(() => {
     countTotalPrice();
   }, [order]);
@@ -75,6 +76,8 @@ function Cart() {
           store={store}
           products={products}
           key={store.storeId}
+          loadPage={loadPage}
+          setLoadPage={setLoadPage}
           orderHandler={orderHandler}
         />
       );

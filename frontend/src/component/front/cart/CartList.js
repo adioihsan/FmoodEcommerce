@@ -1,7 +1,9 @@
 import { faTrashAlt, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { FormGroup, Input, InputGroup, Button } from "reactstrap";
+import Swal from "sweetalert2";
 import serverUrls from "../../../serverUrls";
 function CartList(props) {
   const store = props.store;
@@ -32,6 +34,19 @@ function CartList(props) {
       // product.quantity = parseInt(product.quantity) - 1;
       setLoad(!load);
     }
+  }
+  function removeProduct(e, product_id, product_name) {
+    Swal.fire("Hapus produk dari keranjang ?", product_name, "info").then(
+      (e) => {
+        if (e.isConfirmed) {
+          axios
+            .delete("/api/remove-cart-item/" + product_id)
+            .then((response) => {
+              props.setLoadPage(!props.loadPage);
+            });
+        }
+      }
+    );
   }
   function handleInputCheck(e, product) {
     let action = e.target.checked ? "add" : "remove";
@@ -65,7 +80,12 @@ function CartList(props) {
           <div className="d-flex align-items-center justify-content-around">
             <div className="text-secondary "> Pindah ke whislist</div>
             <span className="vertical-divider">&nbsp; </span>
-            <FontAwesomeIcon icon={faTrashAlt} />
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              onClick={(e) =>
+                removeProduct(e, product.product_id, product.product_name)
+              }
+            />
             <InputGroup style={{ width: "35%" }}>
               <Button
                 size="sm"
