@@ -100,7 +100,7 @@ function CartTransaction(props) {
                       "Pesanan sudah selesai",
                       "success"
                     ).then((e) => {
-                      setLoad(!load);
+                      window.location.href = "/profile/transaction";
                     });
                   } else {
                     Swal.fire(
