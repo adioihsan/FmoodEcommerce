@@ -38,6 +38,10 @@ function Login() {
           localStorage.setItem("auth_token", res.data.token);
           localStorage.setItem("auth_username", res.data.username);
           localStorage.setItem("auth_id", res.data.id);
+          localStorage.setItem(
+            "auth_profile_picture",
+            res.data.profile_picture
+          );
           Swal.fire({
             icon: "success",
             title: "Kamu berhasil masuk",

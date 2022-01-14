@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\API\FmoodPayController;
+use App\Http\Controllers\API\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 
 class AuthController extends Controller
 {
@@ -31,10 +33,12 @@ class AuthController extends Controller
             ]);
             $token = $user->createToken($user->email, ['server:update'])->plainTextToken;
             $fmoodpay = FmoodPayController::createFmoodPay($user->id);
+            $userProfilePicture = UserProfileController::setInitilaProfilePicture($user->id);
             return response()->json([
                 'status'=>200,
                 'username'=>$user->name,
                 'token'=> $token,
+                'user_picture'=>$userProfilePicture,
                 'message'=>'Registered Successfully',
                 'fmoodpay'=>$fmoodpay,
             ]);
@@ -52,7 +56,7 @@ class AuthController extends Controller
             ]);
         }
         else{
-            $user = User::where('email',$req->email)->first();
+            $user = User::join('user_profiles','users.id','user_profiles.user_id')->where('email',$req->email)->first();
             if (! $user || ! Hash::check($req->password, $user->password)) {
                return response()->json([
                 'status'=>401,   
@@ -65,6 +69,7 @@ class AuthController extends Controller
                 'status'=>200,
                 'username'=>$user->name,
                 'token'=> $token,
+                'profile_picture'=>$user->profile_picture,
                 'id'=> $user->id,
                 'message'=>'Login Successfully'
             ]);

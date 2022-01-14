@@ -12,6 +12,7 @@ use App\Http\Controllers\API\FmoodPayController;
 use App\Http\Controllers\API\RajaOngkir;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductReviewController;
+use App\Http\Controllers\API\UserProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -105,6 +106,28 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //review product
     Route::post('add-review',[ProductReviewController::class,'addReview']);
+
+    //get user profile
+
+    Route::get('get-user-profile',[UserProfileController::class,'getProfile']);
+
+    //update user picture;
+    Route::patch('update-user-picture',[UserProfileController::class,'updatePicture']);
+
+    //update 
+    Route::patch('update-user-name',[UserProfileController::class,'updateName']);
+
+    //update 
+    Route::patch('update-user-gender',[UserProfileController::class,'updateGender']);
+
+    //update 
+    Route::patch('update-user-email',[UserProfileController::class,'updateEmail']);
+
+    //update 
+    Route::patch('update-user-phoneNumber',[UserProfileController::class,'updatePhoneNumber']);
+
+    //update 
+    Route::patch('update-user-dob',[UserProfileController::class,'updateDOB']);
 });
 
 

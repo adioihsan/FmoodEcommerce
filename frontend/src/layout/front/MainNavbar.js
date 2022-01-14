@@ -29,6 +29,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FormOpenStore from "../../component/store/forms/FormOpenStore";
+import serverUrls from "../../serverUrls";
 function MainNavbar() {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
@@ -137,8 +138,9 @@ function MainNavbar() {
               <div className="d-flex justify-content-center align-items-center">
                 <img
                   src={
-                    "https://i.pravatar.cc/100?u=" +
-                    localStorage.getItem("auth_id")
+                    serverUrls.storage +
+                    "/" +
+                    localStorage.getItem("auth_profile_picture")
                   }
                   className="user-image-2"
                   alt="user"
@@ -152,8 +154,9 @@ function MainNavbar() {
               <div className="bg-light shadow-sm p-3 w-100">
                 <img
                   src={
-                    "https://i.pravatar.cc/100?u=" +
-                    localStorage.getItem("auth_id")
+                    serverUrls.storage +
+                    "/" +
+                    localStorage.getItem("auth_profile_picture")
                   }
                   className="user-image-3 rounded float-start"
                   alt="user"

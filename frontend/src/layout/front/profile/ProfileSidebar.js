@@ -2,6 +2,7 @@ import { Card, CardHeader, CardBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArchive, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import serverUrls from "../../../serverUrls";
 function ProfileSidebar() {
   return (
     <Card>
@@ -10,7 +11,9 @@ function ProfileSidebar() {
         <div className="d-flex align-items-center">
           <img
             src={
-              "https://i.pravatar.cc/100?u=" + localStorage.getItem("auth_id")
+              serverUrls.storage +
+              "/" +
+              localStorage.getItem("auth_profile_picture")
             }
             width="62px"
             className="rounded-circle border border-2"
