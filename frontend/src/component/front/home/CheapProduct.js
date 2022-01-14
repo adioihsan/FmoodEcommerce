@@ -20,7 +20,7 @@ function CheapProducts() {
   let viewProducts = "";
   if (!loading) {
     viewProducts = products.map((data) => {
-      return <ProductCard data={data} />;
+      return <ProductCard data={data} key={data.id} />;
     });
   } else {
     return <LoadingPage />;

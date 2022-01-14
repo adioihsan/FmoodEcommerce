@@ -15,13 +15,11 @@ import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router";
 import AddAddress from "./profile/AddAddress";
 import LoadingPage from "./LoadingPage";
 import Footer from "../../layout/front/Footer";
 // import { faTrashRestoreAlt } from "@fortawesome/free-solid-svg-icons";
 function Checkout() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const checkoutProducts = JSON.parse(
     localStorage.getItem("checkout_products")

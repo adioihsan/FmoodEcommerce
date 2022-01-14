@@ -24,7 +24,7 @@ import NewOrders from "./component/store/NewOrders";
 import OnProcessOrders from "./component/store/OnProcessOrders";
 import OnDeliveryOrders from "./component/store/OnDeliveryOrders";
 import SuccessOrders from "./component/store/SuccessOrders";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Biodata from "./component/front/profile/Biodata";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
@@ -37,7 +37,8 @@ axios.interceptors.request.use(function (config) {
 });
 
 function App() {
-  const [title, setTitle] = useState("Fmood : Food For Your Mood");
+  // const [title, setTitle] = useState("Fmood : Food For Your Mood");
+  const title = "Fmood : Food For Your Mood";
   useEffect(
     (e) => {
       document.title = title;
