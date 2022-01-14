@@ -48,7 +48,7 @@ function OrganizeProduct() {
   if (loading) {
     return <LoadingPage />;
   } else if (pagination.totalItem === 0) {
-    return <h4 className="m-3">Belum ada produk</h4>;
+    return <h2 className="text-center">Belum ada produk</h2>;
   } else {
     //show products
     viewProduct = products.map((item) => {
@@ -160,7 +160,6 @@ function OrganizeProduct() {
   function goToPage(number) {
     getProducts(number);
   }
-
   function nextPage() {
     let number =
       pagination.currentPage !== pagination.lastPage
@@ -211,7 +210,7 @@ function OrganizeProduct() {
       </Row>
       <Row>
         <Col sm="12" className="d-flex justify-content-center">
-          {viewPagination()}
+          {pagination.totalItem > 10 ? viewPagination() : ""}
         </Col>
       </Row>
     </div>

@@ -1,6 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Row, Col, Table, Button } from "reactstrap";
+import {
+  Row,
+  Col,
+  Table,
+  Button,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+} from "reactstrap";
 import serverUrls from "../../serverUrls";
 import Swal from "sweetalert2";
 import LoadingPage from "../front/LoadingPage";
@@ -8,7 +16,12 @@ function NewOrders() {
   const [load, setLoad] = useState(false);
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState({});
-
+  const [pagination, setPagination] = useState({
+    currentPage: 0,
+    lastPage: 0,
+    pages: [],
+    totalItem: 0,
+  });
   useEffect(() => {
     getOrders(1);
   }, [load]);
@@ -19,6 +32,16 @@ function NewOrders() {
       .then((response) => {
         if (response.status === 200) {
           setOrders(response.data.data);
+          let arrPages = [];
+          for (let i = 1; i <= response.data.last_page; i++) {
+            arrPages.push(i);
+          }
+          setPagination({
+            currentPage: response.data.current_page,
+            lastPage: response.data.last_page,
+            pages: arrPages,
+            totalItem: response.data.total,
+          });
         } else {
           Swal.fire("Terjadi Kesalahan", "coba beberapa saat lagi", "error");
         }
@@ -48,10 +71,12 @@ function NewOrders() {
       });
   }
   let viewOrders = "";
+  let viewPagination = "";
   if (loading) {
     return <LoadingPage />;
+  } else if (pagination.totalItem === 0) {
+    return <h2 className="text-center">Belum ada pesanan baru</h2>;
   } else {
-    console.log(orders);
     viewOrders = Object.values(orders).map((order) => {
       return (
         <tr>
@@ -107,6 +132,67 @@ function NewOrders() {
         </tr>
       );
     });
+    //  show pagination
+    viewPagination = function () {
+      return (
+        <Pagination>
+          <PaginationItem>
+            <PaginationLink first onClick={() => goToFirstPage()} />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink previous onClick={() => prevPage()} />
+          </PaginationItem>
+          {pagination.pages.map((item) => {
+            return (
+              <PaginationItem>
+                <PaginationLink
+                  onClick={() => {
+                    goToPage(item);
+                  }}
+                  style={
+                    pagination.currentPage === item
+                      ? { color: "#ff3d00" }
+                      : { color: "#0d6efd" }
+                  }
+                >
+                  {item}
+                </PaginationLink>
+              </PaginationItem>
+            );
+          })}
+          <PaginationItem>
+            <PaginationLink next onClick={() => nextPage()} />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink last onClick={() => goToLastPage()} />
+          </PaginationItem>
+        </Pagination>
+      );
+    };
+  }
+
+  //pagination functions
+  function goToPage(number) {
+    getOrders(number);
+  }
+  function nextPage() {
+    let number =
+      pagination.currentPage !== pagination.lastPage
+        ? pagination.currentPage + 1
+        : pagination.currentPage;
+    if (pagination.lastPage !== 0) getOrders(number);
+  }
+  function prevPage() {
+    let number = pagination.currentPage !== 1 ? pagination.currentPage - 1 : 1;
+    if (pagination.lastPage !== 0) getOrders(number);
+  }
+  function goToLastPage() {
+    let number = pagination.lastPage;
+    if (pagination.lastPage !== 0) getOrders(number);
+  }
+  function goToFirstPage() {
+    let number = 1;
+    if (pagination.lastPage !== 0) getOrders(number);
   }
   return (
     <div className="container-fluid">
@@ -133,6 +219,11 @@ function NewOrders() {
             </thead>
             <tbody className="text-black">{viewOrders}</tbody>
           </Table>
+        </Col>
+      </Row>
+      <Row>
+        <Col sm="12" className="d-flex justify-content-center">
+          {pagination.totalItem > 10 ? viewPagination() : ""}
         </Col>
       </Row>
     </div>
