@@ -7,6 +7,7 @@ import {
   PaginationItem,
   PaginationLink,
 } from "reactstrap";
+import serverUrls from "../../../serverUrls";
 import LoadingPage from "../LoadingPage";
 function ProductReview(props) {
   const [loading, setLoading] = useState(true);
@@ -85,7 +86,11 @@ function ProductReview(props) {
           <Row>
             <Col sm="3">
               <img
-                src={"https://i.pravatar.cc/100?u=" + review.user_id}
+                src={
+                  serverUrls.storage +
+                  "/" +
+                  localStorage.getItem("auth_profile_picture")
+                }
                 width="62px"
                 className="rounded-circle border border-2 float-start me-2"
                 alt="user"
