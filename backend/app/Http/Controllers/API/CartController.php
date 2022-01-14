@@ -78,4 +78,9 @@ class CartController extends Controller
     
         return $result;
     }
+
+    function removeCartItem(Request $req){
+        $item = Cart::where('user_id',$req->user()->id)->where('product_id',$req->product_id)->delete();
+        return $item;
+    }
 }

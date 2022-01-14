@@ -65,6 +65,9 @@ Route::middleware('auth:sanctum')->group(function(){
     //add to cart only for login user
     Route::post('add-cart',[CartController::class,'addCart']);
 
+     //remove item from cart
+     Route::delete('remove-cart-item/{product_id}',[CartController::class,'removeCartItem']);
+
     //get user address
     Route::get('get-user-address',[UserAddressController::class,'getUserAddress']);
 
