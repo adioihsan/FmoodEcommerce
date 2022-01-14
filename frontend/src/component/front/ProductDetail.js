@@ -344,7 +344,7 @@ function ProductDetail() {
                         })}
                         onClick={() => detailToggle("2")}
                       >
-                        Info Penting
+                        Catatan Toko
                       </NavLink>
                     </NavItem>
                   </Nav>
@@ -405,7 +405,7 @@ function ProductDetail() {
                     <TabPane tabId="2">
                       <Row>
                         <Col sm="12">
-                          <h4>Tab 2 Content</h4>
+                          <h4>-</h4>
                         </Col>
                       </Row>
                     </TabPane>
