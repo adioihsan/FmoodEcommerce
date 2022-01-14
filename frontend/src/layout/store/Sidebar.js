@@ -4,7 +4,6 @@ import {
   faTachometerAlt,
   faStore,
   faArchive,
-  faSign,
   faSignInAlt,
   faPeopleCarry,
   faShippingFast,
@@ -23,7 +22,7 @@ const Sidebar = () => {
         href="/"
       >
         <div className="sidebar-brand-icon">
-          <img src="/logo-fmood-white-64.png" alt="Fmood" />
+          <img src="/logo-fmood-white-64.png" width="64px" alt="Fmood" />
         </div>
         <div className="sidebar-brand-text mr-5 ml-1">
           Fmood <sup>Store</sup>

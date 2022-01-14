@@ -112,7 +112,7 @@ function MainNavbar() {
                   />{" "}
                   <small>{storeProfile.name}</small>
                   <br />
-                  <a href="/store">
+                  <a href="/store/dashboard">
                     <Button size="sm" className="nav-button mt-1">
                       <FontAwesomeIcon icon={faTachometerAlt} /> Buka Dashboard
                     </Button>
@@ -167,7 +167,7 @@ function MainNavbar() {
                 </small>
                 <br />
                 <Button
-                  href="/profile/address"
+                  href="/profile/biodata"
                   className="text-light"
                   size="sm"
                 >

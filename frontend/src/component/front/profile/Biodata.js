@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  faLock,
-  faPen,
-  faSortAlphaDownAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, CardBody, Col, Row } from "reactstrap";
 import Swal from "sweetalert2";
@@ -61,11 +57,22 @@ function Biodata() {
               .post("/api/update-user-picture?_method=PATCH", formData)
               .then((response) => {
                 if (response.data.status === 200) {
-                  Swal.fire(
-                    "Berhasil",
-                    "Foto profil berhasil di update",
-                    "success"
+                  localStorage.setItem(
+                    "auth_profile_picture",
+                    response.data.profile_picture
                   );
+                  Swal.fire({
+                    title: "Berhasil",
+                    text: "Foto berhasil di rubah. Muat ulang halaman untuk melihat perubahan",
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonText: "Muat ulang halaman",
+                    cancelButtonText: "Muat nanti",
+                  }).then((e) => {
+                    if (e.isConfirmed) {
+                      window.location.href = "/profile/biodata";
+                    }
+                  });
                 } else {
                   Swal.fire(
                     "Gagal",

@@ -16,6 +16,7 @@ function ProfileSidebar() {
               localStorage.getItem("auth_profile_picture")
             }
             width="62px"
+            height="62px"
             className="rounded-circle border border-2"
             alt="user"
           />

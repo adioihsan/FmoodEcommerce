@@ -86,11 +86,7 @@ function ProductReview(props) {
           <Row>
             <Col sm="3">
               <img
-                src={
-                  serverUrls.storage +
-                  "/" +
-                  localStorage.getItem("auth_profile_picture")
-                }
+                src={serverUrls.storage + "/" + review.profile_picture}
                 width="62px"
                 className="rounded-circle border border-2 float-start me-2"
                 alt="user"
