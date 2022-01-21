@@ -37,9 +37,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum','hasStore')->group(function(){
+// Route::middleware('auth:sanctum','hasStore')->group(function(){
   
-});
+// });
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/isLogin',function(){
@@ -144,6 +144,15 @@ Route::middleware('auth:sanctum')->group(function(){
 
     //counst store income
     Route::get('count-store-income',[OrderController::class,'countStoreIncome']);
+
+    //get store a product to update
+    Route::get('get-store-product/{id}',[ProductController::class,'getStoreProduct']);
+
+    //upload product media (image/video)
+    Route::post('upload-product-media',[ProductController::class,'uploadProductMedia']);
+
+    //remove product image
+    Route::post('remove-product-media',[ProductController::class,'removeProductMedia']);
 });
 
 

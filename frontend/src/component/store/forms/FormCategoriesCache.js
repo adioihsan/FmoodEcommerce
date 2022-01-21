@@ -4,6 +4,7 @@ import { useState } from "react";
 import Categories from "../../../cache/Categories";
 function FormCategoriesCache(props) {
   const [subCategories, setSubCategories] = useState([]);
+  const [loadState, setLoadState] = useState(true);
   const [categoriesData, setCategoriesData] = useState({
     mainCategory: "",
     subCategory: [],
@@ -53,6 +54,7 @@ function FormCategoriesCache(props) {
     e.target.classList.toggle("selected-subcat");
     if (e.target.classList.contains("selected-subcat")) {
       categoriesData.subCategory.push(e.target.innerText);
+      setLoadState(!loadState);
     } else {
       let selectedCat = categoriesData.subCategory.filter((element) => {
         return element !== e.target.innerText;
@@ -63,7 +65,9 @@ function FormCategoriesCache(props) {
   return (
     <>
       <FormGroup id="catMain" className="bordered">
-        <Label className="mb-2">Pilih Kategori</Label>
+        <Label className="mb-0">Pilih Kategori</Label>
+        <br />
+        <small className="mb-2">{JSON.stringify(categoriesData)}</small>
         <br />
         {viewCategory_button}
         <br />

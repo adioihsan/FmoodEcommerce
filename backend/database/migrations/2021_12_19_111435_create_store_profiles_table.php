@@ -19,6 +19,7 @@ class CreateStoreProfilesTable extends Migration
             $table->string('city',50);;
             $table->string('province',50);
             $table->integer('city_id');
+            $table->text('description');
             $table->integer('province_id');
             $table->text('address');
             $table->string('img_store');

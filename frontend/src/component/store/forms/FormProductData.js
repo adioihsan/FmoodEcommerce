@@ -8,7 +8,8 @@ import {
 } from "reactstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 function FormProductData(props) {
   const [productData, setProductData] = useState({
     name: "",
@@ -24,7 +25,23 @@ function FormProductData(props) {
     stock: false,
     description: false,
   });
+  useEffect(() => {
+    if (props.product) {
+      productData.name = props.product.name;
+      productData.price = props.product.price;
+      productData.weight = props.product.weight;
+      productData.stock = props.product.stock;
+      productData.description = props.product.description;
+      isValid.name = true;
+      isValid.price = true;
+      isValid.weight = true;
+      isValid.stock = true;
+      isValid.description = true;
+    }
+  }, []);
+
   function handleInput(e) {
+    e.persist();
     setProductData({ ...productData, [e.target.name]: e.target.value });
   }
   function validateInput(e) {
@@ -58,7 +75,7 @@ function FormProductData(props) {
       setIsValid({ ...isValid, [element.name]: true });
     }
   }
-  function areValid(e) {
+  function areValid() {
     return (
       isValid.name &&
       isValid.price &&
@@ -74,7 +91,8 @@ function FormProductData(props) {
           type="text"
           name="name"
           placeholder="Nama Produk"
-          onChange={(e) => handleInput(e)}
+          value={productData.name}
+          onChange={handleInput}
           onBlur={(e) => validateInput(e)}
         />
         <FormFeedback>
@@ -88,6 +106,7 @@ function FormProductData(props) {
             type="number"
             name="price"
             placeholder="Harga"
+            value={productData.price}
             onChange={(e) => handleInput(e)}
             onBlur={(e) => validateInput(e)}
           />
@@ -100,6 +119,7 @@ function FormProductData(props) {
             type="number"
             name="weight"
             placeholder="Berat"
+            value={productData.weight}
             onChange={(e) => handleInput(e)}
             onBlur={(e) => validateInput(e)}
           />
@@ -111,6 +131,7 @@ function FormProductData(props) {
         <Input
           type="number"
           name="stock"
+          value={productData.stock}
           placeholder="Stok Tersedia"
           onChange={(e) => handleInput(e)}
           onBlur={(e) => validateInput(e)}
@@ -121,6 +142,7 @@ function FormProductData(props) {
         <CKEditor
           editor={ClassicEditor}
           name="description"
+          value={productData.description}
           data="Tulis deskripsi"
           config={{
             removePlugins: [
@@ -138,6 +160,7 @@ function FormProductData(props) {
           }}
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
+            editor.setData(productData.description);
             editor.editing.view.change((writer) => {
               writer.setStyle(
                 "min-height",
@@ -176,7 +199,7 @@ function FormProductData(props) {
           variant="primary"
           className="orange-button outline"
           onClick={(e) => {
-            if (areValid(e)) {
+            if (areValid()) {
               props.toggle("2");
               props.dataCourier(productData);
             }

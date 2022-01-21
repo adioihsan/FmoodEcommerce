@@ -26,6 +26,7 @@ import OnDeliveryOrders from "./component/store/OnDeliveryOrders";
 import SuccessOrders from "./component/store/SuccessOrders";
 import { useEffect } from "react";
 import Biodata from "./component/front/profile/Biodata";
+import UpdateProduct from "./component/store/UpdateProduct";
 axios.defaults.baseURL = serverUrls.backend;
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -62,6 +63,10 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<StoreProfile />} />
             <Route path="add-product" element={<AddProduct />} />
+            <Route
+              path="update-product/:productId"
+              element={<UpdateProduct />}
+            />
             <Route path="organize-product" element={<OrganizeProduct />} />
             <Route path="new-orders" element={<NewOrders />} />
             <Route path="onprocess-orders" element={<OnProcessOrders />} />

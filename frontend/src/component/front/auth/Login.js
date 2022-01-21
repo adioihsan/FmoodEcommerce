@@ -37,7 +37,6 @@ function Login() {
         if (res.data.status === 200) {
           localStorage.setItem("auth_token", res.data.token);
           localStorage.setItem("auth_username", res.data.username);
-          localStorage.setItem("auth_id", res.data.id);
           localStorage.setItem(
             "auth_profile_picture",
             res.data.profile_picture

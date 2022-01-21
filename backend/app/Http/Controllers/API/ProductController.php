@@ -11,6 +11,7 @@ use App\Models\ProductReview;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\StoreProfile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 
 
@@ -22,7 +23,7 @@ class ProductController extends Controller
             'price'=>'required|max:20',
             'weight'=>'required|max:5',
             'stock'=>'required|min:1',
-            'imgMain'=>'required|image|max:2560',
+            'imgMain'=>'required',
             'mainCategory'=>'required',
         ]);
         if($validator->fails()){
@@ -30,7 +31,7 @@ class ProductController extends Controller
         }
         else{
             $product = new Product;
-            $product->user_id = $req->input('userId');
+            $product->user_id = $req->user()->id;
             $product->name = $req->input('name');
             $product->price = $req->input('price');
             $product->weight = $req->input('weight');
@@ -46,38 +47,43 @@ class ProductController extends Controller
             $product->discount_price = $req->input('discountPrice');
             $product->hide = $req->input('hide');
 
-            if($req->hasFile('imgMain')){
-                $file = $req->file('imgMain');
-                $saved_path = $file->store('products/'.($req->input('userId')));
+            if($req->input('imgMain')){
+                $file_path = $req->input('imgMain');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                Storage::move($file_path,$saved_path);
                 $product->img_main = $saved_path;
             };
-            if($req->hasFile('imgTop')){
-                $file = $req->file('imgTop');
-                $saved_path = $file->store('products/'.($req->input('userId')));
-                $product->img_top = $saved_path;
-            };
-            if($req->hasFile('imgSide')){
-                $file = $req->file('imgSide');
-                $saved_path = $file->store('products/'.($req->input('userId')));
-                $product->img_side = $saved_path;
-            };
-            if($req->hasFile('imgFront')){
-                $file = $req->file('imgFront');
-                $saved_path = $file->store('products/'.($req->input('userId')));
+            if($req->input('imgFront')){
+                $file_path = $req->input('imgFront');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                Storage::move($file_path,$saved_path);
                 $product->img_front = $saved_path;
             };
-            if($req->hasFile('imgOther')){
-                $file = $req->file('imgOther');
-                $saved_path = $file->store('products/'.($req->input('userId')));
+            if($req->input('imgTop')){
+                $file_path = $req->input('imgTop');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                Storage::move($file_path,$saved_path);
+                $product->img_top = $saved_path;
+            };
+            if($req->input('imgSide')){
+                $file_path = $req->input('imgSide');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                Storage::move($file_path,$saved_path);
+                $product->img_side = $saved_path;
+            };
+            if($req->input('imgOther')){
+                $file_path = $req->input('imgOther');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                Storage::move($file_path,$saved_path);
                 $product->img_other = $saved_path;
             };
-            if($req->hasFile('video')){
-                $file = $req->file('video');
-                $saved_path = $file->store('products/'.($req->input('userId')));
+            if($req->input('video')){
+                $file_path = $req->input('video');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                Storage::move($file_path,$saved_path);
                 $product->video = $saved_path;
             };
-            
-
+  
             if($product->save()){
                 return response()->json(['status'=>200,'message'=>"Product Added Successfully"]);
             }
@@ -241,7 +247,58 @@ class ProductController extends Controller
     public function getStoreProfile($user_id){
         return StoreProfile::where("user_id",$user_id)->first();
     }
+
+    public function getStoreProduct(Request $req){
+        $product_id = $req->id;
+        return Product::where('id',$product_id)->where('user_id',$req->user()->id)->first();
+    }
+
+    public function deleteProductPicture(Request $req){
+        $product =  Product::where('id',$product_id)->where('user_id',$req->user()->id)->first();
+        return $req->input('imagepart');
+    }
+
+    public function uploadProductMedia(Request $req){
+        $file = $req->file('image');
+        $saved_path = $file->store('products/tmp');
+        if($saved_path) return response()->json(["status"=>200,'message'=>'image_uploaded','path'=>$saved_path]);
+        return  response()->json(["status"=>500,'message'=>'image_upload failed','path'=>'']);
+    }
+
+    public function removeProductMedia(Request $req){
+        $result = 0;
+        if($req->productId){
+            $product = Product::find($req->productId);
+            switch($req->imgName){
+                case "imgMain" :
+                // img main si not premited to delete
+                break;
+                case "imgFront":
+                    $product->img_front = null;
+                break;
+                case "imgTop" :
+                    $product->img_top = null;
+                break;
+                case "imgSide" :
+                    $product->img_side = null;
+                break;
+                case "imgOther" :
+                    $product->img_other = null;
+                break;
+                case "video":
+                    $product->video = null;
+                break;
+                default:
+                // do nothing
+            }
+            $product->save();
+        }
+        if(!$req->imgName === "imgMain") $result = Storage::delete($req->imgPath);
+        return $result;
+    }
+
     public static function getProductById($id){
         return Product::where("id",$id)->select("id","name","img_main","price","discount_price","discount")->first();
     }
+
 }

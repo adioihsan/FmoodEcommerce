@@ -17,6 +17,7 @@ import {
   faPencilAlt,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 function OrganizeProduct() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -117,11 +118,13 @@ function OrganizeProduct() {
           </td>
           <td>
             <div className="mb-2">
-              <FontAwesomeIcon
-                icon={faPencilAlt}
-                className="text-primary pe-none"
-              />{" "}
-              Edit
+              <Link to={{ pathname: "/store/update-product/" + item.id }}>
+                <FontAwesomeIcon
+                  icon={faPencilAlt}
+                  className="text-primary pe-none"
+                />{" "}
+                Ubah Data
+              </Link>
             </div>
             <div className="mb-2" onClick={removeProduct(item.id)}>
               <FontAwesomeIcon
