@@ -34,6 +34,7 @@ function MainNavbar() {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
   const [storeProfile, setStoreProfile] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [searchKeyword, setSearchKeyword] = useState("");
   const openStoreSwall = withReactContent(Swal);
   const userToggle = () => {
@@ -50,6 +51,7 @@ function MainNavbar() {
     axios.get("api/get-store-profile").then((response) => {
       if (response.status === 200) {
         setStoreProfile(response.data);
+        setIsLoading(false);
       }
     });
   }, []);
@@ -66,7 +68,7 @@ function MainNavbar() {
   };
   const LoginComp = () => {
     let isLogin = localStorage.getItem("auth_token");
-    if (isLogin) {
+    if (isLogin && !isLoading) {
       return (
         <>
           {/* Store button dropdown */}
