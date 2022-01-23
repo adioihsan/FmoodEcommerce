@@ -10,7 +10,6 @@ import { Button, FormGroup, Label, Progress, Spinner } from "reactstrap";
 import serverUrls from "../../../serverUrls";
 import Swal from "sweetalert2";
 function FormMedia(props) {
-  const [isUploaded, setIsUploaded] = useState(false);
   const [mediaData, setMediaData] = useState({
     imgMain: "",
     imgFront: "",
@@ -179,6 +178,14 @@ function FormMedia(props) {
     const header = label.querySelector(".input-image-header");
     // let imgName =
     //   inputName.slice(0, 3) + "_" + inputName.slice(3).toLowerCase();
+    if (inputName === "imgMain") {
+      Swal.fire(
+        "Foto utama tidak bisa di hapus",
+        "Klik foto jika ingin mengganti foto",
+        "info"
+      );
+      return undefined;
+    }
     axios
       .post("api/remove-product-media/", {
         imgPath: mediaData[inputName],
@@ -409,7 +416,7 @@ function FormMedia(props) {
           variant="primary"
           className="orange-button outline"
           onClick={() => {
-            if (mediaData.imgMain !== null || props.product) {
+            if (mediaData.imgMain !== "" || props.product) {
               document
                 .querySelector("#img-main-invalid")
                 .classList.add("d-none");

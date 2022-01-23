@@ -70,27 +70,26 @@ function UpdateProduct() {
         formData.append(properties[0], properties[1]);
       });
     });
-    console.log(formData);
-    // axios.post("/api/update-product/" + productId, formData).then((res) => {
-    //   if (res.data.status === 200) {
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Update produk berhasil",
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     navigate("/store/organize-product");
-    //   } else if (res.data.status === 422) {
-    //     Swal.fire({
-    //       icon: "warning",
-    //       title: "Gagal update",
-    //       text: "Cek kembali data yang di input",
-    //       showConfirmButton: true,
-    //     });
-    //   } else {
-    //     console.log(res);
-    //   }
-    // });
+    axios.post("/api/update-product/" + productId, formData).then((res) => {
+      if (res.data.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Update produk berhasil",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/store/organize-product");
+      } else if (res.data.status === 422) {
+        Swal.fire({
+          icon: "warning",
+          title: "Gagal update",
+          text: "Cek kembali data yang di input",
+          showConfirmButton: true,
+        });
+      } else {
+        console.log(res);
+      }
+    });
   }
   if (loading) {
     return <LoadingPage />;

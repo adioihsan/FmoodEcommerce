@@ -29,12 +29,18 @@ function FormOthers(props) {
     if (props.product) {
       if (props.product.expired !== null)
         othersData.expired = props.product.expired.slice(0, 10);
-      othersData.durability = props.product.durability;
-      othersData.preorder = props.product.preorder;
-      othersData.discount = props.product.discount;
-      othersData.discountPrice = props.product.discount_price;
-      othersData.hide = props.product.hide;
-      othersData.regCode = props.product.reg_code;
+      if (props.product.durability !== null)
+        othersData.durability = props.product.durability;
+      if (props.product.preorder !== null)
+        othersData.preorder = props.product.preorder;
+      if (props.product.discount !== null)
+        othersData.discount = props.product.discount;
+      if (props.product.discount_price !== null)
+        othersData.discountPrice = props.product.discount_price;
+      if (props.product.hide !== null) othersData.hide = props.product.hide;
+      if (props.product.reg_code !== null)
+        othersData.regCode = props.product.reg_code;
+
       isChecked.preorder = props.product.preorder === 1;
       isChecked.hide = props.product.hide === 1;
       isChecked.discount = props.product.discount === 1;

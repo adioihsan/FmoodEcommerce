@@ -123,47 +123,56 @@ class ProductController extends Controller
             $product->discount_price = $req->input('discountPrice');
             $product->hide = $req->input('hide');
 
-            if($req->input('imgMain')){
+            if($req->filled('imgMain')){
                 $file_path = $req->input('imgMain');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
-                if($file_path !== $saved_path)
-                Storage::move($file_path,$saved_path);
-                $product->img_main = $saved_path;
+                if($file_path !== $product->img_main){
+                    Storage::move($file_path,$saved_path);
+                    $product->img_main = $saved_path;
+                }
             };
-            if($req->input('imgFront')){
+            if($req->filled('imgFront')){
                 $file_path = $req->input('imgFront');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
-                if($file_path !== $saved_path)
-                Storage::move($file_path,$saved_path);
-                $product->img_front = $saved_path;
+                if($file_path !== $product->img_front){
+                    Storage::move($file_path,$saved_path);
+                    $product->img_front = $saved_path;
+                }
             };
-            if($req->input('imgTop')){
+            if($req->filled('imgTop')){
                 $file_path = $req->input('imgTop');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
-                if($file_path !== $saved_path)
-                Storage::move($file_path,$saved_path);
-                $product->img_top = $saved_path;
+                if($file_path !== $product->img_top){
+                    Storage::move($file_path,$saved_path);
+                    $product->img_top = $saved_path;
+                }
             };
-            if($req->input('imgSide')){
+            if($req->filled('imgSide')){
                 $file_path = $req->input('imgSide');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
-                if($file_path !== $saved_path)
-                Storage::move($file_path,$saved_path);
-                $product->img_side = $saved_path;
+                if($file_path !== $product->img_side){
+                    Storage::move($file_path,$saved_path);
+                    $product->img_side = $saved_path;
+                }
+                
             };
-            if($req->input('imgOther')){
+            if($req->filled('imgOther')){
                 $file_path = $req->input('imgOther');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
-                if($file_path !== $saved_path)
-                Storage::move($file_path,$saved_path);
-                $product->img_other = $saved_path;
+                if($file_path !== $product->img_other){
+                    Storage::move($file_path,$saved_path);
+                    $product->img_other = $saved_path;
+                }
+                
             };
-            if($req->input('video')){
+            if($req->filled('video')){
                 $file_path = $req->input('video');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
-                if($file_path !== $saved_path)
-                Storage::move($file_path,$saved_path);
-                $product->video = $saved_path;
+                if($file_path !== $product->video){
+                    Storage::move($file_path,$saved_path);
+                    $product->video = $saved_path;
+                }
+                
             };
   
             if($product->save()){
