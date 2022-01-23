@@ -12,12 +12,12 @@ import Swal from "sweetalert2";
 function FormMedia(props) {
   const [isUploaded, setIsUploaded] = useState(false);
   const [mediaData, setMediaData] = useState({
-    imgMain: null,
-    imgFront: null,
-    imgTop: null,
-    imgSide: null,
-    imgOther: null,
-    video: null,
+    imgMain: "",
+    imgFront: "",
+    imgTop: "",
+    imgSide: "",
+    imgOther: "",
+    video: "",
   });
   const [imgMainUpState, setImgMainUpstate] = useState("0");
   const [imgFrontUpState, setImgFrontUpstate] = useState("0");
@@ -187,7 +187,7 @@ function FormMedia(props) {
       })
       .then((response) => {
         if (response.status === 200) {
-          setMediaData({ ...mediaData, [inputName]: null });
+          setMediaData({ ...mediaData, [inputName]: "" });
           header.style.display = "none";
           label.style.backgroundImage = "";
         }
@@ -258,7 +258,6 @@ function FormMedia(props) {
       viewVideo.src = fileUrl;
       videoWrapper.style.display = "block";
       inputError.style.display = "none";
-      setMediaData({ ...mediaData, video: file });
       uploadMedia(videoRef.current, file, setVideoUpstate);
       if (file.name.length > 60) {
         videoTitle.innerText =
@@ -292,7 +291,6 @@ function FormMedia(props) {
           inputError.style.display = "none";
           viewVideo.src = "";
           setMediaData({ ...mediaData, video: null });
-          console.log(response);
         }
       })
       .catch((e) => {
@@ -354,6 +352,7 @@ function FormMedia(props) {
         <div ref={videoRef} className="position-relative">
           <input
             id="video"
+            name="video"
             className="video"
             style={{ visibility: "hidden" }}
             type="file"

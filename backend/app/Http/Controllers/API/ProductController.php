@@ -47,37 +47,37 @@ class ProductController extends Controller
             $product->discount_price = $req->input('discountPrice');
             $product->hide = $req->input('hide');
 
-            if($req->input('imgMain')){
+            if($req->filled('imgMain')){
                 $file_path = $req->input('imgMain');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
                 Storage::move($file_path,$saved_path);
                 $product->img_main = $saved_path;
             };
-            if($req->input('imgFront')){
+            if($req->filled('imgFront')){
                 $file_path = $req->input('imgFront');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
                 Storage::move($file_path,$saved_path);
                 $product->img_front = $saved_path;
             };
-            if($req->input('imgTop')){
+            if($req->filled('imgTop')){
                 $file_path = $req->input('imgTop');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
                 Storage::move($file_path,$saved_path);
                 $product->img_top = $saved_path;
             };
-            if($req->input('imgSide')){
+            if($req->filled('imgSide')){
                 $file_path = $req->input('imgSide');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
                 Storage::move($file_path,$saved_path);
                 $product->img_side = $saved_path;
             };
-            if($req->input('imgOther')){
+            if($req->filled('imgOther')){
                 $file_path = $req->input('imgOther');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
                 Storage::move($file_path,$saved_path);
                 $product->img_other = $saved_path;
             };
-            if($req->input('video')){
+            if($req->filled('video')){
                 $file_path = $req->input('video');
                 $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
                 Storage::move($file_path,$saved_path);
@@ -92,6 +92,90 @@ class ProductController extends Controller
             }
         }
     }
+
+    public function update(Request $req){
+        $validator = Validator::make($req->all(),[
+            'name'=>'required|max:191',
+            'price'=>'required|max:20',
+            'weight'=>'required|max:5',
+            'stock'=>'required|min:1',
+            'imgMain'=>'required',
+            'mainCategory'=>'required',
+        ]);
+        if($validator->fails()){
+            return response()->json(['status'=>422,'errors'=>$validator->messages()]);
+        }
+        else{
+            $product = Product::find($req->productId);
+            $product->user_id = $req->user()->id;
+            $product->name = $req->input('name');
+            $product->price = $req->input('price');
+            $product->weight = $req->input('weight');
+            $product->stock = $req->input('stock');
+            $product->description = $req->input('description');
+            $product->main_category = $req->input('mainCategory');
+            $product->sub_category = $req->input('subCategory');
+            $product->reg_code = $req->input('regCode');
+            $product->expired = $req->input('expired');
+            $product->durability = $req->input('durability');
+            $product->preorder = $req->input('preorder');
+            $product->discount = $req->input('discount');
+            $product->discount_price = $req->input('discountPrice');
+            $product->hide = $req->input('hide');
+
+            if($req->input('imgMain')){
+                $file_path = $req->input('imgMain');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                if($file_path !== $saved_path)
+                Storage::move($file_path,$saved_path);
+                $product->img_main = $saved_path;
+            };
+            if($req->input('imgFront')){
+                $file_path = $req->input('imgFront');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                if($file_path !== $saved_path)
+                Storage::move($file_path,$saved_path);
+                $product->img_front = $saved_path;
+            };
+            if($req->input('imgTop')){
+                $file_path = $req->input('imgTop');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                if($file_path !== $saved_path)
+                Storage::move($file_path,$saved_path);
+                $product->img_top = $saved_path;
+            };
+            if($req->input('imgSide')){
+                $file_path = $req->input('imgSide');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                if($file_path !== $saved_path)
+                Storage::move($file_path,$saved_path);
+                $product->img_side = $saved_path;
+            };
+            if($req->input('imgOther')){
+                $file_path = $req->input('imgOther');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                if($file_path !== $saved_path)
+                Storage::move($file_path,$saved_path);
+                $product->img_other = $saved_path;
+            };
+            if($req->input('video')){
+                $file_path = $req->input('video');
+                $saved_path = 'products/'.($req->user()->id).substr($file_path,12);
+                if($file_path !== $saved_path)
+                Storage::move($file_path,$saved_path);
+                $product->video = $saved_path;
+            };
+  
+            if($product->save()){
+                return response()->json(['status'=>200,'message'=>"Product Updated Successfully"]);
+            }
+            else{
+                return response()->json(['status'=>500,'message'=>"Internal Server Error"]);
+            }
+        }
+    }
+
+
     public function getAll(Request $req){
         $products = product::orderBy('id','desc')->where('user_id',$req->user()->id)->paginate(10);
         return response()->json([

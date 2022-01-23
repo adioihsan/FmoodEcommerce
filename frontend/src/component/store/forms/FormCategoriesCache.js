@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, FormGroup, Label } from "reactstrap";
 import { useState } from "react";
 import Categories from "../../../cache/Categories";
@@ -7,8 +7,16 @@ function FormCategoriesCache(props) {
   const [loadState, setLoadState] = useState(true);
   const [categoriesData, setCategoriesData] = useState({
     mainCategory: "",
-    subCategory: [],
+    subCategory: "",
   });
+  useEffect(() => {
+    if (props.product) {
+      categoriesData.mainCategory = props.product.main_category;
+      categoriesData.subCategory = props.product.sub_category;
+    }
+    console.log(props.product);
+  }, []);
+
   let viewCategory_button = "";
   let viewSubCat_button = "";
   viewCategory_button = Categories.map((category) => {
@@ -22,7 +30,7 @@ function FormCategoriesCache(props) {
           if (e.target.innerText !== categoriesData.mainCategory)
             setCategoriesData({
               mainCategory: e.target.innerText,
-              subCategory: [],
+              subCategory: "",
             });
         }}
       >
@@ -51,23 +59,21 @@ function FormCategoriesCache(props) {
 
   function handleInput(e) {
     e.preventDefault();
-    e.target.classList.toggle("selected-subcat");
-    if (e.target.classList.contains("selected-subcat")) {
-      categoriesData.subCategory.push(e.target.innerText);
-      setLoadState(!loadState);
-    } else {
-      let selectedCat = categoriesData.subCategory.filter((element) => {
-        return element !== e.target.innerText;
-      });
-      setCategoriesData({ ...categoriesData, subCategory: selectedCat });
-    }
+    setCategoriesData({ ...categoriesData, subCategory: e.target.innerText });
+    // if (e.target.classList.contains("selected-subcat")) {
+    //   categoriesData.subCategory.push(e.target.innerText);
+    //   setLoadState(!loadState);
+    // } else {
+    //   let selectedCat = categoriesData.subCategory.filter((element) => {
+    //     return element !== e.target.innerText;
+    //   });
+    //   setCategoriesData({ ...categoriesData, subCategory: selectedCat });
+    // }
   }
   return (
     <>
       <FormGroup id="catMain" className="bordered">
-        <Label className="mb-0">Pilih Kategori</Label>
-        <br />
-        <small className="mb-2">{JSON.stringify(categoriesData)}</small>
+        <Label className="mb-2">Pilih Kategori</Label>
         <br />
         {viewCategory_button}
         <br />
@@ -79,6 +85,14 @@ function FormCategoriesCache(props) {
         <Label className="mb-2">Pilih Sub Kategori</Label>
         <br />
         {viewSubCat_button}
+      </FormGroup>
+      <FormGroup id="catSub" className="bordered text-primary">
+        <span className="fs-6">
+          Kategori :{" "}
+          {categoriesData.mainCategory +
+            (categoriesData.subCategory ? " >> " : "") +
+            categoriesData.subCategory}{" "}
+        </span>
       </FormGroup>
       <div className="d-flex justify-content-between">
         <Button

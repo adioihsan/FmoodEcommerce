@@ -28,7 +28,6 @@ function UpdateProduct() {
   const { productId } = useParams();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
-  console.log(productId);
   useEffect(() => {
     axios.get("/api/get-store-product/" + productId).then((response) => {
       if (response.status === 200) {
@@ -72,27 +71,26 @@ function UpdateProduct() {
       });
     });
     console.log(formData);
-    console.log(dataCollection);
-    axios.post("/api/add-product", formData).then((res) => {
-      if (res.data.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: "Produk berhasil di tambahkan",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/store/organize-product");
-      } else if (res.data.status === 422) {
-        Swal.fire({
-          icon: "warning",
-          title: "Gagal menambahkan",
-          text: "Cek kembali data yang di input",
-          showConfirmButton: true,
-        });
-      } else {
-        console.log(res);
-      }
-    });
+    // axios.post("/api/update-product/" + productId, formData).then((res) => {
+    //   if (res.data.status === 200) {
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Update produk berhasil",
+    //       showConfirmButton: false,
+    //       timer: 1500,
+    //     });
+    //     navigate("/store/organize-product");
+    //   } else if (res.data.status === 422) {
+    //     Swal.fire({
+    //       icon: "warning",
+    //       title: "Gagal update",
+    //       text: "Cek kembali data yang di input",
+    //       showConfirmButton: true,
+    //     });
+    //   } else {
+    //     console.log(res);
+    //   }
+    // });
   }
   if (loading) {
     return <LoadingPage />;
@@ -174,6 +172,7 @@ function UpdateProduct() {
                     <FormCategoriesCache
                       dataCourier={categoryCourier}
                       toggle={toggle}
+                      product={product}
                     />
                     {/* <FormCategoriesCache
                         dataCourier={categoryCourier}
@@ -190,6 +189,7 @@ function UpdateProduct() {
                       dataCourier={othersCourier}
                       toggle={toggle}
                       addProduct={updateProduct}
+                      product={product}
                     />
                   </CardBody>
                 </Card>

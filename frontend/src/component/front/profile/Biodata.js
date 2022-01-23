@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, CardBody, Col, Row } from "reactstrap";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import Flatpickr from "react-flatpickr";
+
 import axios from "axios";
 import serverUrls from "../../../serverUrls";
+import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import LoadingPage from "../LoadingPage";
 function Biodata() {
