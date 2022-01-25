@@ -26,7 +26,7 @@ function CartTransaction(props) {
   const traceSwal = withReactContent(Swal);
   const viewTrace = (
     <div>
-      <h2>Feature on development</h2>
+      <h2 className="text-info">Feature on development :) </h2>
     </div>
   );
   function traceOrder() {
