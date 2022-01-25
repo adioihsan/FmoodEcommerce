@@ -20,13 +20,13 @@ class CreateOrdersTable extends Migration
             $table->double("total_cost");
             $table->double("shipment_cost");
             $table->double("product_cost");
-            $table->integer("payment_id");
-            $table->string("shipment_service",30);
-            $table->string("shipment_code",100);
+            $table->integer("payment_id")->nullable();
+            $table->string("shipment_service",30)->nullable();
+            $table->string("shipment_code",100)->nullable();
             $table->text("user_address");
             $table->string("status",10);
-            $table->date("required_date");
-            $table->date("shipped_date");
+            $table->date("required_date")->nullable();
+            $table->date("shipped_date")->nullable();
             $table->timestamps();
         });
     }

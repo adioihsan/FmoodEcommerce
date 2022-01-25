@@ -48,12 +48,17 @@ function MainNavbar() {
     setSearchKeyword(e.target.value);
   }
   useEffect(() => {
-    axios.get("api/get-store-profile").then((response) => {
-      if (response.status === 200) {
-        setStoreProfile(response.data);
-        setIsLoading(false);
-      }
-    });
+    axios
+      .get("api/get-store-profile")
+      .then((response) => {
+        if (response.status === 200) {
+          setStoreProfile(response.data);
+          setIsLoading(false);
+        }
+      })
+      .catch((e) => {
+        setStoreProfile("");
+      });
   }, []);
   const openStoreForm = () => {
     openStoreSwall.fire({

@@ -20,11 +20,11 @@ class CreateStoreProfilesTable extends Migration
             $table->string('province',50);
             $table->integer('city_id');
             $table->integer('province_id');
-            $table->text('description');
-            $table->text('address');
-            $table->bigInteger('phone_number');
-            $table->text('img_store');
-            $table->integer('zip_code');
+            $table->text('description')->nullable();
+            $table->text('address')->nullable();
+            $table->bigInteger('phone_number')->nullable();
+            $table->text('img_store')->nullable();
+            $table->integer('zip_code')->nullable();
             $table->timestamps();
         });
     }

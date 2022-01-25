@@ -16,7 +16,7 @@ class CreateFmoodPaysTable extends Migration
         Schema::create('fmood_pays', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("user_id");
-            $balance->double("balance");
+            $table->double("balance")->nullable();
             $table->timestamps();
         });
     }

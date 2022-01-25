@@ -19,7 +19,7 @@ class CreateProductReviewsTable extends Migration
             $table->bigInteger("user_id");
             $table->bigInteger("order_id");
             $table->integer("rating");
-            $table->text("review");
+            $table->text("review")->nullable();
             $table->timestamps();
         });
     }
