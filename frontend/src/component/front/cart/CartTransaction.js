@@ -25,55 +25,9 @@ function CartTransaction(props) {
   const reviewSwal = withReactContent(Swal);
   const traceSwal = withReactContent(Swal);
   const viewTrace = (
-    <Table bordered responsive hover>
-      <thead>
-        <th>Status</th>
-        <th>Keterangan</th>
-        <th>Waktu</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>delivered</td>
-          <td>Paket sudah di terima oleh customer</td>
-          <td>31-12-2021 : 14:25</td>
-        </tr>
-        <tr>
-          <td>send to customer</td>
-          <td>Paket sedang dalam perjalanan ke alamt tujuan</td>
-          <td>28-12-2021 : 10:13</td>
-        </tr>
-        <tr>
-          <td>arrive</td>
-          <td>Paket telah sampai di gateway padang</td>
-          <td>28-12-2021 : 00:25</td>
-        </tr>
-        <tr>
-          <td>on transit</td>
-          <td>Paket dalam proses transit ke padang</td>
-          <td>26-12-2021 : 12:35</td>
-        </tr>
-        <tr>
-          <td>arrive on gateway</td>
-          <td>Paket telah sampai di gerbang 1 jakarta pusat</td>
-          <td>26-12-2021 : 07:25</td>
-        </tr>
-        <tr>
-          <td>send to gateway</td>
-          <td>Paket telah dikirim ke gerbang 1 jakarta pusat</td>
-          <td>26-12-2021 : 06:21</td>
-        </tr>
-        <tr>
-          <td>sortir</td>
-          <td>Paket sampai di tempat sortir pertama (jabar32)</td>
-          <td>25-12-2021 : 17:25</td>
-        </tr>
-        <tr>
-          <td>Taken</td>
-          <td>Paket sudah di ambil dari penjual </td>
-          <td>25-12-2021 : 11:44</td>
-        </tr>
-      </tbody>
-    </Table>
+    <div>
+      <h2>Feature on development</h2>
+    </div>
   );
   function traceOrder() {
     traceSwal
