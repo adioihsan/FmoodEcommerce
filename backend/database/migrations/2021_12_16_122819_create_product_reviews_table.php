@@ -17,6 +17,7 @@ class CreateProductReviewsTable extends Migration
             $table->id();
             $table->bigInteger("product_id");
             $table->bigInteger("user_id");
+            $table->bigInteger("order_id");
             $table->integer("rating");
             $table->text("review");
             $table->timestamps();

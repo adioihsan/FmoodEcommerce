@@ -40,7 +40,7 @@ const Sidebar = () => {
         </a>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/store/dashboard">
+        <Link className="nav-link" to="/store/profile">
           <FontAwesomeIcon icon={faStore} />
           <span className="ml-2">Profile Toko</span>
         </Link>

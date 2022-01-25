@@ -18,6 +18,8 @@ class CreateCartsTable extends Migration
             $table->bigInteger("user_id");
             $table->bigInteger("product_id");
             $table->integer("quantity");
+            $table->string("note");
+            $table->double("sell_price");
             $table->timestamps();
         });
     }

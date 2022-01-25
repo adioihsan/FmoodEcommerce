@@ -20,11 +20,13 @@ class CreateUserAddressesTable extends Migration
             $table->integer('province_id');
             $table->integer('city_id');
             $table->string('city',50);
+            $table->integer('zip_code');
             $table->text('address');
-            $table->string('type',10);
             $table->boolean('active');
+            $table->string('receiver',100);
+            $table->bigInteger("phone_number");
+            $table->string('lable',10);
             $table->timestamps();
-
         });
     }
 
