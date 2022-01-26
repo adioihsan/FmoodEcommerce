@@ -33,7 +33,7 @@
 
 #### Installation
 
-meet system requirement below before begin installation :
+meet system requirement below before begin the installation :
 
 1. PHP ver >= 7.4
 2. Nodejs ver >= 16
