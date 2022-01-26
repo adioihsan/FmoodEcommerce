@@ -42,9 +42,9 @@ meet system requirement below before begin installation :
 ##### a. Backend Installation
 
 1. Clone repository using command "git clone [link]"
-2. Create database in myslq
+2. Create database in mysql
 3. rename ".env.example" file to ".env"
-4. configure .env accordingly, based on your mysql configuration (host,username,db, and etc)
+4. configure .env accordingly, based on your mysql connection configuration.
 5. Go to backend folder
 6. run commands below :
 
@@ -53,7 +53,7 @@ composer install
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
-php storage:link
+php artisan storage:link
 php artisan serve
 ```
 
@@ -70,6 +70,6 @@ npm start
 ```
 
 **Note : on many case default backend/laravel url is : https://127.0.0.1:8000**  
-**if you meet different case, change backend and storage url in frontend/src/serverUrls**
+**if you meet different case, change backend and storage url in _frontend/src/serverUrls_**
 
 ##### Dev Note : Apps Layout still using Indonesian Language, will update to english near future :) .
