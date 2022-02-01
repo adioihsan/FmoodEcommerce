@@ -2,7 +2,7 @@
 
 ![Banner](frontend/public/banner.jpg)
 
-#### Demo : [Click Here](https://https://fmood-f097b.web.app)
+#### Demo : [Click Here](https://fmood-f097b.web.app)
 
 ### Features :
 
