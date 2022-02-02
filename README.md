@@ -74,4 +74,13 @@ npm start
 **Note : on many case default backend/laravel url is : https://127.0.0.1:8000**  
 **if you meet different case, change backend and storage url in _frontend/src/serverUrls_**
 
+##### pre registered user :
+
+- customer  
+  email : customer@gmail.com  
+  password : 12345678
+- seller  
+  email : seller@gmial.com  
+  password : 12345678
+
 ##### Dev Note : Apps Layout still using Indonesian Language, will update to english near future :) .
