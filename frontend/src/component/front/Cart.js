@@ -26,7 +26,7 @@ function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
     axios
-      .get("/api/get-cart/")
+      .get("/api/get-cart")
       .then((response) => {
         if (response.data.status === 200) {
           setCarts(response.data.carts);
