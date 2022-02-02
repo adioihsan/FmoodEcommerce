@@ -80,7 +80,7 @@ npm start
   email : customer@gmail.com  
   password : 12345678
 - seller  
-  email : seller@gmial.com  
+  email : seller@gmail.com  
   password : 12345678
 
 ##### Dev Note : Apps Layout still using Indonesian Language, will update to english near future :) .
