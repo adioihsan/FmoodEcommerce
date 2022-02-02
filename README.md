@@ -1,6 +1,6 @@
 ## FmoodEcommerce - E-Commerce Website
 
-![Banner](frontend/public/banner.jpg)
+![Banner](frontend/public/banner-2.jpg)
 
 #### Demo : [Click Here](https://fmood-f097b.web.app)
 
