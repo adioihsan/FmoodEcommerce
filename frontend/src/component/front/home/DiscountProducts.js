@@ -12,7 +12,6 @@ function DiscountProducts() {
         if (response.status === 200) {
           setProducts(response.data);
           setLoading(false);
-          console.log(response.data);
         }
       })
       .catch((e) => {});
