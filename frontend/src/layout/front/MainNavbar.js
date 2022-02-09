@@ -30,6 +30,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FormOpenStore from "../../component/store/forms/FormOpenStore";
 import serverUrls from "../../serverUrls";
+import { Spinner } from "reactstrap";
 function MainNavbar() {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
@@ -73,7 +74,13 @@ function MainNavbar() {
   };
   const LoginComp = () => {
     let isLogin = localStorage.getItem("auth_token");
-    if (isLogin && !isLoading) {
+    if (isLoading) {
+      return (
+        <Spinner color="danger" type="border">
+          Loading...
+        </Spinner>
+      );
+    } else if (isLogin && !isLoading) {
       return (
         <>
           {/* Store button dropdown */}
