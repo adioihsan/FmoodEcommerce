@@ -296,6 +296,7 @@ class ProductController extends Controller
 
     public function getRating($product_id){
         $rating = ProductReview::where('product_id',$product_id)->avg('rating');
+        if($rating == null) $rating = 0;
         return round($rating,1);
     }
     public function reviewsCount($product_id){
@@ -316,7 +317,7 @@ class ProductController extends Controller
     }
     public function countPercent($price,$disc_price,$is_discount){
         $percentage = ($price-$disc_price)/$price*100;
-        if($percentage < 0 || $is_discount == "0" ) $percentage = 0;
+        if($percentage < 0 || $is_discount == "0") $percentage = 0;
         return round($percentage);
     }
     public function getProductDetail($id){
